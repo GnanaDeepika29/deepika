@@ -49,30 +49,25 @@ button:hover {
     border-radius: 4px;
     padding: 10px;
     margin-bottom: 10px;
-    /* General styles for the button */
 .like-button {
     display: inline-flex;
     align-items: center;
     padding: 10px 15px;
-    background-color: #007bff; /* Blue background */
+    background-color: #007bff;
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
     font-family: Arial, sans-serif;
-    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+    transition: background-color 0.3s, transform 0.2s;
 }
-
-/* Hover effect for the button */
 .like-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
-    transform: scale(1.05); /* Slightly enlarge the button */
+    background-color: #0056b3;
+    transform: scale(1.05);
 }
-
-/* Styles for the SVG icon inside the button */
 .like-button svg {
-    margin-right: 8px; /* Space between icon and text */
-    fill: white; /* White color for the icon */
+    margin-right: 8px;
+    fill: white; 
 }
     
