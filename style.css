@@ -70,4 +70,10 @@ button:hover {
     margin-right: 8px;
     fill: white; 
 }
-    
+ .like-count {
+    font-weight: bold;
+}
+.like-button:active {
+    background-color: #004494; /* Even darker blue when clicked */
+    transform: scale(0.98); /* Slightly shrink the button */
+}   
