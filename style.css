@@ -49,31 +49,32 @@ button:hover {
     border-radius: 4px;
     padding: 10px;
     margin-bottom: 10px;
+}
 .like-button {
     display: inline-flex;
     align-items: center;
     padding: 10px 15px;
-    background-color: #007bff;
+    background-color: #007bff; /* Blue background */
     color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
     font-family: Arial, sans-serif;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
 }
 .like-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: scale(1.05); /* Slightly enlarge the button */
 }
 .like-button svg {
-    margin-right: 8px;
-    fill: white; 
+    margin-right: 8px; /* Space between icon and text */
+    fill: white; /* White color for the icon */
 }
- .like-count {
-    font-weight: bold;
+.like-count {
+    font-weight: bold; /* Bold font for the count */
 }
 .like-button:active {
     background-color: #004494; /* Even darker blue when clicked */
     transform: scale(0.98); /* Slightly shrink the button */
-}   
+}
