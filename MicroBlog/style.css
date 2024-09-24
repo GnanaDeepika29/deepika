@@ -13,6 +13,8 @@ body {
 
 h1 {
     text-align: center;
+    font-size: 24px;
+    margin-bottom: 10px;
 }
 
 .post-form {
@@ -24,7 +26,7 @@ h1 {
 
 #postText {
     padding: 10px;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 #postImage {
@@ -37,10 +39,16 @@ button {
     color: white;
     border: none;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 button:hover {
     background-color: #0056b3;
+}
+
+.loading {
+    background-color: #0056b3;
+    cursor: not-allowed;
 }
 
 .post {
@@ -49,6 +57,11 @@ button:hover {
     padding: 15px;
     margin-bottom: 20px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.post:hover {
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.2);
 }
 
 .post img {
@@ -85,3 +98,18 @@ button:hover {
 .comments-list {
     margin-top: 10px;
     padding-left: 10px;
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    button {
+        padding: 8px;
+    }
+
+    .comment-box input {
+        padding: 4px;
+    }
+}
