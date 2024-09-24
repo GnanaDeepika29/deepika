@@ -16,6 +16,7 @@ function createPost() {
         content: content,
         timestamp: new Date().toLocaleString(),
         likes: 0 // Initialize post with 0 likes
+        comments: 0 // Initialize post with 0 comments
     };
 
     // Save the post in localStorage
