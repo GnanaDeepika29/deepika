@@ -59,7 +59,7 @@ function loadFeed() {
         commentBtn.classList.add('comment-btn');
         
         // Add functionality to increment comments when clicked
-        commentsBtn.onclick = function () {
+        commentBtn.onclick = function () {
             posts[index].comments++; // Increment the number of comments
             localStorage.setItem('posts', JSON.stringify(posts)); // Update localStorage
             loadFeed(); // Reload feed to show updated comments count
