@@ -53,17 +53,39 @@ function loadFeed() {
             localStorage.setItem('posts', JSON.stringify(posts)); // Update localStorage
             loadFeed(); // Reload feed to show updated like count
         };
-        // Create comments button
+        const commentInput = document.createElement('input');
+        commentInput.type = 'text';
+        commentInput.placeholder = 'Add a comment...';
+        commentInput.classList.add('comment-input');
+
+        // Create comment button
         const commentBtn = document.createElement('button');
-        commentBtn.textContent = `comment (${post.comments})`; // Display the number of comments
+        commentBtn.textContent = 'Comment';
         commentBtn.classList.add('comment-btn');
-        
-        // Add functionality to increment comments when clicked
+
+        // Add functionality to add a comment when clicked
         commentBtn.onclick = function () {
-            posts[index].comments++; // Increment the number of comments
-            localStorage.setItem('posts', JSON.stringify(posts)); // Update localStorage
-            loadFeed(); // Reload feed to show updated comments count
+            const commentContent = commentInput.value.trim();
+            if (commentContent) {
+                post.comments.push({
+                    text: commentContent,
+                    timestamp: new Date().toLocaleString()
+                });
+                localStorage.setItem('posts', JSON.stringify(posts)); // Update localStorage
+                loadFeed(); // Reload feed to show updated comments
+            }
+            commentInput.value = ''; // Clear the input
         };
+
+        // Create comments display section
+        const commentsDiv = document.createElement('div');
+        commentsDiv.classList.add('comments');
+
+        post.comments.forEach(comment => {
+            const commentDiv = document.createElement('div');
+            commentDiv.textContent = `${comment.text} (Commented on ${comment.timestamp})`;
+            commentsDiv.appendChild(commentDiv);
+        });
 
         // Create delete button
         const deleteBtn = document.createElement('button');
@@ -79,7 +101,9 @@ function loadFeed() {
 
         // Append like and delete buttons to each post
         postDiv.appendChild(likeBtn);
+        postDiv.appendChild(commentInput);
         postDiv.appendChild(commentBtn);
+        postDiv.appendChild(commentsDiv);
         postDiv.appendChild(deleteBtn);
         feed.appendChild(postDiv);
     });
