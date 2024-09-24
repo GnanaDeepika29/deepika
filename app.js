@@ -52,6 +52,17 @@ function loadFeed() {
             localStorage.setItem('posts', JSON.stringify(posts)); // Update localStorage
             loadFeed(); // Reload feed to show updated like count
         };
+        // Create comments button
+        const commentsBtn = document.createElement('button');
+        commentsBtn.textContent = `Like (${post.comments})`; // Display the number of comments
+        commentsBtn.classList.add('comments-btn');
+        
+        // Add functionality to increment comments when clicked
+        commentsBtn.onclick = function () {
+            posts[index].likes++; // Increment the number of comments
+            localStorage.setItem('posts', JSON.stringify(posts)); // Update localStorage
+            loadFeed(); // Reload feed to show updated comments count
+        };
 
         // Create delete button
         const deleteBtn = document.createElement('button');
@@ -67,6 +78,7 @@ function loadFeed() {
 
         // Append like and delete buttons to each post
         postDiv.appendChild(likeBtn);
+        postDiv.appendChild(commentsBtn);
         postDiv.appendChild(deleteBtn);
         feed.appendChild(postDiv);
     });
