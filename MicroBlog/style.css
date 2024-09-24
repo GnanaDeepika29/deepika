@@ -102,12 +102,22 @@ button:active {
     border-radius: 5px;
     padding: 5px;
     background-color: #fafafa;
+    transition: border-color 0.3s ease;
+}
+
+.comment-box:focus-within {
+    border-color: #007bff;
 }
 
 .comment-box input {
     flex-grow: 1;
     padding: 5px;
     margin-right: 5px;
+}
+
+.comment-box input:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
 }
 
 .comment-box input::placeholder {
@@ -136,4 +146,18 @@ button:active {
     .comment-box input {
         padding: 4px;
     }
+}
+
+/* Scrollbar customization */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #007bff;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #0056b3;
 }
