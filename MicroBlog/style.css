@@ -46,6 +46,15 @@ button:hover {
     background-color: #0056b3;
 }
 
+button:focus {
+    outline: 2px solid #0056b3;
+    outline-offset: 2px;
+}
+
+button:active {
+    background-color: #004a8f;
+}
+
 .loading {
     background-color: #0056b3;
     cursor: not-allowed;
@@ -78,17 +87,32 @@ button:hover {
 .likes, .dislikes, .comments {
     cursor: pointer;
     color: #007bff;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.likes:hover, .dislikes:hover, .comments:hover {
+    color: #0056b3;
 }
 
 .comment-box {
     display: flex;
     margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #fafafa;
 }
 
 .comment-box input {
     flex-grow: 1;
     padding: 5px;
     margin-right: 5px;
+}
+
+.comment-box input::placeholder {
+    color: #999;
+    font-style: italic;
 }
 
 .comment-box button {
