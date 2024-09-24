@@ -40,18 +40,21 @@ function loadFeed() {
 
     posts.forEach((post, index) => {
         const postDiv = document.createElement('div');
-        postDiv.textContent = `${post.content} (Posted on ${post.timestamp})`;
+        postDiv.classList.add('post');
+
+        // Post content and timestamp
+        postDiv.innerHTML = `<p>${post.content} <small>(Posted on ${post.timestamp})</small></p>`;
 
         // Create like button
         const likeBtn = document.createElement('button');
-        likeBtn.textContent = `Like (${post.likes})`; // Display the number of likes
+        likeBtn.textContent = `Like (${post.likes})`;
         likeBtn.classList.add('like-btn');
 
-        // Add functionality to increment likes when clicked
+        // Add functionality to increment likes
         likeBtn.onclick = function () {
-            post.likes++; // Increment the number of likes
-            localStorage.setItem('posts', JSON.stringify(posts)); // Update localStorage
-            loadFeed(); // Reload feed to show updated like count
+            post.likes++; // Increment likes
+            localStorage.setItem('posts', JSON.stringify(posts));
+            loadFeed(); // Reload feed to show updated likes
         };
 
         // Create comment input
@@ -65,7 +68,7 @@ function loadFeed() {
         commentBtn.textContent = 'Comment';
         commentBtn.classList.add('comment-btn');
 
-        // Add functionality to add a comment when clicked
+        // Add functionality to add a comment
         commentBtn.onclick = function () {
             const commentContent = commentInput.value.trim();
             if (commentContent) {
@@ -73,7 +76,7 @@ function loadFeed() {
                     text: commentContent,
                     timestamp: new Date().toLocaleString()
                 });
-                localStorage.setItem('posts', JSON.stringify(posts)); // Update localStorage
+                localStorage.setItem('posts', JSON.stringify(posts));
                 loadFeed(); // Reload feed to show updated comments
             }
             commentInput.value = ''; // Clear the input
@@ -93,12 +96,12 @@ function loadFeed() {
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = 'Delete';
         deleteBtn.classList.add('delete-btn');
-        
-        // Add functionality to delete post when clicked
+
+        // Add functionality to delete post
         deleteBtn.onclick = function () {
             if (confirm("Are you sure you want to delete this post?")) {
                 posts.splice(index, 1); // Remove post from array
-                localStorage.setItem('posts', JSON.stringify(posts)); // Update localStorage
+                localStorage.setItem('posts', JSON.stringify(posts));
                 loadFeed(); // Reload feed to reflect the deletion
             }
         };
