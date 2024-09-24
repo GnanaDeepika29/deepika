@@ -16,7 +16,7 @@ function createPost() {
         content: content,
         timestamp: new Date().toLocaleString(),
         likes: 0, // Initialize post with 0 likes
-        comments: 0 // Initialize post with 0 comments
+        comments: [] // Initialize post with an empty array for comments
     };
 
     // Save the post in localStorage
@@ -46,13 +46,15 @@ function loadFeed() {
         const likeBtn = document.createElement('button');
         likeBtn.textContent = `Like (${post.likes})`; // Display the number of likes
         likeBtn.classList.add('like-btn');
-        
+
         // Add functionality to increment likes when clicked
         likeBtn.onclick = function () {
-            posts[index].likes++; // Increment the number of likes
+            post.likes++; // Increment the number of likes
             localStorage.setItem('posts', JSON.stringify(posts)); // Update localStorage
             loadFeed(); // Reload feed to show updated like count
         };
+
+        // Create comment input
         const commentInput = document.createElement('input');
         commentInput.type = 'text';
         commentInput.placeholder = 'Add a comment...';
@@ -94,12 +96,14 @@ function loadFeed() {
         
         // Add functionality to delete post when clicked
         deleteBtn.onclick = function () {
-            posts.splice(index, 1); // Remove post from array
-            localStorage.setItem('posts', JSON.stringify(posts)); // Update localStorage
-            loadFeed(); // Reload feed to reflect the deletion
+            if (confirm("Are you sure you want to delete this post?")) {
+                posts.splice(index, 1); // Remove post from array
+                localStorage.setItem('posts', JSON.stringify(posts)); // Update localStorage
+                loadFeed(); // Reload feed to reflect the deletion
+            }
         };
 
-        // Append like and delete buttons to each post
+        // Append elements to post div
         postDiv.appendChild(likeBtn);
         postDiv.appendChild(commentInput);
         postDiv.appendChild(commentBtn);
