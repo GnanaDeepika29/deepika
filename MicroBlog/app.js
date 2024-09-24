@@ -1,3 +1,4 @@
+let posts = [];
 function createPost() {
     const postText = document.getElementById('postText').value;
     const postImage = document.getElementById('postImage').files[0];
