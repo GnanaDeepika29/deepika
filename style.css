@@ -43,12 +43,18 @@ button:hover {
     background-color: #0056b3;
 }
 
-button.like-btn, button.delete-btn {
+button.like-btn, button.comments-btn {
     margin-left: 10px;
 }
 
 button.like-btn {
     background-color: #28a745;
+}
+button.comments-btn {
+    background-color: #28a745;
+}
+button.comments-btn, button.like-btn {
+    margin-left: 10px;
 }
 
 button.delete-btn {
@@ -56,6 +62,9 @@ button.delete-btn {
 }
 
 button.like-btn:hover {
+    background-color: #218838;
+}
+button.comments-btn:hover {
     background-color: #218838;
 }
 
