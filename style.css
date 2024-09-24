@@ -54,7 +54,7 @@ button.comments-btn {
     background-color: #28a745;
 }
 button.comments-btn, button.delete-btn {
-    margin-left: 10px;
+    margin-right: 10px;
 }
 
 button.delete-btn {
