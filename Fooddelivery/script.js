@@ -23,7 +23,7 @@ function updateCart() {
         totalPrice += item.price * item.quantity;
     }
 
-    document.getElementById('totalPrice').textContent = `$${totalPrice.toFixed(2)}`;
+    document.getElementById('totalPrice').textContent = `${totalPrice.toFixed(2)}`;
 }
 
 function checkout() {
