@@ -54,9 +54,9 @@ function loadFeed() {
             loadFeed(); // Reload feed to show updated like count
         };
         // Create comments button
-        const commentsBtn = document.createElement('button');
-        commentsBtn.textContent = `comments (${post.comments})`; // Display the number of comments
-        commentsBtn.classList.add('comments-btn');
+        const commentBtn = document.createElement('button');
+        commentBtn.textContent = `comment (${post.comments})`; // Display the number of comments
+        commentBtn.classList.add('comment-btn');
         
         // Add functionality to increment comments when clicked
         commentsBtn.onclick = function () {
