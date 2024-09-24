@@ -15,7 +15,7 @@ function createPost() {
     const post = {
         content: content,
         timestamp: new Date().toLocaleString(),
-        likes: 0 // Initialize post with 0 likes
+        likes: 0, // Initialize post with 0 likes
         comments: 0 // Initialize post with 0 comments
     };
 
