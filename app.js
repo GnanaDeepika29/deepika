@@ -1,4 +1,4 @@
-// Load feed from localStorage when the page is loaded
+/ Load feed from localStorage when the page is loaded
 document.addEventListener('DOMContentLoaded', () => {
     loadFeed();
 });
@@ -15,8 +15,8 @@ function createPost() {
     const post = {
         content: content,
         timestamp: new Date().toLocaleString(),
-        likes: 0, // Initialize post with 0 likes
-        comments: [] // Initialize post with an empty array for comments
+        likes: 0,
+        comments: []
     };
 
     // Save the post in localStorage
@@ -24,7 +24,7 @@ function createPost() {
     posts.push(post);
     localStorage.setItem('posts', JSON.stringify(posts));
 
-    // Clear input fields
+    // Clear input field
     document.getElementById('post-content').value = '';
 
     // Reload the feed
@@ -42,7 +42,7 @@ function loadFeed() {
         const postDiv = document.createElement('div');
         postDiv.classList.add('post');
 
-        // Post content and timestamp
+        // Display post content and timestamp
         postDiv.innerHTML = `<p>${post.content} <small>(Posted on ${post.timestamp})</small></p>`;
 
         // Create like button
@@ -52,9 +52,8 @@ function loadFeed() {
 
         // Add functionality to increment likes
         likeBtn.onclick = function () {
-            post.likes++; // Increment likes
-            localStorage.setItem('posts', JSON.stringify(posts));
-            loadFeed(); // Reload feed to show updated likes
+            post.likes++;
+            updatePost(index, posts); // Update localStorage and reload feed
         };
 
         // Create comment input
@@ -76,10 +75,11 @@ function loadFeed() {
                     text: commentContent,
                     timestamp: new Date().toLocaleString()
                 });
-                localStorage.setItem('posts', JSON.stringify(posts));
-                loadFeed(); // Reload feed to show updated comments
+                updatePost(index, posts); // Update localStorage and reload feed
+                commentInput.value = ''; // Clear the input
+            } else {
+                alert("Comment cannot be empty!");
             }
-            commentInput.value = ''; // Clear the input
         };
 
         // Create comments display section
@@ -114,4 +114,10 @@ function loadFeed() {
         postDiv.appendChild(deleteBtn);
         feed.appendChild(postDiv);
     });
+}
+
+// Helper function to update a post in localStorage
+function updatePost(index, posts) {
+    localStorage.setItem('posts', JSON.stringify(posts));
+    loadFeed(); // Reload feed to show updated likes and comments
 }
