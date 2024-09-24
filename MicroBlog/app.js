@@ -1,44 +1,55 @@
 let posts = [];
+
+// Set up the image preview when the page loads
+window.onload = function() {
+    document.getElementById('postImage').onchange = function () {
+        const file = this.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                document.getElementById('imagePreview').src = e.target.result; // Make sure there's an <img id="imagePreview">
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+};
+
 function createPost() {
     const postText = document.getElementById('postText').value;
     const postImage = document.getElementById('postImage').files[0];
-    
+
     if (!postText && !postImage) {
         alert("Post can't be empty!");
         return;
     }
 
-    let reader = new FileReader();
-    reader.onloadend = function () {
-        const post = {
-            id: posts.length,
-            text: postText,
-            image: reader.result,
-            likes: 0,
-            dislikes: 0,
-            comments: []
-        };
-        posts.push(post);
-        renderPosts();
+    const post = {
+        id: posts.length,
+        text: postText,
+        image: null,
+        likes: 0,
+        dislikes: 0,
+        comments: []
     };
 
+    // If an image is provided, read it
     if (postImage) {
+        const reader = new FileReader();
+        reader.onloadend = function () {
+            post.image = reader.result;
+            posts.push(post);
+            renderPosts();
+        };
         reader.readAsDataURL(postImage);
     } else {
-        const post = {
-            id: posts.length,
-            text: postText,
-            image: null,
-            likes: 0,
-            dislikes: 0,
-            comments: []
-        };
         posts.push(post);
         renderPosts();
     }
 
+    // Reset input fields
     document.getElementById('postText').value = '';
     document.getElementById('postImage').value = '';
+    document.getElementById('imagePreview').src = ''; // Reset the image preview
 }
 
 function renderPosts() {
