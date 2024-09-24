@@ -54,7 +54,7 @@ function loadFeed() {
         };
         // Create comments button
         const commentsBtn = document.createElement('button');
-        commentsBtn.textContent = `Like (${post.comments})`; // Display the number of comments
+        commentsBtn.textContent = `comments (${post.comments})`; // Display the number of comments
         commentsBtn.classList.add('comments-btn');
         
         // Add functionality to increment comments when clicked
