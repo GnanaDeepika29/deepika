@@ -79,7 +79,7 @@ function loadFeed() {
 
         // Append like and delete buttons to each post
         postDiv.appendChild(likeBtn);
-        postDiv.appendChild(commentsBtn);
+        postDiv.appendChild(commentBtn);
         postDiv.appendChild(deleteBtn);
         feed.appendChild(postDiv);
     });
