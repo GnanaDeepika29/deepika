@@ -22,6 +22,7 @@ body {
 
 #post-content {
     width: 100%;
+    height: 80px; /* Adjust height for better visibility */
     margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -37,35 +38,31 @@ button {
     padding: 10px 20px;
     cursor: pointer;
     font-size: 16px;
+    margin-right: 5px; /* Space between buttons */
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
-button.like-btn, button.comment-btn {
-    margin-left: 10px;
-}
-
 button.like-btn {
     background-color: #28a745;
-}
-button.comment-btn {
-    background-color: #28a745;
-}
-button.comment-btn, button.delete-btn {
-    margin-right: 10px;
-}
-
-button.delete-btn {
-    background-color: #dc3545;
 }
 
 button.like-btn:hover {
     background-color: #218838;
 }
+
+button.comment-btn {
+    background-color: #007bff;
+}
+
 button.comment-btn:hover {
-    background-color: #218838;
+    background-color: #0056b3;
+}
+
+button.delete-btn {
+    background-color: #dc3545;
 }
 
 button.delete-btn:hover {
@@ -80,3 +77,15 @@ button.delete-btn:hover {
     margin-bottom: 10px;
 }
 
+.comments {
+    margin-top: 10px;
+    padding: 5px;
+    border-top: 1px solid #ddd;
+}
+
+.comments div {
+    background-color: #e9ecef;
+    padding: 5px;
+    margin: 2px 0;
+    border-radius: 4px;
+}
