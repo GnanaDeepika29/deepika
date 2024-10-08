@@ -28,6 +28,88 @@
         <p>&copy; 2024 Food Delivery App. All rights reserved.</p>
     </footer>
 
+    <div class="loader" id="loader" aria-live="assertive" hidden>Loading...</div>
+
     <script src="script.js"></script>
+    <script>
+        // Global error messages
+        const ERROR_MESSAGES = {
+            restaurantNotFound: "Sorry, the restaurant you're looking for does not exist.",
+        };
+
+        // Show loading indicator
+        function showLoadingIndicator() {
+            const loader = document.getElementById('loader');
+            loader.removeAttribute('hidden'); // Show loader
+        }
+
+        // Hide loading indicator
+        function hideLoadingIndicator() {
+            const loader = document.getElementById('loader');
+            loader.setAttribute('hidden', true); // Hide loader
+        }
+
+        // Create HTML for menu items
+        function createMenuItemHTML(item) {
+            const div = document.createElement('div');
+            div.className = 'menu-item'; // Add class for styling
+            div.innerHTML = `
+                <h3>${item.name}</h3>
+                <p>${item.description}</p>
+                <p class="price">$${item.price.toFixed(2)}</p>
+                <button onclick="addToCart('${item.id}')" aria-label="Add ${item.name} to cart">Add to Cart</button>
+            `;
+            return div;
+        }
+
+        // Function to add items to the cart
+        function addToCart(itemId) {
+            console.log(`Item ${itemId} added to cart`); // Log the addition for debugging
+            const cartCount = document.getElementById('cart-count');
+            cartCount.innerText = parseInt(cartCount.innerText) + 1; // Increment cart count
+            alert('Item added to cart!'); // Feedback to the user
+        }
+
+        // Simulated delay for loading the menu items
+        function simulateLoading(delay) {
+            return new Promise(resolve => setTimeout(resolve, delay));
+        }
+
+        // Populate Menu Page (menu.html)
+        async function populateMenuPage() {
+            showLoadingIndicator(); // Show loader
+
+            const params = new URLSearchParams(window.location.search);
+            const restaurantId = params.get('restaurant');
+            const restaurant = restaurants[restaurantId]; // Assuming restaurants is defined globally
+
+            // Simulate loading time
+            await simulateLoading(1000);
+
+            if (restaurant) {
+                document.getElementById('restaurant-name').innerText = `${restaurant.name} - Menu`;
+                const menuList = document.getElementById('menu-list');
+                menuList.innerHTML = ''; // Clear any existing content
+
+                const fragment = document.createDocumentFragment();
+
+                restaurant.menu.forEach(item => {
+                    const menuItemHTML = createMenuItemHTML(item);
+                    fragment.append(menuItemHTML); // Append each item to the fragment
+                });
+
+                menuList.appendChild(fragment); // Append all items at once
+                hideLoadingIndicator(); // Hide loader after items are added
+            } else {
+                document.getElementById('menu-list').innerText = ERROR_MESSAGES.restaurantNotFound; // Show error message
+                hideLoadingIndicator(); // Hide loader
+            }
+        }
+
+        // On DOMContentLoaded, populate the menu
+        document.addEventListener("DOMContentLoaded", () => {
+            populateMenuPage(); // Call function to populate menu
+        });
+    </script>
 </body>
 </html>
