@@ -134,6 +134,11 @@ button:focus {
     outline: 2px solid var(--secondary-color); /* Focus outline for accessibility */
 }
 
+button:disabled {
+    background-color: #cccccc; /* Disabled button color */
+    cursor: not-allowed; /* Change cursor to indicate disabled state */
+}
+
 /* Toast Notification Styles */
 .toast {
     position: fixed;
