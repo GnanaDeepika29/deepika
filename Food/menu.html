@@ -37,6 +37,26 @@
             restaurantNotFound: "Sorry, the restaurant you're looking for does not exist.",
         };
 
+        // Mock data for restaurants and menu items
+        const restaurants = {
+            1: {
+                name: "Pizza Place",
+                menu: [
+                    { id: "p1", name: "Margherita Pizza", description: "Classic pizza with tomato, mozzarella, and basil.", price: 12.99 },
+                    { id: "p2", name: "Pepperoni Pizza", description: "Pizza topped with spicy pepperoni and cheese.", price: 14.99 },
+                    { id: "p3", name: "Veggie Pizza", description: "Loaded with fresh vegetables and cheese.", price: 13.99 },
+                ]
+            },
+            2: {
+                name: "Burger Joint",
+                menu: [
+                    { id: "b1", name: "Cheeseburger", description: "Juicy beef burger with cheese, lettuce, and tomato.", price: 10.99 },
+                    { id: "b2", name: "Veggie Burger", description: "A delicious plant-based burger with all the fixings.", price: 9.99 },
+                    { id: "b3", name: "Bacon Burger", description: "Beef burger topped with crispy bacon and cheese.", price: 11.99 },
+                ]
+            }
+        };
+
         // Show loading indicator
         function showLoadingIndicator() {
             const loader = document.getElementById('loader');
@@ -80,7 +100,7 @@
             showLoadingIndicator(); // Show loader
 
             const params = new URLSearchParams(window.location.search);
-            const restaurantId = params.get('restaurant');
+            const restaurantId = params.get('restaurant') || 1; // Default to restaurant 1 if none provided
             const restaurant = restaurants[restaurantId]; // Assuming restaurants is defined globally
 
             // Simulate loading time
