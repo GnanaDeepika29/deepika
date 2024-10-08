@@ -20,10 +20,22 @@ const restaurants = {
 };
 
 // Cart Management
-let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let cart = [];
+
+function loadCart() {
+    try {
+        cart = JSON.parse(localStorage.getItem('cart')) || [];
+    } catch (error) {
+        console.error("Error loading cart from localStorage:", error);
+        cart = [];
+    }
+}
 
 function updateCartCount() {
-    document.getElementById('cart-count')?.innerText = cart.length;
+    const cartCountElem = document.getElementById('cart-count');
+    if (cartCountElem) {
+        cartCountElem.innerText = cart.length;
+    }
 }
 
 function saveCart() {
@@ -32,9 +44,45 @@ function saveCart() {
 }
 
 function addToCart(item) {
-    cart.push(item);
+    const existingItem = cart.find(cartItem => cartItem.id === item.id);
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ ...item, quantity: 1 });
+    }
     saveCart();
-    alert(`${item.name} added to cart!`);
+    showToast(`${item.name} added to cart!`);
+}
+
+function removeFromCart(index) {
+    if (cart[index].quantity > 1) {
+        cart[index].quantity -= 1;
+    } else {
+        cart.splice(index, 1);
+    }
+    saveCart();
+    renderCart();
+}
+
+function showToast(message) {
+    // Create toast element
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerText = message;
+    document.body.appendChild(toast);
+
+    // Show toast
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 100);
+
+    // Hide toast after 3 seconds
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => {
+            document.body.removeChild(toast);
+        }, 300);
+    }, 3000);
 }
 
 // Populate Home Page (index.html)
@@ -54,6 +102,7 @@ if (document.querySelector('.restaurant-list')) {
         restaurantList.appendChild(div);
     }
 
+    loadCart();
     updateCartCount();
 }
 
@@ -64,7 +113,7 @@ if (document.getElementById('menu-list')) {
     const restaurant = restaurants[restaurantId];
 
     if (restaurant) {
-        document.getElementById('restaurant-name').innerText = restaurant.name + " - Menu";
+        document.getElementById('restaurant-name').innerText = `${restaurant.name} - Menu`;
         const menuList = document.getElementById('menu-list');
         menuList.innerHTML = '';
 
@@ -74,19 +123,70 @@ if (document.getElementById('menu-list')) {
             div.innerHTML = `
                 <h3>${item.name}</h3>
                 <p>Price: $${item.price}</p>
-                <button onclick='addToCart(${JSON.stringify(item)})'>Add to Cart</button>
+                <button class="add-to-cart-btn" data-item='${JSON.stringify(item)}'>Add to Cart</button>
             `;
             menuList.appendChild(div);
         });
+
+        attachAddToCartEventListeners();
     } else {
         document.getElementById('menu-list').innerText = "Restaurant not found.";
     }
 
+    loadCart();
     updateCartCount();
+}
+
+function attachAddToCartEventListeners() {
+    document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const item = JSON.parse(e.target.getAttribute('data-item'));
+            addToCart(item);
+        });
+    });
 }
 
 // Populate Cart Page (cart.html)
 if (document.getElementById('cart-list')) {
+    loadCart();
+    renderCart();
+
+    document.getElementById('checkout-btn').addEventListener('click', () => {
+        if (cart.length === 0) {
+            alert("Your cart is empty.");
+        } else {
+            // Redirect to checkout page
+            window.location.href = 'checkout.html';
+        }
+    });
+}
+
+if (document.getElementById('checkout-form')) {
+    document.getElementById('checkout-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('name').value.trim();
+        const address = document.getElementById('address').value.trim();
+        const payment = document.getElementById('payment').value;
+
+        if (name === "" || address === "") {
+            alert("Please fill in all required fields.");
+            return;
+        }
+
+        // Implement actual payment processing and order submission here
+
+        alert(`Thank you, ${name}! Your order has been placed and will be delivered to ${address}.`);
+
+        // Clear the cart
+        cart = [];
+        saveCart();
+
+        // Redirect to home page
+        window.location.href = 'index.html';
+    });
+}
+
+function renderCart() {
     const cartList = document.getElementById('cart-list');
     const totalPriceElem = document.getElementById('total-price');
     cartList.innerHTML = '';
@@ -96,39 +196,28 @@ if (document.getElementById('cart-list')) {
     } else {
         let total = 0;
         cart.forEach((item, index) => {
-            total += item.price;
+            total += item.price * item.quantity;
             const div = document.createElement('div');
             div.className = 'cart-item';
             div.innerHTML = `
                 <h3>${item.name}</h3>
-                <p>Price: $${item.price}</p>
-                <button onclick='removeFromCart(${index})'>Remove</button>
+                <p>Price: $${item.price} x ${item.quantity}</p>
+                <button class="remove-btn" data-index="${index}">Remove</button>
             `;
             cartList.appendChild(div);
         });
-        totalPriceElem.innerText = total;
+        totalPriceElem.innerText = total.toFixed(2);
     }
 
     updateCartCount();
-
-    document.getElementById('checkout-btn').addEventListener('click', () => {
-        if (cart.length === 0) {
-            alert("Your cart is empty.");
-        } else {
-            alert("Checkout successful!");
-            cart = [];
-            saveCart();
-            cartList.innerHTML = "Your cart is empty.";
-            totalPriceElem.innerText = "0";
-        }
-    });
+    attachRemoveEventListeners();
 }
 
-function removeFromCart(index) {
-    cart.splice(index, 1);
-    saveCart();
-    // Reload the cart page to reflect changes
-    if (window.location.pathname.endsWith('cart.html')) {
-        location.reload();
-    }
+function attachRemoveEventListeners() {
+    document.querySelectorAll('.remove-btn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const index = e.target.getAttribute('data-index');
+            removeFromCart(index);
+        });
+    });
 }
