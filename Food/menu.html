@@ -3,23 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse the delicious menu items available for delivery from our Food Delivery App.">
     <title>Food Delivery App - Menu</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="path/to/favicon.ico" type="image/x-icon"> <!-- Add your favicon -->
 </head>
 <body>
     <header>
         <h1>Food Delivery App</h1>
-        <nav>
-            <a href="cart.html">Cart (<span id="cart-count">0</span>)</a>
+        <nav role="navigation">
+            <a href="cart.html" aria-label="View Cart">Cart (<span id="cart-count">0</span>)</a>
         </nav>
     </header>
 
-    <main>
+    <main role="main">
         <h2 id="restaurant-name">Menu</h2>
-        <div class="menu-list" id="menu-list">
+        <section class="menu-list" id="menu-list" aria-live="polite">
+            <p id="loading-message">Loading menu items...</p> <!-- Loading message -->
             <!-- Menu items will be populated here -->
-        </div>
+        </section>
     </main>
+
+    <footer>
+        <p>&copy; 2024 Food Delivery App. All rights reserved.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
