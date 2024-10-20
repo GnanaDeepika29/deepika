@@ -38,7 +38,7 @@ document.getElementById('registerForm').addEventListener('submit', function(e) {
     let password = document.getElementById('password').value;
 
     // Store user data locally (replace with backend integration later)
-    localStorage.setItem('user', JSON.stringify({ name, email, password }));
+    localStorage.setItem('user', JSON.stringify({name, email, password}));
     alert('Registration successful!');
     closeForm();
 });
