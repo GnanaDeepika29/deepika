@@ -18,15 +18,25 @@ header h1 {
     font-weight: 700;
 }
 
+header nav {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically on mobile */
+}
+
 header nav a {
     color: #ecf0f1;
     padding: 14px 20px;
     text-decoration: none;
-    margin: 0 10px;
+    margin: 5px 0;
     transition: background-color 0.3s, transform 0.3s;
 }
 
-header nav a:hover {
+header nav button {
+    margin: 5px 0; /* Add margin for buttons */
+}
+
+header nav a:hover,
+header nav button:hover {
     background-color: #2980b9;
     transform: scale(1.05);
 }
@@ -115,5 +125,22 @@ input[type="text"], input[type="email"], input[type="password"], input[type="fil
     100% {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    header nav {
+        flex-direction: column; /* Stack navigation items */
+    }
+    
+    .product-list {
+        flex-direction: column; /* Stack product items */
+        align-items: center;
+    }
+
+    .product-list div {
+        width: 90%; /* Make products full-width on mobile */
+        max-width: 400px; /* Max width for larger screens */
     }
 }
