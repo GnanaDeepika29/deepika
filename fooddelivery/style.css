@@ -124,6 +124,12 @@ button:hover {
     margin-top: 10px;
 }
 
+.star {
+    font-size: 20px;
+    color: #ffcc00; /* Gold color for stars */
+    cursor: pointer;
+}
+
 /* Responsive Design */
 @media (max-width: 600px) {
     .restaurant-container {
@@ -133,5 +139,9 @@ button:hover {
 
     .restaurant {
         width: 90%;
+    }
+
+    .logo {
+        width: 150px;
     }
 }
