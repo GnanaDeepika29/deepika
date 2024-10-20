@@ -1,119 +1,85 @@
-body {
-    font-family: 'Roboto', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f0f4f8;
-    overflow-x: hidden; /* Prevent horizontal overflow */
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Shopping & Selling Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Smart Shopping & Selling Platform</h1>
+        <nav>
+            <a href="#products">Buy Products</a>
+            <button id="registerBtn">Register Here</button>
+            <button id="loginBtn">Log In</button>
+            <button id="sellProductBtn">Sell Product</button>
+        </nav>
+    </header>
 
-header {
-    background-color: #2c3e50;
-    color: white;
-    padding: 15px 0;
-    text-align: center;
-}
+    <!-- Registration and Login Form -->
+    <div id="formContainer" class="form-container hidden">
+        <section id="register" class="form-section">
+            <h2>Create an Account</h2>
+            <form id="registerForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                
+                <button type="submit">Register</button>
+                <button type="button" id="closeFormBtn">Close</button>
+            </form>
+        </section>
 
-header h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-}
+        <section id="login" class="form-section">
+            <h2>Login to Your Account</h2>
+            <form id="loginForm">
+                <label for="emailLogin">Email:</label>
+                <input type="email" id="emailLogin" name="emailLogin" required>
+                
+                <label for="passwordLogin">Password:</label>
+                <input type="password" id="passwordLogin" name="passwordLogin" required>
+                
+                <button type="submit">Login</button>
+                <button type="button" id="closeFormBtn">Close</button>
+            </form>
+        </section>
+    </div>
 
-header nav a {
-    color: #ecf0f1;
-    padding: 14px 20px;
-    text-decoration: none;
-    margin: 0 10px;
-    transition: background-color 0.3s, transform 0.3s;
-}
+    <!-- Sell Product Form -->
+    <section id="sellProduct" class="sell-product">
+        <h2>Sell a Product</h2>
+        <form id="sellForm">
+            <label for="productName">Product Name:</label>
+            <input type="text" id="productName" name="productName" required>
+            
+            <label for="productPrice">Price:</label>
+            <input type="text" id="productPrice" name="productPrice" required>
+            
+            <label for="productDescription">Description:</label>
+            <textarea id="productDescription" name="productDescription" required></textarea>
+            
+            <label for="productImage">Upload Image:</label>
+            <input type="file" id="productImage" name="productImage" accept="image/*" required>
+            
+            <button type="submit">Sell Product</button>
+        </form>
+    </section>
 
-header nav a:hover {
-    background-color: #2980b9;
-    transform: scale(1.05);
-}
+    <!-- Available Products for Buying -->
+    <section id="products">
+        <h2>Available Products</h2>
+        <div class="product-list">
+            <!-- Dynamically populated product items will go here -->
+        </div>
+    </section>
 
-button {
-    padding: 10px 15px;
-    background-color: #27ae60;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-button:hover {
-    background-color: #219150;
-    transform: scale(1.05);
-}
-
-.form-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    z-index: 1000;
-    animation: fadeIn 0.5s;
-}
-
-.hidden {
-    display: none;
-}
-
-.form-section {
-    margin: 20px 0;
-}
-
-input[type="text"], input[type="email"], input[type="password"], input[type="file"], textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0 20px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.sell-product {
-    margin: 20px;
-}
-
-.product-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.product-list div {
-    background-color: white;
-    margin: 10px;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
-    width: 200px;
-    text-align: center;
-    transition: transform 0.3s;
-}
-
-.product-list div:hover {
-    transform: scale(1.05);
-}
-
-.product-list img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 10px;
-}
-
-/* Animation for form container */
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+    <script src="script.js"></script>
+</body>
+</html>
