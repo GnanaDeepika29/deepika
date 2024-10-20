@@ -1,3 +1,4 @@
+/* Global Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -5,6 +6,7 @@ body {
     background-color: #f4f4f4;
 }
 
+/* Header Styles */
 header {
     background-color: #333;
     color: white;
@@ -12,11 +14,16 @@ header {
     text-align: center;
 }
 
+header nav {
+    margin-top: 10px;
+}
+
 header nav a {
     color: white;
     padding: 14px 20px;
     text-decoration: none;
     margin: 0 10px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 header nav a:hover {
@@ -24,25 +31,41 @@ header nav a:hover {
     color: black;
 }
 
+/* Section Styles */
 section {
     padding: 20px;
 }
 
+/* Form Styles */
 form {
     background-color: white;
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin: 20px 0; /* Add some margin for better spacing */
 }
 
-input[type="text"], input[type="email"], input[type="password"], input[type="file"], textarea {
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="file"],
+textarea {
     width: 100%;
     padding: 10px;
     margin: 5px 0 20px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
+    transition: border-color 0.3s; /* Smooth border color transition */
 }
 
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus {
+    border-color: #5cb85c; /* Change border color on focus */
+}
+
+/* Button Styles */
 button {
     padding: 10px 15px;
     background-color: #5cb85c;
@@ -50,15 +73,19 @@ button {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 
 button:hover {
     background-color: #4cae4c;
 }
 
+/* Product List Styles */
 .product-list {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center; /* Center align products */
+    margin-top: 20px;
 }
 
 .product-list div {
@@ -69,10 +96,83 @@ button:hover {
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
     width: 200px;
     text-align: center;
+    transition: transform 0.3s; /* Animation for scaling effect */
 }
 
+.product-list div:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+}
+
+/* Image Styles */
 .product-list img {
     max-width: 100%;
     height: auto;
     margin-bottom: 10px;
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+    text-align: center;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Back to Top Button */
+#backToTop {
+    display: none; /* Initially hidden */
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 1000;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#backToTop:hover {
+    background-color: #4cae4c;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .product-list div {
+        width: 100%; /* Full width for small screens */
+    }
+
+    header nav a {
+        padding: 10px; /* Smaller padding on mobile */
+    }
 }
