@@ -83,3 +83,89 @@
     <script src="script.js"></script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Shopping & Selling Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Montserrat:wght@500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Smart Shopping & Selling Platform</h1>
+        <nav>
+            <a href="#products">Buy Products</a>
+            <button id="registerBtn">Register Here</button>
+            <button id="loginBtn">Log In</button>
+            <button id="sellProductBtn">Sell Product</button>
+        </nav>
+    </header>
+
+    <!-- Registration and Login Form -->
+    <div id="formContainer" class="form-container hidden">
+        <section id="register" class="form-section">
+            <h2>Create an Account</h2>
+            <form id="registerForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                
+                <button type="submit">Register</button>
+                <button type="button" id="closeFormBtn">Close</button>
+            </form>
+        </section>
+
+        <section id="login" class="form-section hidden">
+            <h2>Login to Your Account</h2>
+            <form id="loginForm">
+                <label for="emailLogin">Email:</label>
+                <input type="email" id="emailLogin" name="emailLogin" required>
+                
+                <label for="passwordLogin">Password:</label>
+                <input type="password" id="passwordLogin" name="passwordLogin" required>
+                
+                <button type="submit">Login</button>
+                <button type="button" id="closeLoginBtn">Close</button>
+            </form>
+        </section>
+    </div>
+
+    <!-- Sell Product Form -->
+    <section id="sellProduct" class="sell-product hidden">
+        <h2>Sell a Product</h2>
+        <form id="sellForm">
+            <label for="productName">Product Name:</label>
+            <input type="text" id="productName" name="productName" required>
+            
+            <label for="productPrice">Price:</label>
+            <input type="text" id="productPrice" name="productPrice" required>
+            
+            <label for="productDescription">Description:</label>
+            <textarea id="productDescription" name="productDescription" required></textarea>
+            
+            <label for="productImage">Upload Image:</label>
+            <input type="file" id="productImage" name="productImage" accept="image/*" required>
+            
+            <button type="submit">Sell Product</button>
+            <button type="button" id="closeSellProductBtn">Close</button>
+        </form>
+    </section>
+
+    <!-- Available Products for Buying -->
+    <section id="products">
+        <h2>Available Products</h2>
+        <div class="product-list">
+            <!-- Dynamically populated product items will go here -->
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
