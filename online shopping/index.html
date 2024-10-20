@@ -1,114 +1,84 @@
-// Show and hide forms
-document.getElementById('registerBtn').addEventListener('click', function() {
-    document.getElementById('formContainer').classList.remove('hidden');
-    document.getElementById('register').classList.remove('hidden');
-    document.getElementById('login').classList.add('hidden');
-});
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Shopping & Selling Platform</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Smart Shopping & Selling Platform</h1>
+        <nav>
+            <a href="#products">Buy Products</a>
+            <button id="registerBtn">Register Here</button>
+            <button id="loginBtn">Log In</button>
+            <button id="sellProductBtn">Sell Product</button>
+        </nav>
+    </header>
 
-document.getElementById('loginBtn').addEventListener('click', function() {
-    document.getElementById('formContainer').classList.remove('hidden');
-    document.getElementById('login').classList.remove('hidden');
-    document.getElementById('register').classList.add('hidden');
-});
+    <!-- Registration and Login Forms -->
+    <div id="formContainer" class="form-container hidden">
+        <section id="register" class="form-section">
+            <h2>Register</h2>
+            <form id="registerForm">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                
+                <button type="submit">Register</button>
+                <button type="button" id="closeFormBtn">Close</button>
+            </form>
+        </section>
 
-document.getElementById('sellProductBtn').addEventListener('click', function() {
-    document.getElementById('sellProduct').scrollIntoView({ behavior: 'smooth' });
-});
+        <section id="login" class="form-section hidden">
+            <h2>Login</h2>
+            <form id="loginForm">
+                <label for="emailLogin">Email:</label>
+                <input type="email" id="emailLogin" name="emailLogin" required>
+                
+                <label for="passwordLogin">Password:</label>
+                <input type="password" id="passwordLogin" name="passwordLogin" required>
+                
+                <button type="submit">Login</button>
+                <button type="button" id="closeFormBtn">Close</button>
+            </form>
+        </section>
+    </div>
 
-// Close form button handler
-document.querySelectorAll('#closeFormBtn').forEach(button => {
-    button.addEventListener('click', closeForm);
-});
+    <!-- Sell Product Form -->
+    <section id="sellProduct" class="sell-product">
+        <h2>Sell a Product</h2>
+        <form id="sellForm">
+            <label for="productName">Product Name:</label>
+            <input type="text" id="productName" name="productName" required>
+            
+            <label for="productPrice">Price:</label>
+            <input type="text" id="productPrice" name="productPrice" required>
+            
+            <label for="productDescription">Description:</label>
+            <textarea id="productDescription" name="productDescription" required></textarea>
+            
+            <label for="productImage">Upload Image:</label>
+            <input type="file" id="productImage" name="productImage" accept="image/*" required>
+            
+            <button type="submit">Sell Product</button>
+        </form>
+    </section>
 
-function closeForm() {
-    document.getElementById('formContainer').classList.add('hidden');
-}
+    <!-- Available Products for Buying -->
+    <section id="products">
+        <h2>Available Products</h2>
+        <div class="product-list">
+            <!-- Dynamically populated product items will go here -->
+        </div>
+    </section>
 
-// Register form handler
-document.getElementById('registerForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    let name = document.getElementById('name').value;
-    let email = document.getElementById('email').value;
-    let password = document.getElementById('password').value;
-
-    localStorage.setItem('user', JSON.stringify({ name, email, password }));
-    alert('Registration successful!');
-    closeForm();
-});
-
-// Login form handler
-document.getElementById('loginForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    let emailLogin = document.getElementById('emailLogin').value;
-    let passwordLogin = document.getElementById('passwordLogin').value;
-
-    let user = JSON.parse(localStorage.getItem('user'));
-
-    if (user && user.email === emailLogin && user.password === passwordLogin) {
-        alert('Login successful!');
-        closeForm();
-    } else {
-        alert('Incorrect email or password');
-    }
-});
-
-// Sell product handler
-document.getElementById('sellForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    let productName = document.getElementById('productName').value;
-    let productPrice = document.getElementById('productPrice').value;
-    let productDescription = document.getElementById('productDescription').value;
-    let productImage = document.getElementById('productImage').files[0];
-
-    let reader = new FileReader();
-    reader.onloadend = function() {
-        let imageSrc = reader.result;
-
-        let product = {
-            name: productName,
-            price: productPrice,
-            description: productDescription,
-            image: imageSrc
-        };
-
-        let products = JSON.parse(localStorage.getItem('products')) || [];
-        products.push(product);
-        localStorage.setItem('products', JSON.stringify(products));
-        
-        alert('Product added successfully!');
-        displayProducts();
-    };
-
-    if (productImage) {
-        reader.readAsDataURL(productImage);
-    }
-});
-
-// Function to display available products
-function displayProducts() {
-    let products = JSON.parse(localStorage.getItem('products')) || [];
-    let productList = document.querySelector('.product-list');
-    productList.innerHTML = '';
-
-    products.forEach(product => {
-        let productDiv = document.createElement('div');
-        productDiv.className = 'product-card'; // Add class for styling
-        productDiv.innerHTML = `
-            <img src="${product.image}" alt="${product.name}">
-            <h3>${product.name}</h3>
-            <p>₹${product.price}</p>
-            <p>${product.description}</p>
-            <button onclick="buyProduct('${product.name}')">Buy</button>
-        `;
-        productList.appendChild(productDiv);
-    });
-}
-
-// Function to handle buying a product
-function buyProduct(productName) {
-    alert(`You bought ${productName}!`);
-}
-
-// Initial call to display products on page load
-displayProducts();
+    <script src="script.js"></script>
+</body>
+</html>
