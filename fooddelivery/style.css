@@ -1,40 +1,140 @@
+/* Global Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f7f7f7;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
 }
 
+/* Section Styling */
 header, footer, section {
     text-align: center;
     margin: 20px;
 }
 
+header {
+    margin-top: 40px;
+}
+
+footer {
+    margin-top: auto;
+    font-size: 14px;
+    color: #999;
+}
+
+/* Logo Styling */
 .logo {
     width: 200px;
     height: auto;
     margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(-50px);
+    animation: fadeIn 1s ease-out forwards;
 }
 
+/* Restaurant Container Layout */
 .restaurant-container {
     display: flex;
     justify-content: space-around;
+    flex-wrap: wrap;
     margin-top: 20px;
+    max-width: 1000px;
+    width: 100%;
 }
 
+/* Individual Restaurant Card */
+.restaurant {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 220px;
+    margin-bottom: 30px;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, opacity 0.4s ease;
+    opacity: 0;
+    transform: scale(0.9);
+    animation: cardFadeIn 0.8s ease forwards;
+    animation-delay: 0.2s;
+}
+
+.restaurant:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Restaurant Image */
 .restaurant img {
     width: 100px;
     height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #ff5757;
+    margin-bottom: 15px;
+    transition: transform 0.4s ease;
 }
 
+.restaurant:hover img {
+    transform: rotate(10deg);
+}
+
+/* Button Styling */
 button {
     background-color: #ff5757;
     color: white;
     border: none;
-    padding: 10px;
+    padding: 10px 20px;
     margin-top: 10px;
     cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 button:hover {
-    background-color:
+    background-color: #ff3b3b;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Animation Keyframes */
+
+/* Fade-in animation for logo */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Fade-in with scaling for restaurant cards */
+@keyframes cardFadeIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .restaurant-container {
+        justify-content: center;
+    }
+
+    .restaurant {
+        width: 90%;
+        max-width: 300px;
+    }
+}
