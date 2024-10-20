@@ -71,16 +71,54 @@ function displayProducts() {
             <img src="${product.image}" alt="${product.name}">
             <h3>${product.name}</h3>
             <p>${product.price}</p>
-            <p>${product.description}</p>
-            <button onclick="buyProduct('${product.name}')">Buy</button>
+            <button onclick="openModal('${product.name}', '${product.image}', '${product.description}', '${product.price}')">View Details</button>
         `;
         productList.appendChild(productDiv);
     });
 }
 
+// Function to open the product detail modal
+function openModal(name, image, description, price) {
+    document.getElementById('modalProductName').innerText = name;
+    document.getElementById('modalProductImage').src = image;
+    document.getElementById('modalProductDescription').innerText = description;
+    document.getElementById('modalProductPrice').innerText = price;
+
+    let modal = document.getElementById('productModal');
+    modal.style.display = "block";
+}
+
+// Close the modal when the user clicks on <span> (x)
+document.querySelector('.close').onclick = function() {
+    document.getElementById('productModal').style.display = "none";
+}
+
+// Close the modal when the user clicks anywhere outside of the modal
+window.onclick = function(event) {
+    let modal = document.getElementById('productModal');
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
 // Function to handle buying a product
-function buyProduct(productName) {
-    alert(`You bought ${productName}!`);
+function buyProduct() {
+    alert(`You bought the product!`);
+    document.getElementById('productModal').style.display = "none"; // Close modal
+}
+
+// Back to Top Button functionality
+window.onscroll = function() {
+    let backToTopButton = document.getElementById('backToTop');
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        backToTopButton.style.display = "block";
+    } else {
+        backToTopButton.style.display = "none";
+    }
+};
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Initial call to display products on page load
