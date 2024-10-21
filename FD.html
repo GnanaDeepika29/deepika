@@ -53,6 +53,11 @@
             transform: translateY(-3px);
         }
 
+        nav button.active {
+            background-color: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
         /* Background Animation */
         .background-animation {
             position: fixed;
@@ -75,6 +80,8 @@
         main {
             text-align: center;
             padding: 20px;
+            opacity: 1;
+            transition: opacity 0.5s ease;
         }
 
         /* Section Styling */
@@ -85,12 +92,16 @@
             background: rgba(255, 255, 255, 0.9);
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
             display: none;
         }
 
         section.show {
             display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Order Tracking Styles */
@@ -121,6 +132,11 @@
             border-radius: 8px;
             font-weight: bold;
             font-size: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .coupon:hover {
+            transform: scale(1.05);
         }
 
         #coupon-code {
@@ -186,7 +202,6 @@
             font-size: 1rem;
             color: #ff0000;
         }
-
     </style>
 </head>
 <body>
@@ -263,37 +278,33 @@
             if (validCoupons[couponCode]) {
                 messageElement.textContent = `Coupon Applied! ${validCoupons[couponCode]}`;
                 messageElement.style.color = 'green';
+                document.getElementById('coupon-code').value = ''; // Clear input
             } else {
-                messageElement.textContent = 'Invalid coupon code. Please try again.';
+                messageElement.textContent = 'Invalid Coupon Code.';
                 messageElement.style.color = 'red';
             }
         }
 
-        /* Navigation between sections */
-        function goToRestaurants() {
-            document.getElementById('home').classList.add('hide');
-            document.getElementById('restaurant').classList.add('show');
+        function showSection(sectionId) {
+            const sections = ['home', 'order-tracking', 'coupons'];
+            sections.forEach(id => {
+                const section = document.getElementById(id);
+                section.classList.remove('show');
+                section.classList.add('hide');
+            });
+            const activeSection = document.getElementById(sectionId);
+            activeSection.classList.remove('hide');
+            activeSection.classList.add('show');
         }
 
-        function goToCustomerService() {
-            document.getElementById('home').classList.add('hide');
-            document.getElementById('customer-service').classList.add('show');
-        }
+        function goToRestaurants() { showSection('home'); }
+        function goToCustomerService() { showSection('home'); }
+        function goToCart() { showSection('home'); }
+        function goToOrderTracking() { showSection('order-tracking'); }
+        function goToOffers() { showSection('coupons'); }
 
-        function goToCart() {
-            document.getElementById('home').classList.add('hide');
-            document.getElementById('cart').classList.add('show');
-        }
-
-        function goToOrderTracking() {
-            document.getElementById('home').classList.add('hide');
-            document.getElementById('order-tracking').classList.add('show');
-        }
-
-        function goToOffers() {
-            document.getElementById('home').classList.add('hide');
-            document.getElementById('coupons').classList.add('show');
-        }
+        // Initial view
+        showSection('home');
     </script>
 </body>
 </html>
