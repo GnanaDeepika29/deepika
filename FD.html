@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deli Deepz</title>
+    <title>Deli Deepz - Track & Offers</title>
     <style>
         /* Global Styles */
         :root {
@@ -23,48 +23,34 @@
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden; /* Prevent scrolling */
+            overflow-x: hidden;
         }
 
-        /* Header Styling */
         header {
             background-color: rgba(255, 255, 255, 0.8);
             width: 100%;
             display: flex;
             justify-content: space-between;
-            padding: 10px 20px;
+            padding: 15px 20px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: relative; /* Make header relative */
-            z-index: 1; /* Keep it above background */
+            position: relative;
+            z-index: 1;
         }
 
         nav button {
             background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 10px;
             margin: 0 5px;
             cursor: pointer;
             border-radius: 8px;
-            transition: background-color 0.4s ease;
+            transition: background-color 0.4s ease, transform 0.3s ease;
         }
 
         nav button:hover {
             background-color: var(--secondary-color);
-        }
-
-        /* Search Bar Styling */
-        .search-container {
-            display: flex;
-            justify-content: center;
-            margin: 10px 0;
-        }
-
-        #search-bar {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            width: 250px;
+            transform: translateY(-3px);
         }
 
         /* Background Animation */
@@ -76,18 +62,16 @@
             height: 100%;
             background: linear-gradient(45deg, #ff8a00, #da3c20, #00c6ff);
             background-size: 400% 400%;
-            animation: gradientAnimation 15s ease infinite;
-            z-index: -1; /* Keep it behind other elements */
+            animation: gradientAnimation 12s ease infinite;
+            z-index: -1;
         }
 
-        /* Animation Keyframes */
         @keyframes gradientAnimation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* Main Content Styles */
         main {
             text-align: center;
             padding: 20px;
@@ -97,58 +81,77 @@
         section {
             text-align: center;
             margin: 20px;
-            padding: 15px 30px;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            display: none; /* Start hidden */
-        }
-
-        /* Show section */
-        section.show {
-            display: block; /* Show when the class is added */
-        }
-
-        /* Restaurant Container Layout */
-        .restaurant-container {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            margin-top: 20px;
-            max-width: 1000px;
-            width: 100%;
-        }
-
-        /* Individual Restaurant Card */
-        .restaurant {
-            text-align: center;
             padding: 20px;
-            background-color: #fff;
+            background: rgba(255, 255, 255, 0.9);
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            width: 220px;
-            margin-bottom: 30px;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            display: none;
         }
 
-        .restaurant:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 25px rgba(255, 87, 87, 0.3);
+        section.show {
+            display: block;
         }
 
-        /* Restaurant Image */
-        .restaurant img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid var(--primary-color);
-            margin-bottom: 15px;
+        /* Order Tracking Styles */
+        #tracking-status {
+            padding: 15px;
+            margin: 20px auto;
+            width: 80%;
+            font-size: 1.2rem;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 10px;
+            transition: background-color 0.4s ease;
         }
 
-        /* Button Styling */
+        .in-transit {
+            background-color: #ffcc00;
+        }
+
+        .delivered {
+            background-color: #4CAF50;
+        }
+
+        /* Coupons Section */
+        .coupon {
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #ffcc00;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        #coupon-code {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            width: 80%;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            nav button {
+                padding: 8px;
+                font-size: 0.9rem;
+            }
+
+            main {
+                padding: 10px;
+            }
+
+            #tracking-status {
+                font-size: 1rem;
+            }
+
+            .coupon {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Animation for Button Hover */
         button, .back-button {
             background-color: var(--primary-color);
             color: white;
@@ -166,88 +169,24 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        /* Rating Styles */
-        .rating {
-            display: flex;
-            justify-content: center;
+        /* Mobile-optimized input fields and buttons */
+        input, button {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        #coupon-message {
             margin-top: 10px;
+            font-size: 1rem;
+            color: #ff0000;
         }
 
-        .star {
-            font-size: 20px;
-            color: #ffcc00;
-            cursor: pointer;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 600px) {
-            .restaurant-container {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .restaurant {
-                width: 90%;
-            }
-
-            #support-form input, #support-form textarea {
-                width: 90%;
-            }
-
-            section {
-                padding: 10px;
-            }
-
-            #search-bar {
-                width: 80%;
-            }
-        }
-
-        /* Customer Service Section Styling */
-        #customer-service {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        #support-form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #support-form label {
-            font-weight: bold;
-            margin-top: 10px;
-        }
-
-        #support-form input, #support-form textarea {
-            width: 80%;
-            max-width: 500px;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
-        #support-form textarea {
-            height: 100px;
-        }
-
-        #support-form button {
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: background-color 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        #support-form button:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
     </style>
 </head>
 <body>
@@ -259,122 +198,101 @@
             <button onclick="goToRestaurants()">Restaurants</button>
             <button onclick="goToCustomerService()">Customer Service</button>
             <button onclick="goToCart()">Cart</button>
+            <button onclick="goToOrderTracking()">Track Order</button>
+            <button onclick="goToOffers()">Offers</button>
         </nav>
     </header>
 
     <main id="home">
         <h1>Welcome to Deli Deepz!</h1>
         <p>Explore the best restaurants near you.</p>
-        <div class="search-container">
-            <input type="text" id="search-bar" placeholder="Search for restaurants..." onkeyup="searchRestaurants()">
-        </div>
     </main>
 
-    <section id="restaurant" class="hide">
-        <h2>Restaurants</h2>
-        <div class="restaurant-container" id="restaurant-container">
-            <div class="restaurant" onclick="viewMenu('Chettinad')">
-                <img src="images/Chettinad.jpg" alt="Chettinad">
-                <h3>Chettinad</h3>
-                <p>Delicious South Indian Dishes</p>
-                <div class="rating" id="rating-Chettinad"></div>
-            </div>
-            <div class="restaurant" onclick="viewMenu('Lato')">
-                <img src="images/Lato.jpg" alt="Lato">
-                <h3>Lato</h3>
-                <p>Tasty Middle Eastern Cuisine</p>
-                <div class="rating" id="rating-Lato"></div>
-            </div>
-            <div class="restaurant" onclick="viewMenu('Dumplings')">
-                <img src="images/Dumplings.jpg" alt="Dumplings">
-                <h3>Dumplings</h3>
-                <p>Authentic Chinese Dumplings</p>
-                <div class="rating" id="rating-Dumplings"></div>
-            </div>
-            <div class="restaurant" onclick="viewMenu('Pizza')">
-                <img src="images/Pizza.jpg" alt="Pizza">
-                <h3>Pizza Palace</h3>
-                <p>Best Pizza in Town</p>
-                <div class="rating" id="rating-Pizza"></div>
-            </div>
-            <!-- Add more restaurant sections as needed -->
-        </div>
-        <button class="back-button" onclick="goBack()">Back to Home</button>
+    <!-- Order Tracking Section -->
+    <section id="order-tracking" class="hide">
+        <h2>Track Your Order</h2>
+        <div id="tracking-status" class="in-transit">In Transit</div>
+        <button onclick="simulateOrderUpdate()">Update Order Status</button>
     </section>
 
-    <section id="customer-service" class="hide">
-        <h2>Customer Service</h2>
-        <form id="support-form">
-            <label for="name">Name:</label>
-            <input type="text" id="name" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" required>
-            <label for="message">Message:</label>
-            <textarea id="message" required></textarea>
-            <button type="submit">Submit</button>
-        </form>
-        <button class="back-button" onclick="goBack()">Back to Home</button>
+    <!-- Offers and Coupons Section -->
+    <section id="coupons" class="hide">
+        <h2>Gift & Coupons Offers</h2>
+        <div class="coupon">10% off your next order! Use code: SAVE10</div>
+        <div class="coupon">Free dessert with every meal. Use code: SWEET</div>
+        <div class="coupon">Buy 1 Get 1 Free on select meals! Use code: BOGO</div>
+
+        <h3>Enter Coupon Code</h3>
+        <input type="text" id="coupon-code" placeholder="Enter code here">
+        <button onclick="validateCoupon()">Validate Coupon</button>
+        <p id="coupon-message"></p>
     </section>
 
     <script>
-        // Navigation Functions
+        /* Simulated Order Status Updates */
+        const statuses = ['Preparing your order', 'Out for delivery', 'Delivered'];
+        let currentStatusIndex = 0;
+
+        function simulateOrderUpdate() {
+            const statusElement = document.getElementById('tracking-status');
+            
+            if (currentStatusIndex < statuses.length) {
+                statusElement.textContent = statuses[currentStatusIndex];
+                if (currentStatusIndex === statuses.length - 1) {
+                    statusElement.classList.remove('in-transit');
+                    statusElement.classList.add('delivered');
+                } else {
+                    statusElement.classList.remove('delivered');
+                    statusElement.classList.add('in-transit');
+                }
+                currentStatusIndex++;
+            }
+        }
+
+        /* Simulated Coupon Validation */
+        const validCoupons = {
+            'SAVE10': '10% off your next order!',
+            'SWEET': 'Free dessert with every meal!',
+            'BOGO': 'Buy 1 Get 1 Free on select meals!'
+        };
+
+        function validateCoupon() {
+            const couponCode = document.getElementById('coupon-code').value.toUpperCase();
+            const messageElement = document.getElementById('coupon-message');
+            
+            if (validCoupons[couponCode]) {
+                messageElement.textContent = `Coupon Applied! ${validCoupons[couponCode]}`;
+                messageElement.style.color = 'green';
+            } else {
+                messageElement.textContent = 'Invalid coupon code. Please try again.';
+                messageElement.style.color = 'red';
+            }
+        }
+
+        /* Navigation between sections */
         function goToRestaurants() {
-            document.getElementById('home').style.display = 'none';
-            document.getElementById('customer-service').style.display = 'none';
-            document.getElementById('restaurant').style.display = 'block';
-            displayRatings(); // Call to display ratings
+            document.getElementById('home').classList.add('hide');
+            document.getElementById('restaurant').classList.add('show');
         }
 
         function goToCustomerService() {
-            document.getElementById('home').style.display = 'none';
-            document.getElementById('restaurant').style.display = 'none';
-            document.getElementById('customer-service').style.display = 'block';
+            document.getElementById('home').classList.add('hide');
+            document.getElementById('customer-service').classList.add('show');
         }
 
-        function goBack() {
-            document.getElementById('home').style.display = 'block';
-            document.getElementById('restaurant').style.display = 'none';
-            document.getElementById('customer-service').style.display = 'none';
-        }
-
-        // Display Ratings
-        function displayRatings() {
-            const ratings = {
-                'Chettinad': 4.5,
-                'Lato': 4.7,
-                'Dumplings': 4.6,
-                'Pizza': 4.8
-            };
-
-            for (let restaurant in ratings) {
-                const ratingContainer = document.getElementById(`rating-${restaurant}`);
-                const stars = createStars(ratings[restaurant]);
-                ratingContainer.innerHTML = stars;
-            }
-        }
-
-        function createStars(rating) {
-            let starsHTML = '';
-            for (let i = 1; i <= 5; i++) {
-                starsHTML += `<span class="star">${i <= rating ? '★' : '☆'}</span>`;
-            }
-            return starsHTML;
-        }
-
-        // Search Functionality
-        function searchRestaurants() {
-            const input = document.getElementById('search-bar').value.toLowerCase();
-            const restaurants = document.querySelectorAll('.restaurant');
-
-            restaurants.forEach(restaurant => {
-                const restaurantName = restaurant.querySelector('h3').innerText.toLowerCase();
-                restaurant.style.display = restaurantName.includes(input) ? 'block' : 'none';
-            });
-        }
-
-        // Cart Navigation Placeholder
         function goToCart() {
-            alert('This feature will be implemented in the future!');
+            document.getElementById('home').classList.add('hide');
+            document.getElementById('cart').classList.add('show');
+        }
+
+        function goToOrderTracking() {
+            document.getElementById('home').classList.add('hide');
+            document.getElementById('order-tracking').classList.add('show');
+        }
+
+        function goToOffers() {
+            document.getElementById('home').classList.add('hide');
+            document.getElementById('coupons').classList.add('show');
         }
     </script>
 </body>
