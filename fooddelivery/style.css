@@ -163,3 +163,55 @@ button:hover {
         width: 150px;
     }
 }
+/* Customer Service Section Styling */
+#customer-service {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#support-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#support-form label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+#support-form input, #support-form textarea {
+    width: 80%;
+    max-width: 500px;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+#support-form textarea {
+    height: 100px;
+}
+
+#support-form button {
+    background-color: #ff5757;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#support-form button:hover {
+    background-color: #ff3b3b;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Media Query for Smaller Screens */
+@media (max-width: 600px) {
+    #support-form input, #support-form textarea {
+        width: 90%;
+    }
+}
