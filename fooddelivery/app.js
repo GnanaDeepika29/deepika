@@ -5,7 +5,7 @@ let trackingInfo = '';
 let couponApplied = false;
 
 const menu = {
-    'thoppi-vaipa': [
+    'thoppi-vappa': [
         { name: 'Dosa', price: 50 },
         { name: 'Idli', price: 30 },
         { name: 'Sambar', price: 40 }
