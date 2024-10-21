@@ -48,6 +48,27 @@ function viewMenu(restaurant) {
             </div>`;
     });
 }
+function goToCustomerService() {
+    document.getElementById('home').style.display = 'none';
+    document.getElementById('customer-service').style.display = 'block';
+}
+
+document.getElementById('support-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from reloading the page
+    
+    const name = document.getElementById('support-name').value;
+    const email = document.getElementById('support-email').value;
+    const message = document.getElementById('support-message').value;
+
+    // Simple form validation (could be enhanced for better validation)
+    if (name && email && message) {
+        alert(`Thank you, ${name}! Your message has been sent. We'll get back to you at ${email}.`);
+        document.getElementById('support-form').reset(); // Reset the form after submission
+        goToHome();
+    } else {
+        alert('Please fill in all the fields.');
+    }
+});
 
 function addToCart(itemName, itemPrice) {
     cart.push({ name: itemName, price: itemPrice });
