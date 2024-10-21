@@ -41,6 +41,36 @@
         <p>Total: ₹<span id="total-amount">0</span></p>
         <button onclick="goToPayment()">Proceed to Payment</button>
     </section>
+<!-- Customer Service Section -->
+<section id="customer-service" style="display:none;">
+    <h2>Customer Service Help</h2>
+    <p>If you have any issues or inquiries, please reach out to us through the form below, and we'll get back to you as soon as possible.</p>
+    
+    <form id="support-form">
+        <label for="support-name">Your Name:</label>
+        <input type="text" id="support-name" placeholder="Enter your name" required>
+        
+        <label for="support-email">Your Email:</label>
+        <input type="email" id="support-email" placeholder="Enter your email" required>
+        
+        <label for="support-message">Your Message:</label>
+        <textarea id="support-message" placeholder="Describe your issue or question" required></textarea>
+        
+        <button type="submit">Submit</button>
+    </form>
+    
+    <p>Or, contact us directly at: <strong>support@fooddelivery.com</strong></p>
+    <button onclick="goToHome()" class="back-button">Back to Home</button>
+</section>
+
+<!-- Add Customer Service Button in Home Section -->
+<section id="home">
+    <img src="images/food-delivery-logo.png" alt="Food Delivery Logo" class="logo">
+    <h1>Welcome to KATS's Food Delivery</h1>
+    <p>Pasikidha? Vaanga sapdalam!</p>
+    <button onclick="goToRestaurants()">Explore Restaurants</button>
+    <button onclick="goToCustomerService()">Customer Service</button>
+</section>
 
     <!-- Order Details Section -->
     <section id="order-details" style="display:none;">
