@@ -22,7 +22,6 @@ const menu = {
     ]
 };
 
-// Offers (for simplicity, using hardcoded values)
 const offers = [
     { code: 'SAVE10', discount: 10 },
     { code: 'FREESHIP', discount: 50 }
@@ -82,7 +81,6 @@ function handleSupportForm() {
     const email = document.getElementById('support-email').value;
     const message = document.getElementById('support-message').value;
 
-    // Simple form validation
     if (name && email && message) {
         showNotification(`Thank you, ${name}! Your message has been sent. We'll get back to you at ${email}.`);
         document.getElementById('support-form').reset(); // Reset the form after submission
@@ -162,7 +160,6 @@ function applyCoupon() {
     const couponCode = document.getElementById('coupon-code').value;
     const couponMessage = document.getElementById('coupon-message');
 
-    // Check if the coupon is valid
     const offer = offers.find(offer => offer.code === couponCode.toUpperCase());
     if (offer && !couponApplied) {
         const discount = offer.discount;
@@ -185,5 +182,5 @@ function showNotification(message, isError = false) {
     setTimeout(() => notification.remove(), 3000);
 }
 
-// Call this function on page load to initialize the app
+// Initial Call to Load Restaurants
 goToRestaurants();
