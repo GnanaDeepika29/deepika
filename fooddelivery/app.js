@@ -1,7 +1,6 @@
 let cart = [];
 let totalAmount = 0;
 let orderPlaced = false;
-let trackingInfo = '';
 let couponApplied = false;
 
 const menu = {
@@ -66,30 +65,6 @@ function toggleVisibility(hideId, showId) {
     document.getElementById(showId).classList.remove('hide');
 }
 
-// Customer Service Functions
-function goToCustomerService() {
-    toggleVisibility('home', 'customer-service');
-}
-
-document.getElementById('support-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the form from reloading the page
-    handleSupportForm();
-});
-
-function handleSupportForm() {
-    const name = document.getElementById('support-name').value;
-    const email = document.getElementById('support-email').value;
-    const message = document.getElementById('support-message').value;
-
-    if (name && email && message) {
-        showNotification(`Thank you, ${name}! Your message has been sent. We'll get back to you at ${email}.`);
-        document.getElementById('support-form').reset(); // Reset the form after submission
-        goToHome();
-    } else {
-        showNotification('Please fill in all the fields.', true);
-    }
-}
-
 // Cart Management Functions
 function addToCart(itemName, itemPrice) {
     cart.push({ name: itemName, price: itemPrice });
@@ -119,7 +94,11 @@ function goToPayment() {
 function placeOrder(event) {
     event.preventDefault();
     const name = document.getElementById('name').value;
+    const address = document.getElementById('address').value;
+    
     document.getElementById('user-name').textContent = name;
+    document.getElementById('delivery-address').textContent = address;
+
     orderPlaced = true;
     showNotification('Your order has been placed successfully!');
     toggleVisibility('order-details', 'thank-you');
@@ -132,45 +111,6 @@ function resetApp() {
     couponApplied = false;
     document.getElementById('coupon-message').textContent = ''; // Reset coupon message
     toggleVisibility('thank-you', 'home');
-}
-
-// Track Order Functionality
-function trackOrder() {
-    if (orderPlaced) {
-        toggleVisibility('thank-you', 'order-tracking');
-        updateTrackingInfo(); // Call to update tracking info
-    } else {
-        showNotification('No order placed yet.', true);
-    }
-}
-
-function updateTrackingInfo() {
-    // Simulate tracking info
-    trackingInfo = "Your order is on the way! Location: Main St, 123. Estimated delivery in 15 mins.";
-    document.getElementById('tracking-info').textContent = trackingInfo;
-}
-
-function cancelOrder() {
-    alert('Order has been canceled.');
-    toggleVisibility('order-tracking', 'home');
-}
-
-// Coupon Functionality
-function applyCoupon() {
-    const couponCode = document.getElementById('coupon-code').value;
-    const couponMessage = document.getElementById('coupon-message');
-
-    const offer = offers.find(offer => offer.code === couponCode.toUpperCase());
-    if (offer && !couponApplied) {
-        const discount = offer.discount;
-        totalAmount -= discount; // Apply discount
-        couponApplied = true;
-        couponMessage.textContent = `Coupon applied! You saved ₹${discount}. Total amount: ₹${totalAmount}`;
-    } else if (couponApplied) {
-        couponMessage.textContent = "Coupon already applied.";
-    } else {
-        couponMessage.textContent = "Invalid coupon code.";
-    }
 }
 
 // Show Notification Function
