@@ -20,8 +20,8 @@ const menu = {
 };
 
 function goToRestaurants() {
-    document.getElementById('home').style.display = 'none';
-    document.getElementById('restaurant').style.display = 'block';
+    document.getElementById('home').classList.add('hide');
+    document.getElementById('restaurant').classList.remove('hide');
     const restaurantContainer = document.querySelector('.restaurant-container');
     restaurantContainer.innerHTML = ''; // Clear previous entries
     Object.keys(menu).forEach(restaurant => {
@@ -36,8 +36,8 @@ function goToRestaurants() {
 }
 
 function viewMenu(restaurant) {
-    document.getElementById('restaurant').style.display = 'none';
-    document.getElementById('menu').style.display = 'block';
+    document.getElementById('restaurant').classList.add('hide');
+    document.getElementById('menu').classList.remove('hide');
     const menuItemsDiv = document.getElementById('menu-items');
     menuItemsDiv.innerHTML = ''; // Clear previous menu items
     menu[restaurant].forEach(item => {
@@ -48,9 +48,10 @@ function viewMenu(restaurant) {
             </div>`;
     });
 }
+
 function goToCustomerService() {
-    document.getElementById('home').style.display = 'none';
-    document.getElementById('customer-service').style.display = 'block';
+    document.getElementById('home').classList.add('hide');
+    document.getElementById('customer-service').classList.remove('hide');
 }
 
 document.getElementById('support-form').addEventListener('submit', function(event) {
@@ -77,8 +78,8 @@ function addToCart(itemName, itemPrice) {
 }
 
 function goToCart() {
-    document.getElementById('menu').style.display = 'none';
-    document.getElementById('cart').style.display = 'block';
+    document.getElementById('menu').classList.add('hide');
+    document.getElementById('cart').classList.remove('hide');
     const cartItemsDiv = document.getElementById('cart-items');
     cartItemsDiv.innerHTML = '';
     cart.forEach(item => {
@@ -88,13 +89,8 @@ function goToCart() {
 }
 
 function goToPayment() {
-    document.getElementById('cart').style.display = 'none';
-    document.getElementById('order-details').style.display = 'block';
-}
-
-function nextStep(step) {
-    document.getElementById(`step-${step}`).style.display = 'none';
-    document.getElementById(`step-${step + 1}`).style.display = 'block';
+    document.getElementById('cart').classList.add('hide');
+    document.getElementById('order-details').classList.remove('hide');
 }
 
 function placeOrder(event) {
@@ -102,26 +98,24 @@ function placeOrder(event) {
     const name = document.getElementById('name').value;
     document.getElementById('user-name').textContent = name;
     orderPlaced = true;
-    document.getElementById('thank-you').style.display = 'block';
-    document.getElementById('order-details').style.display = 'none';
+    document.getElementById('thank-you').classList.remove('hide');
+    document.getElementById('order-details').classList.add('hide');
     resetApp();
 }
 
 function resetApp() {
-    document.getElementById('home').style.display = 'none';
-    document.getElementById('restaurant').style.display = 'none';
-    document.getElementById('menu').style.display = 'none';
-    document.getElementById('cart').style.display = 'none';
-    document.getElementById('order-details').style.display = 'none';
-    document.getElementById('thank-you').style.display = 'none';
+    document.querySelectorAll('section').forEach(section => {
+        section.classList.add('hide');
+    });
+    document.getElementById('home').classList.remove('hide');
     cart = [];
     totalAmount = 0;
 }
 
 function trackOrder() {
     if (orderPlaced) {
-        document.getElementById('thank-you').style.display = 'none';
-        document.getElementById('order-tracking').style.display = 'block';
+        document.getElementById('thank-you').classList.add('hide');
+        document.getElementById('order-tracking').classList.remove('hide');
     } else {
         alert('No order placed yet.');
     }
@@ -129,6 +123,6 @@ function trackOrder() {
 
 function cancelOrder() {
     alert('Order has been canceled.');
-    document.getElementById('order-tracking').style.display = 'none';
+    document.getElementById('order-tracking').classList.add('hide');
     goToHome();
 }
