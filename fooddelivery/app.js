@@ -1,6 +1,9 @@
 let cart = [];
 let totalAmount = 0;
 let orderPlaced = false;
+let trackingInfo = '';
+let couponApplied = false;
+
 const menu = {
     'thoppi-vaipa': [
         { name: 'Dosa', price: 50 },
@@ -19,9 +22,19 @@ const menu = {
     ]
 };
 
+// Offers (for simplicity, using hardcoded values)
+const offers = [
+    { code: 'SAVE10', discount: 10 },
+    { code: 'FREESHIP', discount: 50 }
+];
+
+// Main Navigation Functions
 function goToRestaurants() {
-    document.getElementById('home').classList.add('hide');
-    document.getElementById('restaurant').classList.remove('hide');
+    toggleVisibility('home', 'restaurant');
+    renderRestaurants();
+}
+
+function renderRestaurants() {
     const restaurantContainer = document.querySelector('.restaurant-container');
     restaurantContainer.innerHTML = ''; // Clear previous entries
     Object.keys(menu).forEach(restaurant => {
@@ -36,8 +49,7 @@ function goToRestaurants() {
 }
 
 function viewMenu(restaurant) {
-    document.getElementById('restaurant').classList.add('hide');
-    document.getElementById('menu').classList.remove('hide');
+    toggleVisibility('restaurant', 'menu');
     const menuItemsDiv = document.getElementById('menu-items');
     menuItemsDiv.innerHTML = ''; // Clear previous menu items
     menu[restaurant].forEach(item => {
@@ -49,48 +61,61 @@ function viewMenu(restaurant) {
     });
 }
 
+// Visibility Toggle Function
+function toggleVisibility(hideId, showId) {
+    document.getElementById(hideId).classList.add('hide');
+    document.getElementById(showId).classList.remove('hide');
+}
+
+// Customer Service Functions
 function goToCustomerService() {
-    document.getElementById('home').classList.add('hide');
-    document.getElementById('customer-service').classList.remove('hide');
+    toggleVisibility('home', 'customer-service');
 }
 
 document.getElementById('support-form').addEventListener('submit', function(event) {
     event.preventDefault(); // Prevent the form from reloading the page
-    
+    handleSupportForm();
+});
+
+function handleSupportForm() {
     const name = document.getElementById('support-name').value;
     const email = document.getElementById('support-email').value;
     const message = document.getElementById('support-message').value;
 
-    // Simple form validation (could be enhanced for better validation)
+    // Simple form validation
     if (name && email && message) {
-        alert(`Thank you, ${name}! Your message has been sent. We'll get back to you at ${email}.`);
+        showNotification(`Thank you, ${name}! Your message has been sent. We'll get back to you at ${email}.`);
         document.getElementById('support-form').reset(); // Reset the form after submission
         goToHome();
     } else {
-        alert('Please fill in all the fields.');
+        showNotification('Please fill in all the fields.', true);
     }
-});
+}
 
+// Cart Management Functions
 function addToCart(itemName, itemPrice) {
     cart.push({ name: itemName, price: itemPrice });
     totalAmount += itemPrice;
-    alert(`${itemName} has been added to your cart.`);
+    showNotification(`${itemName} has been added to your cart.`);
 }
 
 function goToCart() {
-    document.getElementById('menu').classList.add('hide');
-    document.getElementById('cart').classList.remove('hide');
+    toggleVisibility('menu', 'cart');
+    renderCart();
+}
+
+function renderCart() {
     const cartItemsDiv = document.getElementById('cart-items');
     cartItemsDiv.innerHTML = '';
     cart.forEach(item => {
         cartItemsDiv.innerHTML += `<p>${item.name} - ₹${item.price}</p>`;
     });
-    document.getElementById('total-amount').textContent = totalAmount;
+    document.getElementById('total-amount').textContent = `Total Amount: ₹${totalAmount}`;
 }
 
+// Payment and Order Functions
 function goToPayment() {
-    document.getElementById('cart').classList.add('hide');
-    document.getElementById('order-details').classList.remove('hide');
+    toggleVisibility('cart', 'order-details');
 }
 
 function placeOrder(event) {
@@ -98,31 +123,67 @@ function placeOrder(event) {
     const name = document.getElementById('name').value;
     document.getElementById('user-name').textContent = name;
     orderPlaced = true;
-    document.getElementById('thank-you').classList.remove('hide');
-    document.getElementById('order-details').classList.add('hide');
+    showNotification('Your order has been placed successfully!');
+    toggleVisibility('order-details', 'thank-you');
     resetApp();
 }
 
 function resetApp() {
-    document.querySelectorAll('section').forEach(section => {
-        section.classList.add('hide');
-    });
-    document.getElementById('home').classList.remove('hide');
     cart = [];
     totalAmount = 0;
+    couponApplied = false;
+    document.getElementById('coupon-message').textContent = ''; // Reset coupon message
+    toggleVisibility('thank-you', 'home');
 }
 
+// Track Order Functionality
 function trackOrder() {
     if (orderPlaced) {
-        document.getElementById('thank-you').classList.add('hide');
-        document.getElementById('order-tracking').classList.remove('hide');
+        toggleVisibility('thank-you', 'order-tracking');
+        updateTrackingInfo(); // Call to update tracking info
     } else {
-        alert('No order placed yet.');
+        showNotification('No order placed yet.', true);
     }
+}
+
+function updateTrackingInfo() {
+    // Simulate tracking info
+    trackingInfo = "Your order is on the way! Location: Main St, 123. Estimated delivery in 15 mins.";
+    document.getElementById('tracking-info').textContent = trackingInfo;
 }
 
 function cancelOrder() {
     alert('Order has been canceled.');
-    document.getElementById('order-tracking').classList.add('hide');
-    goToHome();
+    toggleVisibility('order-tracking', 'home');
 }
+
+// Coupon Functionality
+function applyCoupon() {
+    const couponCode = document.getElementById('coupon-code').value;
+    const couponMessage = document.getElementById('coupon-message');
+
+    // Check if the coupon is valid
+    const offer = offers.find(offer => offer.code === couponCode.toUpperCase());
+    if (offer && !couponApplied) {
+        const discount = offer.discount;
+        totalAmount -= discount; // Apply discount
+        couponApplied = true;
+        couponMessage.textContent = `Coupon applied! You saved ₹${discount}. Total amount: ₹${totalAmount}`;
+    } else if (couponApplied) {
+        couponMessage.textContent = "Coupon already applied.";
+    } else {
+        couponMessage.textContent = "Invalid coupon code.";
+    }
+}
+
+// Show Notification Function
+function showNotification(message, isError = false) {
+    const notification = document.createElement('div');
+    notification.textContent = message;
+    notification.className = `notification ${isError ? 'error' : ''}`;
+    document.body.appendChild(notification);
+    setTimeout(() => notification.remove(), 3000);
+}
+
+// Call this function on page load to initialize the app
+goToRestaurants();
