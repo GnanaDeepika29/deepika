@@ -3,114 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Delivery</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Food Delivery App</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="background-animation"></div>
-    
-    <!-- Home Section -->
-    <section id="home">
-        <img src="images/food-delivery-logo.png" alt="Food Delivery Logo" class="logo">
-        <h1>Welcome to KATS's Food Delivery</h1>
-        <p>Pasikidha? Vaanga sapdalam!</p>
-        <button onclick="goToRestaurants()">Explore Restaurants</button>
-        <button onclick="goToCustomerService()">Customer Service</button>
-    </section>
 
-    <!-- Restaurant Section -->
-    <section id="restaurant" style="display:none;">
-        <h2>Select Your Restaurant</h2>
-        <button onclick="goToHome()" class="back-button">Back to Home</button>
+    <header>
+        <img src="logo.png" alt="Food Delivery Logo" class="logo">
+        <nav>
+            <button onclick="goToRestaurants()">Restaurants</button>
+            <button onclick="goToCustomerService()">Customer Service</button>
+            <button onclick="goToCart()">Cart</button>
+        </nav>
+    </header>
+
+    <main id="home">
+        <h1>Welcome to Food Delivery!</h1>
+        <p>Explore the best restaurants near you.</p>
+    </main>
+
+    <section id="restaurant" class="hide">
+        <h2>Restaurants</h2>
         <div class="restaurant-container"></div>
     </section>
 
-    <!-- Menu Section -->
-    <section id="menu" style="display:none;">
+    <section id="menu" class="hide">
         <h2>Menu</h2>
-        <button onclick="goToRestaurants()" class="back-button">Back to Restaurants</button>
         <div id="menu-items"></div>
-        <button onclick="goToCart()">View Cart</button>
+        <button class="back-button" onclick="goToRestaurants()">Back to Restaurants</button>
     </section>
 
-    <!-- Cart Section -->
-    <section id="cart" style="display:none;">
+    <section id="cart" class="hide">
         <h2>Your Cart</h2>
-        <button onclick="goToMenu()" class="back-button">Back to Menu</button>
         <div id="cart-items"></div>
-        <p>Total: ₹<span id="total-amount">0</span></p>
+        <p>Total Amount: ₹<span id="total-amount">0</span></p>
         <button onclick="goToPayment()">Proceed to Payment</button>
+        <button class="back-button" onclick="goToRestaurants()">Back to Menu</button>
     </section>
 
-    <!-- Customer Service Section -->
-    <section id="customer-service" style="display:none;">
-        <h2>Customer Service Help</h2>
-        <p>If you have any issues or inquiries, please reach out to us through the form below, and we'll get back to you as soon as possible.</p>
-        <form id="support-form">
-            <label for="support-name">Your Name:</label>
-            <input type="text" id="support-name" placeholder="Enter your name" required>
-            <label for="support-email">Your Email:</label>
-            <input type="email" id="support-email" placeholder="Enter your email" required>
-            <label for="support-message">Your Message:</label>
-            <textarea id="support-message" placeholder="Describe your issue or question" required></textarea>
-            <button type="submit">Submit</button>
-        </form>
-        <p>Or, contact us directly at: <strong>support@fooddelivery.com</strong></p>
-        <button onclick="goToHome()" class="back-button">Back to Home</button>
-    </section>
-
-    <!-- Order Details Section -->
-    <section id="order-details" style="display:none;">
+    <section id="order-details" class="hide">
         <h2>Order Details</h2>
-        <button onclick="goToCart()" type="button" class="back-button">Back to Cart</button>
         <form id="order-form" onsubmit="placeOrder(event)">
-            <div id="step-1">
-                <label for="name">Your Name:</label>
-                <input type="text" id="name" placeholder="Enter your name" required>
-                <button type="button" onclick="nextStep(1)">Next</button>
-            </div>
-            <div id="step-2" style="display:none;">
-                <label for="address">Delivery Address:</label>
-                <input type="text" id="address" placeholder="Enter your address" required>
-                <button type="button" onclick="nextStep(2)">Next</button>
-            </div>
-            <div id="step-3" style="display:none;">
-                <label for="location">Set Location (Optional):</label>
-                <input type="text" id="location" placeholder="Enter nearby landmark">
-                <button type="button" onclick="nextStep(3)">Next</button>
-            </div>
-            <div id="step-4" style="display:none;">
-                <label for="contact">Contact Number:</label>
-                <input type="text" id="contact" placeholder="Enter your contact number" required>
-                <button type="button" onclick="nextStep(4)">Next</button>
-            </div>
-            <div id="step-5" style="display:none;">
-                <label for="payment-method">Payment Method:</label>
-                <select id="payment-method" required>
-                    <option value="credit-card">Credit Card</option>
-                    <option value="debit-card">Debit Card</option>
-                    <option value="cash-on-delivery">Cash on Delivery</option>
-                </select>
-                <button type="submit">Place Order</button>
-            </div>
+            <label for="name">Enter your name:</label>
+            <input type="text" id="name" required placeholder="Your Name">
+            <button type="submit">Place Order</button>
         </form>
     </section>
 
-    <!-- Order Tracking Section -->
-    <section id="order-tracking" style="display:none;">
-        <h2>Track Your Order</h2>
-        <p>Your order is being prepared. Estimated delivery time: <span id="delivery-time">45 minutes</span></p>
-        <button onclick="cancelOrder()" class="cancel-button">Cancel Order</button>
-        <button onclick="goToHome()">Back to Home</button>
+    <section id="thank-you" class="hide">
+        <h2>Thank You!</h2>
+        <p>Your order has been placed successfully.</p>
+        <button onclick="resetApp()">Start Over</button>
     </section>
 
-    <!-- Thank You Section -->
-    <section id="thank-you" style="display:none;">
-        <h2>Thank you, <span id="user-name"></span>! Your order has been placed!</h2>
-        <p>KATS app payan paduthiyadharkaga NANDRI!!! Your food is on its way! Enjoy it! Rate it!</p>
-        <button onclick="trackOrder()">Track Order</button>
+    <section id="customer-service" class="hide">
+        <h2>Customer Service</h2>
+        <form id="support-form">
+            <label for="support-name">Name:</label>
+            <input type="text" id="support-name" required placeholder="Your Name">
+            <label for="support-email">Email:</label>
+            <input type="email" id="support-email" required placeholder="Your Email">
+            <label for="support-message">Message:</label>
+            <textarea id="support-message" required placeholder="Your Message"></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        <button class="back-button" onclick="goToHome()">Back to Home</button>
     </section>
 
-    <script src="app.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
