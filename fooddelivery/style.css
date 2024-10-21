@@ -36,6 +36,12 @@ body {
 section {
     text-align: center;
     margin: 20px;
+    padding: 15px 30px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    transition: transform 0.3s ease;
 }
 
 /* Logo Styling */
@@ -43,7 +49,7 @@ section {
     width: 200px;
     height: auto;
     margin-bottom: 20px;
-    animation: fadeIn 1s ease-out forwards;
+    animation: fadeIn 1.5s ease-out forwards;
 }
 
 /* Restaurant Container Layout */
@@ -70,7 +76,7 @@ section {
 
 .restaurant:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 15px 25px rgba(255, 87, 87, 0.3);
 }
 
 /* Restaurant Image */
@@ -126,8 +132,20 @@ button:hover {
 
 .star {
     font-size: 20px;
-    color: #ffcc00; /* Gold color for stars */
+    color: #ffcc00;
     cursor: pointer;
+}
+
+/* Cancel Button */
+.cancel-button {
+    background-color: #ff5757;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+
+.cancel-button:hover {
+    background-color: #ff3b3b;
 }
 
 /* Responsive Design */
