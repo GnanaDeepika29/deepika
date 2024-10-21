@@ -1,5 +1,6 @@
 let cart = [];
 let totalAmount = 0;
+let orderPlaced = false;
 const menu = {
     'thoppi-vaipa': [
         { name: 'Dosa', price: 50 },
@@ -21,11 +22,17 @@ const menu = {
 function goToRestaurants() {
     document.getElementById('home').style.display = 'none';
     document.getElementById('restaurant').style.display = 'block';
-}
-
-function goToHome() {
-    resetApp();
-    document.getElementById('home').style.display = 'block';
+    const restaurantContainer = document.querySelector('.restaurant-container');
+    restaurantContainer.innerHTML = ''; // Clear previous entries
+    Object.keys(menu).forEach(restaurant => {
+        restaurantContainer.innerHTML += `
+            <div class="restaurant" onclick="viewMenu('${restaurant}')">
+                <img src="images/${restaurant}.jpg" alt="${restaurant}">
+                <h3>${restaurant.replace(/-/g, ' ')}</h3>
+                <p>${menu[restaurant][0].name} & More</p>
+                <div class="rating" id="rating-${restaurant}"></div>
+            </div>`;
+    });
 }
 
 function viewMenu(restaurant) {
@@ -59,11 +66,6 @@ function goToCart() {
     document.getElementById('total-amount').textContent = totalAmount;
 }
 
-function goToMenu() {
-    document.getElementById('cart').style.display = 'none';
-    document.getElementById('menu').style.display = 'block';
-}
-
 function goToPayment() {
     document.getElementById('cart').style.display = 'none';
     document.getElementById('order-details').style.display = 'block';
@@ -78,9 +80,10 @@ function placeOrder(event) {
     event.preventDefault();
     const name = document.getElementById('name').value;
     document.getElementById('user-name').textContent = name;
-    alert(`Order placed by ${name}!`);
-    resetApp();
+    orderPlaced = true;
     document.getElementById('thank-you').style.display = 'block';
+    document.getElementById('order-details').style.display = 'none';
+    resetApp();
 }
 
 function resetApp() {
@@ -94,21 +97,17 @@ function resetApp() {
     totalAmount = 0;
 }
 
-document.getElementById('order-form').addEventListener('submit', placeOrder);
-
-// Star Rating System
-document.querySelectorAll('.restaurant').forEach(restaurant => {
-    const restaurantId = restaurant.querySelector('h3').textContent.toLowerCase().replace(/ /g, '-');
-    const ratingDiv = document.getElementById(`rating-${restaurantId}`);
-    for (let i = 1; i <= 5; i++) {
-        const star = document.createElement('span');
-        star.className = 'star';
-        star.innerHTML = '&#9733;'; // Unicode star character
-        star.onclick = () => rateRestaurant(restaurantId, i);
-        ratingDiv.appendChild(star);
+function trackOrder() {
+    if (orderPlaced) {
+        document.getElementById('thank-you').style.display = 'none';
+        document.getElementById('order-tracking').style.display = 'block';
+    } else {
+        alert('No order placed yet.');
     }
-});
+}
 
-function rateRestaurant(restaurantId, rating) {
-    alert(`You rated ${restaurantId.replace(/-/g, ' ')} with ${rating} stars!`);
+function cancelOrder() {
+    alert('Order has been canceled.');
+    document.getElementById('order-tracking').style.display = 'none';
+    goToHome();
 }
