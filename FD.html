@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Delivery App</title>
+    <title>Deli Deepz</title>
     <style>
         /* Global Styles */
         :root {
@@ -250,23 +250,23 @@
     <section id="restaurant" class="hide">
         <h2>Restaurants</h2>
         <div class="restaurant-container">
-            <div class="restaurant" onclick="viewMenu('thoppi-vaipa')">
-                <img src="images/thoppi-vaipa.jpg" alt="Thoppi Vaipa">
-                <h3>Thoppi Vaipa</h3>
+            <div class="restaurant" onclick="viewMenu('Chettinad')">
+                <img src="images/Chettinad.jpg" alt="Chettinad">
+                <h3>Chettinad</h3>
                 <p>Delicious South Indian Dishes</p>
-                <div class="rating" id="rating-thoppi-vaipa"></div>
+                <div class="rating" id="rating-Chettinad"></div>
             </div>
-            <div class="restaurant" onclick="viewMenu('alif')">
-                <img src="images/alif.jpg" alt="Alif">
-                <h3>Alif</h3>
+            <div class="restaurant" onclick="viewMenu('Lato')">
+                <img src="images/alif.jpg" alt="Lato">
+                <h3>Lato</h3>
                 <p>Tasty Middle Eastern Cuisine</p>
-                <div class="rating" id="rating-alif"></div>
+                <div class="rating" id="rating-Lato"></div>
             </div>
-            <div class="restaurant" onclick="viewMenu('grill-and-shake')">
-                <img src="images/grill-and-shake.jpg" alt="Grill and Shake">
-                <h3>Grill and Shake</h3>
+            <div class="restaurant" onclick="viewMenu('Foodies Fort')">
+                <img src="images/Foodies Fort.jpg" alt="Grill and Shake">
+                <h3>Foodies Fort</h3>
                 <p>Grilled Delicacies and Shakes</p>
-                <div class="rating" id="rating-grill-and-shake"></div>
+                <div class="rating" id="rating-Foodies Fort"></div>
             </div>
         </div>
     </section>
@@ -326,17 +326,17 @@
         let totalAmount = 0;
         let orderPlaced = false;
         const menu = {
-            'thoppi-vaipa': [
+            'Chettinad': [
                 { name: 'Dosa', price: 50 },
                 { name: 'Idli', price: 30 },
                 { name: 'Sambar', price: 40 }
             ],
-            'alif': [
+            'Lato': [
                 { name: 'Shawarma', price: 120 },
                 { name: 'Hummus', price: 80 },
                 { name: 'Falafel', price: 70 }
             ],
-            'grill-and-shake': [
+            'Foodie Fort': [
                 { name: 'Grilled Chicken', price: 150 },
                 { name: 'Milkshake', price: 70 },
                 { name: 'Veggie Burger', price: 100 }
