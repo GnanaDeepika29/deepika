@@ -21,24 +21,7 @@
         <h2>Select Your Restaurant</h2>
         <button onclick="goToHome()" class="back-button">Back to Home</button>
         <div class="restaurant-container">
-            <div class="restaurant" onclick="viewMenu('thoppi-vaipa')">
-                <img src="images/thoppi-vaipa.jpg" alt="Thoppi Vaipa">
-                <h3>Thoppi Vaipa</h3>
-                <p>Traditional South Indian Cuisine</p>
-                <div class="rating" id="rating-thoppi-vaipa"></div>
-            </div>
-            <div class="restaurant" onclick="viewMenu('alif')">
-                <img src="images/alif.jpg" alt="Alif">
-                <h3>Alif</h3>
-                <p>Authentic Arabian Dishes</p>
-                <div class="rating" id="rating-alif"></div>
-            </div>
-            <div class="restaurant" onclick="viewMenu('grill-and-shake')">
-                <img src="images/grill-and-shake.jpg" alt="Grill and Shake">
-                <h3>Grill and Shake</h3>
-                <p>Grills & Milkshakes</p>
-                <div class="rating" id="rating-grill-and-shake"></div>
-            </div>
+            <!-- Restaurant Cards (Dynamically Generated) -->
         </div>
     </section>
 
@@ -75,11 +58,16 @@
                 <button type="button" onclick="nextStep(2)">Next</button>
             </div>
             <div id="step-3" style="display:none;">
-                <label for="contact">Contact Number:</label>
-                <input type="text" id="contact" placeholder="Enter your contact number" required>
+                <label for="location">Set Location (Optional):</label>
+                <input type="text" id="location" placeholder="Enter nearby landmark">
                 <button type="button" onclick="nextStep(3)">Next</button>
             </div>
             <div id="step-4" style="display:none;">
+                <label for="contact">Contact Number:</label>
+                <input type="text" id="contact" placeholder="Enter your contact number" required>
+                <button type="button" onclick="nextStep(4)">Next</button>
+            </div>
+            <div id="step-5" style="display:none;">
                 <label for="payment-method">Payment Method:</label>
                 <select id="payment-method" required>
                     <option value="credit-card">Credit Card</option>
@@ -91,11 +79,19 @@
         </form>
     </section>
 
+    <!-- Order Tracking Section -->
+    <section id="order-tracking" style="display:none;">
+        <h2>Track Your Order</h2>
+        <p>Your order is being prepared. Estimated delivery time: <span id="delivery-time">45 minutes</span></p>
+        <button onclick="cancelOrder()" class="cancel-button">Cancel Order</button>
+        <button onclick="goToHome()">Back to Home</button>
+    </section>
+
     <!-- Thank You Section -->
     <section id="thank-you" style="display:none;">
         <h2>Thank you, <span id="user-name"></span>! Your order has been placed!</h2>
         <p>KATS app payan paduthiyadharkaga NANDRI!!! Your food is on its way! Enjoy it! Rate it!</p>
-        <button onclick="goToHome()">Back to Home</button>
+        <button onclick="trackOrder()">Track Order</button>
     </section>
 
     <script src="app.js"></script>
