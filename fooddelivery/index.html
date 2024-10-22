@@ -3,73 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Delivery App</title>
+    <title>Food Delivery Service</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="background-animation"></div>
 
+    <!-- Header with logo -->
     <header>
-        <img src="logo.png" alt="Food Delivery Logo" class="logo">
+        <div class="logo-container">
+            <img src="logo.png" alt="Food Delivery Logo" class="logo">
+            <h1 class="fade-in">🚚 Fresh Food, Fast Delivery!</h1>
+        </div>
         <nav>
-            <button onclick="goToRestaurants()">Restaurants</button>
-            <button onclick="goToCustomerService()">Customer Service</button>
-            <button onclick="goToCart()">Cart</button>
+            <ul>
+                <li><a href="#restaurants" class="scroll">Restaurants</a></li>
+                <li><a href="#order" class="scroll">Order</a></li>
+                <li><a href="#track-order" class="scroll">Track Order</a></li>
+                <li><a href="#contact" class="scroll">Customer Service</a></li>
+                <li><a href="#offers" class="scroll">Coupons & Offers</a></li>
+            </ul>
         </nav>
     </header>
 
-    <main id="home">
-        <h1>Welcome to Food Delivery!</h1>
-        <p>Explore the best restaurants near you.</p>
-    </main>
-
-    <section id="restaurant" class="hide">
-        <h2>Restaurants</h2>
-        <div class="restaurant-container"></div>
+    <!-- Quote Section -->
+    <section id="quotes" class="container fade-in">
+        <h2>“Good food is good mood!”</h2>
+        <h3>“Delivering happiness, one meal at a time.”</h3>
     </section>
 
-    <section id="menu" class="hide">
-        <h2>Menu</h2>
-        <div id="menu-items"></div>
-        <button class="back-button" onclick="goToRestaurants()">Back to Restaurants</button>
+    <!-- Restaurant Section with images -->
+    <section id="restaurants" class="container fade-in">
+        <h2>Explore Your Favorite Restaurants 🍔🍕🍣</h2>
+
+        <div class="restaurant">
+            <img src="pizza-place.jpg" alt="Pizza Place" class="restaurant-img">
+            <div class="restaurant-details">
+                <h3>Pizza Place <span class="rating">★ 4.5</span></h3>
+                <ul>
+                    <li><img src="margherita.jpg" alt="Margherita Pizza" class="food-img"> Margherita Pizza - $12.99</li>
+                    <li><img src="pepperoni.jpg" alt="Pepperoni Pizza" class="food-img"> Pepperoni Pizza - $14.99</li>
+                    <li><img src="veggie.jpg" alt="Veggie Pizza" class="food-img"> Veggie Pizza - $13.99</li>
+                </ul>
+                <p>Estimated delivery: 30-45 minutes</p>
+            </div>
+        </div>
+
+        <div class="restaurant">
+            <img src="burger-joint.jpg" alt="Burger Joint" class="restaurant-img">
+            <div class="restaurant-details">
+                <h3>Burger Joint <span class="rating">★ 4.2</span></h3>
+                <ul>
+                    <li><img src="classic-burger.jpg" alt="Classic Burger" class="food-img"> Classic Burger - $9.99</li>
+                    <li><img src="cheeseburger.jpg" alt="Cheeseburger" class="food-img"> Cheeseburger - $10.99</li>
+                    <li><img src="veggie-burger.jpg" alt="Veggie Burger" class="food-img"> Veggie Burger - $8.99</li>
+                </ul>
+                <p>Estimated delivery: 20-30 minutes</p>
+            </div>
+        </div>
+
+        <div class="restaurant">
+            <img src="sushi-corner.jpg" alt="Sushi Corner" class="restaurant-img">
+            <div class="restaurant-details">
+                <h3>Sushi Corner <span class="rating">★ 4.7</span></h3>
+                <ul>
+                    <li><img src="california-roll.jpg" alt="California Roll" class="food-img"> California Roll - $8.99</li>
+                    <li><img src="salmon-nigiri.jpg" alt="Salmon Nigiri" class="food-img"> Salmon Nigiri - $10.99</li>
+                    <li><img src="vegetarian-roll.jpg" alt="Vegetarian Roll" class="food-img"> Vegetarian Roll - $7.99</li>
+                </ul>
+                <p>Estimated delivery: 25-40 minutes</p>
+            </div>
+        </div>
     </section>
 
-    <section id="cart" class="hide">
-        <h2>Your Cart</h2>
-        <div id="cart-items"></div>
-        <p>Total Amount: ₹<span id="total-amount">0</span></p>
-        <button onclick="goToPayment()">Proceed to Payment</button>
-        <button class="back-button" onclick="goToRestaurants()">Back to Menu</button>
-    </section>
+    <!-- Order Form Section with Cancel and Refund -->
+    <section id="order" class="container fade-in">
+        <h2>Place Your Order 🍽️</h2>
+        <form id="orderForm">
+            <label for="restaurant">Choose a restaurant:</label>
+            <select id="restaurant">
+                <option value="pizza">Pizza Place</option>
+                <option value="burger">Burger Joint</option>
+                <option value="sushi">Sushi Corner</option>
+            </select>
 
-    <section id="order-details" class="hide">
-        <h2>Order Details</h2>
-        <form id="order-form" onsubmit="placeOrder(event)">
-            <label for="name">Enter your name:</label>
-            <input type="text" id="name" required placeholder="Your Name">
-            <button type="submit">Place Order</button>
+            <label for="food-item">Choose a food item:</label>
+            <select id="food-item">
+                <option value="pizza1">Margherita Pizza</option>
+                <option value="burger1">Classic Burger</option>
+                <option value="sushi1">California Roll</option>
+            </select>
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" value="1">
+
+            <label for="coupon">Have a coupon?</label>
+            <input type="text" id="coupon" placeholder="Enter coupon code">
+
+            <label for="address">Delivery Address:</label>
+            <input type="text" id="address" placeholder="Enter your address">
+
+            <button type="button" onclick="placeOrder()">Order Now</button>
+            <button type="button" class="cancel-btn" onclick="cancelOrder()">Cancel Order</button>
         </form>
+
+        <p id="order-status"></p>
     </section>
 
-    <section id="thank-you" class="hide">
-        <h2>Thank You!</h2>
-        <p>Your order has been placed successfully.</p>
-        <button onclick="resetApp()">Start Over</button>
+    <!-- Track Order Section -->
+    <section id="track-order" class="container fade-in">
+        <h2>Track Your Order 📦</h2>
+        <p>Enter your order ID to track:</p>
+        <input type="text" id="order-id" placeholder="Order ID">
+        <button type="button" onclick="trackOrder()">Track Order</button>
+        <div id="tracking-status">
+            <div class="progress-bar" id="progress"></div>
+            <p id="tracking-text"></p>
+        </div>
     </section>
 
-    <section id="customer-service" class="hide">
-        <h2>Customer Service</h2>
-        <form id="support-form">
-            <label for="support-name">Name:</label>
-            <input type="text" id="support-name" required placeholder="Your Name">
-            <label for="support-email">Email:</label>
-            <input type="email" id="support-email" required placeholder="Your Email">
-            <label for="support-message">Message:</label>
-            <textarea id="support-message" required placeholder="Your Message"></textarea>
-            <button type="submit">Send Message</button>
-        </form>
-        <button class="back-button" onclick="goToHome()">Back to Home</button>
+    <!-- Coupons & Offers Section -->
+    <section id="offers" class="container fade-in">
+        <h2>Grab Exciting Offers 💸</h2>
+        <p>Use the code <strong>SAVE20</strong> to get 20% off on your first order!</p>
+        <p>Exclusive deals every week, just for you!</p>
     </section>
+
+    <!-- Customer Service Section -->
+    <section id="contact" class="container fade-in">
+        <h2>Customer Service ☎️</h2>
+        <p>If you have any issues with your order, please contact us at <a href="mailto:support@fooddelivery.com">support@fooddelivery.com</a></p>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Food Delivery Service. All rights reserved.</p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
