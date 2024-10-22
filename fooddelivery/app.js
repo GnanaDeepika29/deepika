@@ -127,5 +127,10 @@ document.querySelectorAll('.scroll').forEach(anchor => {
     });
 });
 
+// Return to Home Function
+function returnHome() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 // Initialize food items on page load
 updateFoodItems();
