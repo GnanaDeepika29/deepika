@@ -41,9 +41,9 @@
             <div class="restaurant-details">
                 <h3>Pizza Place <span class="rating">★ 4.5</span></h3>
                 <ul>
-                    <li><img src="margherita.jpg" alt="Margherita Pizza" class="food-img"> Margherita Pizza - $12.99</li>
-                    <li><img src="pepperoni.jpg" alt="Pepperoni Pizza" class="food-img"> Pepperoni Pizza - $14.99</li>
-                    <li><img src="veggie.jpg" alt="Veggie Pizza" class="food-img"> Veggie Pizza - $13.99</li>
+                    <li data-price="12.99">Margherita Pizza - $12.99</li>
+                    <li data-price="14.99">Pepperoni Pizza - $14.99</li>
+                    <li data-price="13.99">Veggie Pizza - $13.99</li>
                 </ul>
                 <p>Estimated delivery: 30-45 minutes</p>
             </div>
@@ -54,9 +54,9 @@
             <div class="restaurant-details">
                 <h3>Burger Joint <span class="rating">★ 4.2</span></h3>
                 <ul>
-                    <li><img src="classic-burger.jpg" alt="Classic Burger" class="food-img"> Classic Burger - $9.99</li>
-                    <li><img src="cheeseburger.jpg" alt="Cheeseburger" class="food-img"> Cheeseburger - $10.99</li>
-                    <li><img src="veggie-burger.jpg" alt="Veggie Burger" class="food-img"> Veggie Burger - $8.99</li>
+                    <li data-price="9.99">Classic Burger - $9.99</li>
+                    <li data-price="10.99">Cheeseburger - $10.99</li>
+                    <li data-price="8.99">Veggie Burger - $8.99</li>
                 </ul>
                 <p>Estimated delivery: 20-30 minutes</p>
             </div>
@@ -67,9 +67,9 @@
             <div class="restaurant-details">
                 <h3>Sushi Corner <span class="rating">★ 4.7</span></h3>
                 <ul>
-                    <li><img src="california-roll.jpg" alt="California Roll" class="food-img"> California Roll - $8.99</li>
-                    <li><img src="salmon-nigiri.jpg" alt="Salmon Nigiri" class="food-img"> Salmon Nigiri - $10.99</li>
-                    <li><img src="vegetarian-roll.jpg" alt="Vegetarian Roll" class="food-img"> Vegetarian Roll - $7.99</li>
+                    <li data-price="8.99">California Roll - $8.99</li>
+                    <li data-price="10.99">Salmon Nigiri - $10.99</li>
+                    <li data-price="7.99">Vegetarian Roll - $7.99</li>
                 </ul>
                 <p>Estimated delivery: 25-40 minutes</p>
             </div>
@@ -81,7 +81,7 @@
         <h2>Place Your Order 🍽️</h2>
         <form id="orderForm">
             <label for="restaurant">Choose a restaurant:</label>
-            <select id="restaurant">
+            <select id="restaurant" onchange="updateFoodItems()">
                 <option value="pizza">Pizza Place</option>
                 <option value="burger">Burger Joint</option>
                 <option value="sushi">Sushi Corner</option>
@@ -89,13 +89,11 @@
 
             <label for="food-item">Choose a food item:</label>
             <select id="food-item">
-                <option value="pizza1">Margherita Pizza</option>
-                <option value="burger1">Classic Burger</option>
-                <option value="sushi1">California Roll</option>
+                <option value="">Select an item</option>
             </select>
 
             <label for="quantity">Quantity:</label>
-            <input type="number" id="quantity" value="1">
+            <input type="number" id="quantity" value="1" min="1">
 
             <label for="coupon">Have a coupon?</label>
             <input type="text" id="coupon" placeholder="Enter coupon code">
@@ -105,6 +103,8 @@
 
             <button type="button" onclick="placeOrder()">Order Now</button>
             <button type="button" class="cancel-btn" onclick="cancelOrder()">Cancel Order</button>
+
+            <div id="order-summary" class="order-summary"></div>
         </form>
 
         <p id="order-status"></p>
@@ -133,6 +133,20 @@
     <section id="contact" class="container fade-in">
         <h2>Customer Service ☎️</h2>
         <p>If you have any issues with your order, please contact us at <a href="mailto:support@fooddelivery.com">support@fooddelivery.com</a></p>
+    </section>
+
+    <!-- Payment Section -->
+    <section id="payment" class="container fade-in">
+        <h2>Payment Options 💳</h2>
+        <form id="paymentForm">
+            <label for="payment-method">Choose a payment method:</label>
+            <select id="payment-method">
+                <option value="credit-card">Credit Card</option>
+                <option value="paypal">PayPal</option>
+            </select>
+
+            <button type="button" onclick="submitPayment()">Pay Now</button>
+        </form>
     </section>
 
     <footer>
