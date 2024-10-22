@@ -1,136 +1,101 @@
-// Food menu items
-const foodMenu = {
-    pizza: [
-        { name: "Margherita Pizza", price: 12.99 },
-        { name: "Pepperoni Pizza", price: 14.99 },
-        { name: "Veggie Pizza", price: 13.99 },
-    ],
-    burger: [
-        { name: "Classic Burger", price: 9.99 },
-        { name: "Cheeseburger", price: 10.99 },
-        { name: "Veggie Burger", price: 8.99 },
-    ],
-    sushi: [
-        { name: "California Roll", price: 8.99 },
-        { name: "Salmon Nigiri", price: 10.99 },
-        { name: "Vegetarian Roll", price: 7.99 },
-    ],
-};
+// Function to open the food modal and load food items
+function openFoodModal(restaurantName, deliveryTime, restaurantId) {
+    document.getElementById("restaurant-name").innerText = restaurantName;
+    document.getElementById("delivery-time").innerText = deliveryTime;
 
-// Update food items based on selected restaurant
-function updateFoodItems() {
-    const restaurant = document.getElementById('restaurant').value;
-    const foodItemSelect = document.getElementById('food-item');
+    // Load food items based on restaurant
+    const foodItems = {
+        pizza: [
+            { name: "Margherita Pizza", price: 10, img: "margherita.jpg" },
+            { name: "Pepperoni Pizza", price: 12, img: "pepperoni.jpg" }
+        ],
+        burger: [
+            { name: "Cheeseburger", price: 8, img: "cheeseburger.jpg" },
+            { name: "Veggie Burger", price: 7, img: "veggie-burger.jpg" }
+        ],
+        sushi: [
+            { name: "California Roll", price: 15, img: "california-roll.jpg" },
+            { name: "Spicy Tuna Roll", price: 18, img: "spicy-tuna-roll.jpg" }
+        ]
+    };
 
-    foodItemSelect.innerHTML = `<option value="">Select an item</option>`; // Reset options
-    foodMenu[restaurant].forEach(item => {
-        foodItemSelect.innerHTML += `<option value="${item.name}" data-price="${item.price}">${item.name} - $${item.price.toFixed(2)}</option>`;
+    // Clear existing items
+    const foodItemsContainer = document.getElementById("food-items");
+    foodItemsContainer.innerHTML = "";
+
+    foodItems[restaurantId].forEach(item => {
+        const itemDiv = document.createElement("div");
+        itemDiv.classList.add("food-item");
+
+        itemDiv.innerHTML = `
+            <img src="${item.img}" alt="${item.name}" class="food-img">
+            <h4>${item.name}</h4>
+            <p>Price: $${item.price}</p>
+            <button onclick="addToOrder('${item.name}', ${item.price})">Add to Order</button>
+        `;
+        
+        foodItemsContainer.appendChild(itemDiv);
     });
+
+    document.getElementById("foodModal").style.display = "block";
 }
 
-// Place Order Function
+// Function to close the food modal
+function closeFoodModal() {
+    document.getElementById("foodModal").style.display = "none";
+}
+
+// Function to add food to the order
+function addToOrder(name, price) {
+    const orderSummary = document.getElementById("order-summary");
+    orderSummary.innerHTML += `<p>${name}: $${price}</p>`;
+    openOrderModal();
+}
+
+// Function to open the order modal
+function openOrderModal() {
+    document.getElementById("orderModal").style.display = "block";
+}
+
+// Function to close the order modal
+function closeOrderModal() {
+    document.getElementById("orderModal").style.display = "none";
+}
+
+// Function to place the order
 function placeOrder() {
-    const restaurant = document.getElementById('restaurant').value;
-    const foodItem = document.getElementById('food-item').value;
-    const quantity = parseInt(document.getElementById('quantity').value);
-    const address = document.getElementById('address').value;
-    const coupon = document.getElementById('coupon').value;
+    const quantity = document.getElementById("quantity").value;
+    const address = document.getElementById("address").value;
+    const coupon = document.getElementById("coupon").value;
 
-    if (!address) {
-        document.getElementById('order-status').innerText = "Please enter a delivery address.";
-        return;
-    }
+    const orderSummary = document.getElementById("order-summary");
+    const totalPrice = quantity * 10; // Assume $10 for each food item
+    orderSummary.innerHTML += `<p>Order placed! Total: $${totalPrice}</p>`;
 
-    let discount = 0;
-    if (coupon === "SAVE20") {
-        discount = 20;
-        document.getElementById('order-status').innerText = `Coupon applied! You get ${discount}% off.`;
-    }
-
-    const itemPrice = parseFloat(document.querySelector(`#food-item option:checked`).dataset.price);
-    const totalAmount = (itemPrice * quantity) * (1 - discount / 100);
-
-    // Simulate order being placed
-    const orderId = Math.floor(Math.random() * 1000) + 1;
-    document.getElementById('order-status').innerText += ` Your order has been placed! Order ID: ${orderId}. Estimated delivery: 30-45 minutes.`;
-    
-    // Display order summary
-    document.getElementById('order-summary').innerHTML = `
-        <h3>Order Summary:</h3>
-        <p>Restaurant: ${restaurant}</p>
-        <p>Food Item: ${foodItem}</p>
-        <p>Quantity: ${quantity}</p>
-        <p>Total Amount: $${totalAmount.toFixed(2)}</p>
-    `;
-
-    // Show notification
-    showNotification(`Order placed successfully! Order ID: ${orderId}. Total: $${totalAmount.toFixed(2)}.`);
+    document.getElementById("order-status").innerText = "Thank you for your order!";
+    showNotification("Order placed successfully!");
+    closeOrderModal();
 }
 
-// Cancel Order Function
-function cancelOrder() {
-    const confirmed = confirm("Are you sure you want to cancel the order?");
-    if (confirmed) {
-        document.getElementById('order-status').innerText = "Your order has been canceled. A refund will be processed shortly.";
-        document.getElementById('order-summary').innerHTML = ""; // Clear the order summary
-    }
-}
-
-// Track Order Function
-function trackOrder() {
-    const orderId = document.getElementById('order-id').value;
-
-    if (!orderId) {
-        document.getElementById('tracking-text').innerText = "Please enter a valid order ID.";
-        return;
-    }
-
-    document.getElementById('progress').style.width = "80%";
-    document.getElementById('tracking-text').innerText = `Order #${orderId} is on its way!`;
-}
-
-// Payment Submission
-function submitPayment() {
-    const paymentMethod = document.getElementById('payment-method').value;
-
-    if (!paymentMethod) {
-        alert("Please select a payment method.");
-        return;
-    }
-
-    alert(`Payment successful with ${paymentMethod}! Thank you for your order!`);
-}
-
-// Show Notification Function
+// Function to show notification
 function showNotification(message) {
-    const notification = document.getElementById('notification');
+    const notification = document.getElementById("notification");
     notification.innerText = message;
-    notification.style.display = 'block';
+    notification.style.display = "block";
     setTimeout(() => {
-        notification.style.display = 'none';
-    }, 5000); // Hide notification after 5 seconds
+        notification.style.display = "none";
+    }, 3000);
 }
 
-// Show Restaurant Details
-function showRestaurantDetails(restaurantName, deliveryTime, foodItems) {
-    const itemList = foodItems.map(item => `<li>${item}</li>`).join('');
-    alert(`Welcome to ${restaurantName}!\nEstimated Delivery: ${deliveryTime}\nMenu:\n${itemList}`);
+// Close the modal when clicking outside of it
+window.onclick = function(event) {
+    const foodModal = document.getElementById("foodModal");
+    const orderModal = document.getElementById("orderModal");
+
+    if (event.target == foodModal) {
+        closeFoodModal();
+    }
+    if (event.target == orderModal) {
+        closeOrderModal();
+    }
 }
-
-// Smooth Scroll
-document.querySelectorAll('.scroll').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
-
-// Return to Home Function
-function returnHome() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-// Initialize food items on page load
-updateFoodItems();
