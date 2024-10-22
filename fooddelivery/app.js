@@ -62,6 +62,9 @@ function placeOrder() {
         <p>Quantity: ${quantity}</p>
         <p>Total Amount: $${totalAmount.toFixed(2)}</p>
     `;
+
+    // Show notification
+    showNotification(`Order placed successfully! Order ID: ${orderId}. Total: $${totalAmount.toFixed(2)}.`);
 }
 
 // Cancel Order Function
@@ -96,6 +99,22 @@ function submitPayment() {
     }
 
     alert(`Payment successful with ${paymentMethod}! Thank you for your order!`);
+}
+
+// Show Notification Function
+function showNotification(message) {
+    const notification = document.getElementById('notification');
+    notification.innerText = message;
+    notification.style.display = 'block';
+    setTimeout(() => {
+        notification.style.display = 'none';
+    }, 5000); // Hide notification after 5 seconds
+}
+
+// Show Restaurant Details
+function showRestaurantDetails(restaurantName, deliveryTime, foodItems) {
+    const itemList = foodItems.map(item => `<li>${item}</li>`).join('');
+    alert(`Welcome to ${restaurantName}!\nEstimated Delivery: ${deliveryTime}\nMenu:\n${itemList}`);
 }
 
 // Smooth Scroll
