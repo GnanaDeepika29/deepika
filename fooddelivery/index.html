@@ -36,41 +36,26 @@
     <section id="restaurants" class="container fade-in">
         <h2>Explore Your Favorite Restaurants 🍔🍕🍣</h2>
 
-        <div class="restaurant">
+        <div class="restaurant" onclick="showRestaurantDetails('Pizza Place', '30-45 minutes', ['Margherita Pizza - $12.99', 'Pepperoni Pizza - $14.99', 'Veggie Pizza - $13.99'])">
             <img src="pizza-place.jpg" alt="Pizza Place" class="restaurant-img">
             <div class="restaurant-details">
                 <h3>Pizza Place <span class="rating">★ 4.5</span></h3>
-                <ul>
-                    <li data-price="12.99">Margherita Pizza - $12.99</li>
-                    <li data-price="14.99">Pepperoni Pizza - $14.99</li>
-                    <li data-price="13.99">Veggie Pizza - $13.99</li>
-                </ul>
                 <p>Estimated delivery: 30-45 minutes</p>
             </div>
         </div>
 
-        <div class="restaurant">
+        <div class="restaurant" onclick="showRestaurantDetails('Burger Joint', '20-30 minutes', ['Classic Burger - $9.99', 'Cheeseburger - $10.99', 'Veggie Burger - $8.99'])">
             <img src="burger-joint.jpg" alt="Burger Joint" class="restaurant-img">
             <div class="restaurant-details">
                 <h3>Burger Joint <span class="rating">★ 4.2</span></h3>
-                <ul>
-                    <li data-price="9.99">Classic Burger - $9.99</li>
-                    <li data-price="10.99">Cheeseburger - $10.99</li>
-                    <li data-price="8.99">Veggie Burger - $8.99</li>
-                </ul>
                 <p>Estimated delivery: 20-30 minutes</p>
             </div>
         </div>
 
-        <div class="restaurant">
+        <div class="restaurant" onclick="showRestaurantDetails('Sushi Corner', '25-40 minutes', ['California Roll - $8.99', 'Salmon Nigiri - $10.99', 'Vegetarian Roll - $7.99'])">
             <img src="sushi-corner.jpg" alt="Sushi Corner" class="restaurant-img">
             <div class="restaurant-details">
                 <h3>Sushi Corner <span class="rating">★ 4.7</span></h3>
-                <ul>
-                    <li data-price="8.99">California Roll - $8.99</li>
-                    <li data-price="10.99">Salmon Nigiri - $10.99</li>
-                    <li data-price="7.99">Vegetarian Roll - $7.99</li>
-                </ul>
                 <p>Estimated delivery: 25-40 minutes</p>
             </div>
         </div>
@@ -148,6 +133,9 @@
             <button type="button" onclick="submitPayment()">Pay Now</button>
         </form>
     </section>
+
+    <!-- Notification Section -->
+    <div id="notification" class="notification"></div>
 
     <footer>
         <p>&copy; 2024 Food Delivery Service. All rights reserved.</p>
