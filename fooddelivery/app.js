@@ -1,10 +1,8 @@
 let cart = [];
 let totalAmount = 0;
 let orderPlaced = false;
-let couponApplied = false;
-
 const menu = {
-    'thoppi-vappa': [
+    'thoppi-vaipa': [
         { name: 'Dosa', price: 50 },
         { name: 'Idli', price: 30 },
         { name: 'Sambar', price: 40 }
@@ -21,18 +19,9 @@ const menu = {
     ]
 };
 
-const offers = [
-    { code: 'SAVE10', discount: 10 },
-    { code: 'FREESHIP', discount: 50 }
-];
-
-// Main Navigation Functions
 function goToRestaurants() {
-    toggleVisibility('home', 'restaurant');
-    renderRestaurants();
-}
-
-function renderRestaurants() {
+    document.getElementById('home').classList.add('hide');
+    document.getElementById('restaurant').classList.remove('hide');
     const restaurantContainer = document.querySelector('.restaurant-container');
     restaurantContainer.innerHTML = ''; // Clear previous entries
     Object.keys(menu).forEach(restaurant => {
@@ -47,7 +36,8 @@ function renderRestaurants() {
 }
 
 function viewMenu(restaurant) {
-    toggleVisibility('restaurant', 'menu');
+    document.getElementById('restaurant').classList.add('hide');
+    document.getElementById('menu').classList.remove('hide');
     const menuItemsDiv = document.getElementById('menu-items');
     menuItemsDiv.innerHTML = ''; // Clear previous menu items
     menu[restaurant].forEach(item => {
@@ -59,68 +49,80 @@ function viewMenu(restaurant) {
     });
 }
 
-// Visibility Toggle Function
-function toggleVisibility(hideId, showId) {
-    document.getElementById(hideId).classList.add('hide');
-    document.getElementById(showId).classList.remove('hide');
+function goToCustomerService() {
+    document.getElementById('home').classList.add('hide');
+    document.getElementById('customer-service').classList.remove('hide');
 }
 
-// Cart Management Functions
+document.getElementById('support-form').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent the form from reloading the page
+    
+    const name = document.getElementById('support-name').value;
+    const email = document.getElementById('support-email').value;
+    const message = document.getElementById('support-message').value;
+
+    // Simple form validation (could be enhanced for better validation)
+    if (name && email && message) {
+        alert(`Thank you, ${name}! Your message has been sent. We'll get back to you at ${email}.`);
+        document.getElementById('support-form').reset(); // Reset the form after submission
+        goToHome();
+    } else {
+        alert('Please fill in all the fields.');
+    }
+});
+
 function addToCart(itemName, itemPrice) {
     cart.push({ name: itemName, price: itemPrice });
     totalAmount += itemPrice;
-    showNotification(`${itemName} has been added to your cart.`);
+    alert(`${itemName} has been added to your cart.`);
 }
 
 function goToCart() {
-    toggleVisibility('menu', 'cart');
-    renderCart();
-}
-
-function renderCart() {
+    document.getElementById('menu').classList.add('hide');
+    document.getElementById('cart').classList.remove('hide');
     const cartItemsDiv = document.getElementById('cart-items');
     cartItemsDiv.innerHTML = '';
     cart.forEach(item => {
         cartItemsDiv.innerHTML += `<p>${item.name} - ₹${item.price}</p>`;
     });
-    document.getElementById('total-amount').textContent = `Total Amount: ₹${totalAmount}`;
+    document.getElementById('total-amount').textContent = totalAmount;
 }
 
-// Payment and Order Functions
 function goToPayment() {
-    toggleVisibility('cart', 'order-details');
+    document.getElementById('cart').classList.add('hide');
+    document.getElementById('order-details').classList.remove('hide');
 }
 
 function placeOrder(event) {
     event.preventDefault();
     const name = document.getElementById('name').value;
-    const address = document.getElementById('address').value;
-    
     document.getElementById('user-name').textContent = name;
-    document.getElementById('delivery-address').textContent = address;
-
     orderPlaced = true;
-    showNotification('Your order has been placed successfully!');
-    toggleVisibility('order-details', 'thank-you');
+    document.getElementById('thank-you').classList.remove('hide');
+    document.getElementById('order-details').classList.add('hide');
     resetApp();
 }
 
 function resetApp() {
+    document.querySelectorAll('section').forEach(section => {
+        section.classList.add('hide');
+    });
+    document.getElementById('home').classList.remove('hide');
     cart = [];
     totalAmount = 0;
-    couponApplied = false;
-    document.getElementById('coupon-message').textContent = ''; // Reset coupon message
-    toggleVisibility('thank-you', 'home');
 }
 
-// Show Notification Function
-function showNotification(message, isError = false) {
-    const notification = document.createElement('div');
-    notification.textContent = message;
-    notification.className = `notification ${isError ? 'error' : ''}`;
-    document.body.appendChild(notification);
-    setTimeout(() => notification.remove(), 3000);
+function trackOrder() {
+    if (orderPlaced) {
+        document.getElementById('thank-you').classList.add('hide');
+        document.getElementById('order-tracking').classList.remove('hide');
+    } else {
+        alert('No order placed yet.');
+    }
 }
 
-// Initial Call to Load Restaurants
-goToRestaurants();
+function cancelOrder() {
+    alert('Order has been canceled.');
+    document.getElementById('order-tracking').classList.add('hide');
+    goToHome();
+}
