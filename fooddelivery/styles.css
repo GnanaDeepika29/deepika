@@ -10,6 +10,27 @@ body {
     background-color: #f9f9f9;
     color: #333;
     line-height: 1.6;
+    overflow: hidden; /* Prevent scrolling due to background animation */
+}
+
+/* Background Animation */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(255, 99, 71, 0.4), rgba(255, 165, 0, 0.4), rgba(60, 179, 113, 0.4));
+    background-size: 400% 400%;
+    animation: backgroundAnimation 10s ease infinite;
+    z-index: -1; /* Send behind content */
+}
+
+@keyframes backgroundAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 header {
@@ -18,80 +39,90 @@ header {
     padding: 1.5em 0;
     text-align: center;
     position: relative;
+    z-index: 1; /* Ensure it sits above background */
 }
 
 .logo-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
 }
 
 .logo {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: auto;
+    margin-right: 15px;
+}
+
+h1 {
+    font-size: 24px;
+    animation: fadeInDown 1s ease; /* Animation for title */
 }
 
 nav ul {
     list-style: none;
-    padding: 0;
-    margin-top: 10px;
 }
 
 nav ul li {
     display: inline;
-    margin-right: 15px;
+    margin: 0 15px;
 }
 
-nav ul li a {
+nav a {
     color: white;
     text-decoration: none;
-    font-weight: 600;
     transition: color 0.3s ease;
 }
 
-nav ul li a:hover {
-    color: #ffe0b2; /* Lighter shade on hover */
+nav a:hover {
+    color: #ffe600; /* Change link color on hover */
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
     padding: 20px;
+    animation: fadeIn 1s ease-in; /* Fade-in animation for sections */
 }
 
-h2 {
-    font-weight: 700;
-    margin-bottom: 15px;
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1s forwards;
 }
 
-h3 {
-    font-weight: 600;
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
 }
 
-/* Restaurant Card Styles */
 .restaurant {
-    background: white;
+    background: #fff;
     border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    padding: 10px;
+    margin: 15px 0;
     display: flex;
-    justify-content: space-between;
-    transition: transform 0.2s;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .restaurant:hover {
     transform: scale(1.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .restaurant-img {
     width: 150px;
     border-radius: 8px;
+    transition: transform 0.3s;
+}
+
+.restaurant-img:hover {
+    transform: scale(1.05); /* Image scale effect on hover */
 }
 
 .restaurant-details {
     max-width: 70%;
+    margin-left: 15px;
 }
 
 .rating {
@@ -103,7 +134,12 @@ form {
     background: #fff;
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease; /* Smooth transform */
+}
+
+form:hover {
+    transform: scale(1.02); /* Form scale effect on hover */
 }
 
 label {
@@ -116,6 +152,11 @@ input[type="text"], input[type="number"], select {
     margin: 10px 0;
     border-radius: 5px;
     border: 1px solid #ccc;
+    transition: border 0.3s;
+}
+
+input[type="text"]:focus, input[type="number"]:focus, select:focus {
+    border: 1px solid #ff6347; /* Change border color on focus */
 }
 
 button {
@@ -126,11 +167,12 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    transition: background-color 0.3s ease-in-out;
+    transition: background-color 0.3s ease-in-out, transform 0.3s; /* Added transform */
 }
 
 button:hover {
     background-color: #e5533d;
+    transform: translateY(-2px); /* Button lift effect on hover */
 }
 
 .cancel-btn {
@@ -141,7 +183,6 @@ button:hover {
     background-color: #c82333;
 }
 
-/* Return to Home Button */
 .return-home {
     margin-top: 15px;
     background-color: #007bff;
@@ -151,7 +192,6 @@ button:hover {
     background-color: #0056b3;
 }
 
-/* Progress Bar */
 .progress-bar {
     width: 0;
     height: 20px;
@@ -161,11 +201,6 @@ button:hover {
 }
 
 /* Fade-in Animation */
-.fade-in {
-    opacity: 0;
-    animation: fadeIn 2s forwards;
-}
-
 @keyframes fadeIn {
     to {
         opacity: 1;
