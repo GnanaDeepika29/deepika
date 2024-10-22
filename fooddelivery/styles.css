@@ -47,6 +47,11 @@ nav ul li a {
     color: white;
     text-decoration: none;
     font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #ffe0b2; /* Lighter shade on hover */
 }
 
 .container {
@@ -55,6 +60,16 @@ nav ul li a {
     padding: 20px;
 }
 
+h2 {
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+h3 {
+    font-weight: 600;
+}
+
+/* Restaurant Card Styles */
 .restaurant {
     background: white;
     border-radius: 8px;
@@ -63,14 +78,11 @@ nav ul li a {
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    cursor: pointer; /* Indicate clickable */
+    transition: transform 0.2s;
 }
 
 .restaurant:hover {
-    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-    transform: scale(1.02);
-    transition: all 0.3s ease-in-out;
+    transform: scale(1.03);
 }
 
 .restaurant-img {
@@ -82,6 +94,30 @@ nav ul li a {
     max-width: 70%;
 }
 
+.rating {
+    color: gold;
+}
+
+/* Order Form Styles */
+form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+label {
+    font-weight: 600;
+}
+
+input[type="text"], input[type="number"], select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
 button {
     padding: 10px 15px;
     background-color: #ff6347;
@@ -90,11 +126,11 @@ button {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s ease-in-out;
 }
 
 button:hover {
     background-color: #e5533d;
-    transition: background-color 0.3s ease-in-out;
 }
 
 .cancel-btn {
@@ -103,6 +139,16 @@ button:hover {
 
 .cancel-btn:hover {
     background-color: #c82333;
+}
+
+/* Return to Home Button */
+.return-home {
+    margin-top: 15px;
+    background-color: #007bff;
+}
+
+.return-home:hover {
+    background-color: #0056b3;
 }
 
 /* Progress Bar */
