@@ -3,77 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food Delivery Service</title>
+    <title>Food Delivery</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
 </head>
 <body>
 
     <!-- Header -->
     <header>
-        <img src="logo.png" alt="Food Delivery Logo" class="logo">
         <h1>Food Delivery Service</h1>
         <nav>
             <ul>
-                <li><a href="#restaurants">Restaurants</a></li>
-                <li><a href="#order">Order</a></li>
-                <li><a href="#track-order">Track Order</a></li>
-                <li><a href="#contact">Customer Service</a></li>
-                <li><a href="#" onclick="goHome()">Home</a></li>
+                <li><a href="#restaurants" onclick="showSection('restaurants')">Restaurants</a></li>
+                <li><a href="#order" onclick="showSection('order')">Order</a></li>
+                <li><a href="#track-order" onclick="showSection('track-order')">Track Order</a></li>
+                <li><a href="#contact" onclick="showSection('contact')">Customer Service</a></li>
+                <li><a href="#" onclick="showSection('home')">Home</a></li>
             </ul>
         </nav>
     </header>
 
-    <!-- Quote Section -->
-    <section id="quote">
-        <blockquote>
-            "Good food is the foundation of genuine happiness."
-        </blockquote>
+    <!-- Home Section -->
+    <section id="home" class="active">
+        <h2>Welcome to Food Delivery</h2>
+        <p>“Savor the flavor of life, one bite at a time.”</p>
     </section>
 
     <!-- Restaurant Section -->
-    <section id="restaurants">
+    <section id="restaurants" class="hidden">
         <h2>Available Restaurants</h2>
         <div class="restaurant">
             <h3>Pizza Place</h3>
-            <img src="pizza.jpg" alt="Pizza" class="food-image">
+            <img src="pizza-place.jpg" alt="Pizza Place Logo">
             <ul>
-                <li>Margherita Pizza - $12.99</li>
-                <li>Pepperoni Pizza - $14.99</li>
-                <li>Veggie Pizza - $13.99</li>
+                <li>Margherita Pizza - $12.99 <img src="margherita.jpg" alt="Margherita Pizza"></li>
+                <li>Pepperoni Pizza - $14.99 <img src="pepperoni.jpg" alt="Pepperoni Pizza"></li>
+                <li>Veggie Pizza - $13.99 <img src="veggie.jpg" alt="Veggie Pizza"></li>
             </ul>
         </div>
         <div class="restaurant">
             <h3>Burger Joint</h3>
-            <img src="burger.jpg" alt="Burger" class="food-image">
+            <img src="burger-joint.jpg" alt="Burger Joint Logo">
             <ul>
-                <li>Classic Burger - $9.99</li>
-                <li>Cheeseburger - $10.99</li>
-                <li>Veggie Burger - $8.99</li>
+                <li>Classic Burger - $9.99 <img src="classic-burger.jpg" alt="Classic Burger"></li>
+                <li>Cheeseburger - $10.99 <img src="cheeseburger.jpg" alt="Cheeseburger"></li>
+                <li>Veggie Burger - $8.99 <img src="veggie-burger.jpg" alt="Veggie Burger"></li>
             </ul>
         </div>
         <div class="restaurant">
             <h3>Sushi Corner</h3>
-            <img src="sushi.jpg" alt="Sushi" class="food-image">
+            <img src="sushi-corner.jpg" alt="Sushi Corner Logo">
             <ul>
-                <li>California Roll - $8.99</li>
-                <li>Salmon Nigiri - $10.99</li>
-                <li>Vegetarian Roll - $7.99</li>
-            </ul>
-        </div>
-        <div class="restaurant">
-            <h3>Taco Hut</h3>
-            <img src="taco.jpg" alt="Tacos" class="food-image">
-            <ul>
-                <li>Chicken Taco - $5.99</li>
-                <li>Beef Taco - $6.99</li>
-                <li>Veggie Taco - $5.49</li>
+                <li>California Roll - $8.99 <img src="california-roll.jpg" alt="California Roll"></li>
+                <li>Salmon Nigiri - $10.99 <img src="salmon-nigiri.jpg" alt="Salmon Nigiri"></li>
+                <li>Vegetarian Roll - $7.99 <img src="vegetarian-roll.jpg" alt="Vegetarian Roll"></li>
             </ul>
         </div>
     </section>
 
     <!-- Order Form Section -->
-    <section id="order">
+    <section id="order" class="hidden">
         <h2>Place Your Order</h2>
         <form id="orderForm">
             <label for="restaurant">Choose a restaurant:</label>
@@ -81,16 +69,14 @@
                 <option value="pizza">Pizza Place</option>
                 <option value="burger">Burger Joint</option>
                 <option value="sushi">Sushi Corner</option>
-                <option value="taco">Taco Hut</option>
             </select>
 
             <label for="food-item">Choose a food item:</label>
             <select id="food-item">
-                <option value="pizza1">Margherita Pizza - $12.99</option>
-                <option value="pizza2">Pepperoni Pizza - $14.99</option>
-                <option value="burger1">Classic Burger - $9.99</option>
-                <option value="sushi1">California Roll - $8.99</option>
-                <option value="taco1">Chicken Taco - $5.99</option>
+                <option value="pizza1">Margherita Pizza</option>
+                <option value="pizza2">Pepperoni Pizza</option>
+                <option value="burger1">Classic Burger</option>
+                <option value="sushi1">California Roll</option>
             </select>
 
             <label for="quantity">Quantity:</label>
@@ -99,7 +85,7 @@
             <label for="address">Delivery Address:</label>
             <input type="text" id="address" placeholder="Enter your address">
 
-            <label for="coupon">Coupon Code (optional):</label>
+            <label for="coupon">Coupon Code:</label>
             <input type="text" id="coupon" placeholder="Enter coupon code">
 
             <button type="button" onclick="placeOrder()">Order Now</button>
@@ -107,11 +93,10 @@
         </form>
 
         <p id="order-status"></p>
-        <p id="total-amount"></p>
     </section>
 
     <!-- Order Tracking Section -->
-    <section id="track-order">
+    <section id="track-order" class="hidden">
         <h2>Track Your Order</h2>
         <p>Enter your order ID to track:</p>
         <input type="text" id="order-id" placeholder="Order ID">
@@ -120,14 +105,11 @@
     </section>
 
     <!-- Customer Service Section -->
-    <section id="contact">
+    <section id="contact" class="hidden">
         <h2>Customer Service</h2>
         <p>If you have any issues with your order, please contact us at <a href="mailto:support@fooddelivery.com">support@fooddelivery.com</a></p>
     </section>
 
-    <footer>
-        <p>&copy; 2024 Food Delivery Service</p>
-    </footer>
-
+    <script src="script.js"></script>
 </body>
 </html>
