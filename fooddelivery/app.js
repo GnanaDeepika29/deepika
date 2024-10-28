@@ -1,62 +1,102 @@
-let currentOrderId = null;
+const restaurants = {
+    restaurant1: {
+        name: 'The Burger House',
+        menu: [
+            { item: 'Classic Burger', price: 10 },
+            { item: 'Cheese Burger', price: 12 },
+            { item: 'Veggie Burger', price: 8 }
+        ]
+    },
+    restaurant2: {
+        name: 'Pizza Palace',
+        menu: [
+            { item: 'Margherita', price: 9 },
+            { item: 'Pepperoni', price: 11 },
+            { item: 'BBQ Chicken', price: 13 }
+        ]
+    }
+};
 
-function showSection(sectionId) {
-    const sections = document.querySelectorAll('section');
-    sections.forEach(section => {
-        section.classList.add('hidden');
-        if (section.id === sectionId) {
-            section.classList.remove('hidden');
-        }
-    });
+let cart = [];
+let couponApplied = false;
+
+function openRestaurant(restaurantId) {
+    const restaurant = restaurants[restaurantId];
+    document.getElementById('restaurantName').innerText = restaurant.name;
+    document.getElementById('menuItems').innerHTML = restaurant.menu.map(
+        item => `<p>${item.item} - $${item.price} <button onclick="addToCart('${item.item}', ${item.price})">Add</button></p>`
+    ).join('');
+    document.getElementById('menuModal').style.display = 'flex';
 }
 
-function placeOrder() {
-    const restaurant = document.getElementById('restaurant').value;
-    const foodItem = document.getElementById('food-item').value;
-    const quantity = document.getElementById('quantity').value;
-    const address = document.getElementById('address').value;
-    const coupon = document.getElementById('coupon').value;
+function addToCart(item, price) {
+    cart.push({ item, price });
+    alert(`${item} added to cart!`);
+}
 
-    if (!address) {
-        document.getElementById('order-status').innerText = "Please enter a delivery address.";
-        return;
+function showCart() {
+    document.getElementById('cartItems').innerHTML = cart.map(
+        item => `<p>${item.item} - $${item.price}</p>`
+    ).join('');
+    document.getElementById('cartModal').style.display = 'flex';
+}
+
+function applyCoupon() {
+    const code = document.getElementById('couponCode').value;
+    if (code === "DISCOUNT10" && !couponApplied) {
+        cart = cart.map(item => ({ ...item, price: item.price * 0.9 }));
+        couponApplied = true;
+        alert("Coupon applied! 10% off on your order.");
+        showCart();
+    } else if (couponApplied) {
+        alert("Coupon already applied.");
+    } else {
+        alert("Invalid coupon code.");
     }
+}
 
-    const totalPrice = calculateTotal(foodItem, quantity);
-    currentOrderId = Math.floor(Math.random() * 1000) + 1; // Simulating order ID
-    document.getElementById('order-status').innerText = `Your order has been placed! Order ID: ${currentOrderId}. Total Amount: $${totalPrice}.`;
+function proceedToCheckout() {
+    const total = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
+    document.getElementById('checkoutDetails').innerHTML = `<p>Total: $${total}</p>`;
+    closeModal('cartModal');
+    document.getElementById('checkoutModal').style.display = 'flex';
+}
 
-    // Display notification
-    alert("Thank you for your order! A confirmation email will be sent shortly.");
+function confirmOrder() {
+    alert('Order confirmed! Thank you for ordering.');
+    showNotification("Order placed successfully!");
+    closeModal('checkoutModal');
+    cart = [];
+    setTimeout(() => {
+        document.getElementById('trackingModal').style.display = 'flex';
+        document.getElementById('trackingStatus').innerText = 'Preparing your order...';
+    }, 2000);
 }
 
 function cancelOrder() {
-    if (currentOrderId) {
-        document.getElementById('order-status').innerText = `Order ID: ${currentOrderId} has been canceled.`;
-        currentOrderId = null;
-    } else {
-        document.getElementById('order-status').innerText = "No active order to cancel.";
-    }
+    alert("Order canceled. Refund issued.");
+    document.getElementById('trackingStatus').innerText = 'Order canceled';
+    closeModal('trackingModal');
 }
 
-function calculateTotal(foodItem, quantity) {
-    const prices = {
-        pizza1: 12.99,
-        pizza2: 14.99,
-        burger1: 9.99,
-        sushi1: 8.99,
-    };
-    return (prices[foodItem] || 0) * quantity;
+function showNotification(message) {
+    const notification = document.getElementById('notification');
+    notification.innerText = message;
+    notification.style.display = 'block';
+    setTimeout(() => notification.style.display = 'none', 3000);
 }
 
-function trackOrder() {
-    const orderId = document.getElementById('order-id').value;
+function navigateToHome() {
+    closeModal('menuModal');
+    closeModal('cartModal');
+    closeModal('checkoutModal');
+    closeModal('trackingModal');
+}
 
-    if (!orderId) {
-        document.getElementById('tracking-status').innerText = "Please enter a valid order ID.";
-        return;
-    }
+function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none';
+}
 
-    // Simulate tracking status
-    document.getElementById('tracking-status').innerText = `Order #${orderId} is out for delivery.`;
+function showCustomerService() {
+    alert('Contact us at: support@foodiesexpress.com');
 }
