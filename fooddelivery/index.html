@@ -8,6 +8,9 @@
 </head>
 <body>
 
+<!-- Theme Toggle -->
+<button id="themeToggle" onclick="toggleTheme()">Switch to Dark Mode</button>
+
 <!-- Header with Logo -->
 <header>
     <div class="logo">Foodies Express</div>
@@ -15,7 +18,6 @@
         <button onclick="navigateToHome()">Home</button>
         <button onclick="showCart()">Cart</button>
         <button onclick="showCustomerService()">Customer Service</button>
-        <button id="themeToggle" onclick="toggleTheme()">🌙</button> <!-- Theme Toggle Button -->
     </nav>
 </header>
 
@@ -96,51 +98,51 @@
 </div>
 
 <script>
-    // Sample restaurant menus with more variety
+    // Sample restaurant menus with images
     const restaurants = {
         restaurant1: {
             name: 'The Burger House',
             menu: [
-                { item: 'Classic Burger', price: 10 },
-                { item: 'Cheese Burger', price: 12 },
-                { item: 'Veggie Burger', price: 8 },
-                { item: 'Double Patty Burger', price: 15 }
+                { item: 'Classic Burger', price: 10, img: 'burger1.jpg' },
+                { item: 'Cheese Burger', price: 12, img: 'burger2.jpg' },
+                { item: 'Veggie Burger', price: 8, img: 'burger3.jpg' },
+                { item: 'Double Patty Burger', price: 15, img: 'burger4.jpg' }
             ]
         },
         restaurant2: {
             name: 'Pizza Palace',
             menu: [
-                { item: 'Margherita', price: 9 },
-                { item: 'Pepperoni', price: 11 },
-                { item: 'BBQ Chicken', price: 13 },
-                { item: 'Veggie Supreme', price: 10 }
+                { item: 'Margherita', price: 9, img: 'pizza1.jpg' },
+                { item: 'Pepperoni', price: 11, img: 'pizza2.jpg' },
+                { item: 'BBQ Chicken', price: 13, img: 'pizza3.jpg' },
+                { item: 'Veggie Supreme', price: 10, img: 'pizza4.jpg' }
             ]
         },
         restaurant3: {
             name: 'Sushi World',
             menu: [
-                { item: 'California Roll', price: 8 },
-                { item: 'Spicy Tuna Roll', price: 10 },
-                { item: 'Dragon Roll', price: 12 },
-                { item: 'Salmon Nigiri', price: 14 }
+                { item: 'California Roll', price: 8, img: 'sushi1.jpg' },
+                { item: 'Spicy Tuna Roll', price: 10, img: 'sushi2.jpg' },
+                { item: 'Dragon Roll', price: 12, img: 'sushi3.jpg' },
+                { item: 'Salmon Nigiri', price: 14, img: 'sushi4.jpg' }
             ]
         },
         restaurant4: {
             name: 'Pasta Paradise',
             menu: [
-                { item: 'Spaghetti Bolognese', price: 11 },
-                { item: 'Fettuccine Alfredo', price: 12 },
-                { item: 'Penne Arrabbiata', price: 9 },
-                { item: 'Pesto Pasta', price: 10 }
+                { item: 'Spaghetti Bolognese', price: 11, img: 'pasta1.jpg' },
+                { item: 'Fettuccine Alfredo', price: 12, img: 'pasta2.jpg' },
+                { item: 'Penne Arrabbiata', price: 9, img: 'pasta3.jpg' },
+                { item: 'Pesto Pasta', price: 10, img: 'pasta4.jpg' }
             ]
         },
         restaurant5: {
             name: 'Indian Delight',
             menu: [
-                { item: 'Chicken Tikka Masala', price: 14 },
-                { item: 'Paneer Butter Masala', price: 12 },
-                { item: 'Lamb Vindaloo', price: 15 },
-                { item: 'Vegetable Korma', price: 10 }
+                { item: 'Chicken Tikka Masala', price: 14, img: 'indian1.jpg' },
+                { item: 'Paneer Butter Masala', price: 12, img: 'indian2.jpg' },
+                { item: 'Lamb Vindaloo', price: 15, img: 'indian3.jpg' },
+                { item: 'Vegetable Korma', price: 10, img: 'indian4.jpg' }
             ]
         }
     };
@@ -149,14 +151,16 @@
     let totalAmount = 0;
     let discount = 0;
     let orderPlaced = false;
-    let darkTheme = false;
 
     // Open Restaurant Menu
     function openRestaurant(restaurantId) {
         const restaurant = restaurants[restaurantId];
         document.getElementById('restaurantName').innerText = restaurant.name;
         document.getElementById('menuItems').innerHTML = restaurant.menu.map(
-            item => `<p>${item.item} - $${item.price} <button onclick="addToCart('${item.item}', ${item.price})">Add</button></p>`
+            item => `<div class="menu-item">
+                        <img src="${item.img}" alt="${item.item}">
+                        <p>${item.item} - $${item.price} <button onclick="addToCart('${item.item}', ${item.price})">Add</button></p>
+                     </div>`
         ).join('');
         document.getElementById('menuModal').style.display = 'flex';
     }
@@ -204,46 +208,35 @@
         discount = 0;
         totalAmount = 0;
         closeModal('checkoutModal');
-        showNotification("Your order has been placed!");
-        document.getElementById('trackingStatus').innerText = 'Your order is being prepared...';
-    }
-
-    function showNotification(message) {
-        const notification = document.getElementById('notification');
-        notification.innerText = message;
-        notification.style.display = 'block';
-        setTimeout(() => notification.style.display = 'none', 4000);
-    }
-
-    function navigateToHome() {
-        closeModal('menuModal');
-        closeModal('cartModal');
-        closeModal('checkoutModal');
-    }
-
-    function showCustomerService() {
-        alert('Contact us at: support@foodiesexpress.com');
     }
 
     function closeModal(modalId) {
         document.getElementById(modalId).style.display = 'none';
     }
 
-    function cancelOrder() {
-        if (orderPlaced) {
-            alert('Your order has been cancelled.');
-            orderPlaced = false;
-            closeModal('trackingModal');
+    function toggleTheme() {
+        document.body.classList.toggle('dark-theme');
+        const themeButton = document.getElementById('themeToggle');
+        if (document.body.classList.contains('dark-theme')) {
+            themeButton.innerText = "Switch to Light Mode";
         } else {
-            alert('No order to cancel.');
+            themeButton.innerText = "Switch to Dark Mode";
         }
     }
 
-    function toggleTheme() {
-        darkTheme = !darkTheme;
-        document.body.classList.toggle('dark', darkTheme);
-        document.getElementById('themeToggle').innerText = darkTheme ? '🌞' : '🌙';
+    function navigateToHome() {
+        alert("Navigating to Home");
+    }
+
+    function showCustomerService() {
+        alert("Showing Customer Service");
+    }
+
+    function cancelOrder() {
+        alert('Your order has been canceled.');
+        closeModal('trackingModal');
     }
 </script>
+
 </body>
 </html>
