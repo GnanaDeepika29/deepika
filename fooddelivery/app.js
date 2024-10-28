@@ -46,6 +46,19 @@ const restaurants = {
         ]
     }
 };
+// Light/Dark Theme Toggle
+function toggleTheme() {
+    const bodyClass = document.body.classList;
+    if (bodyClass.contains('light-theme')) {
+        bodyClass.replace('light-theme', 'dark-theme');
+    } else {
+        bodyClass.replace('dark-theme', 'light-theme');
+    }
+}
+
+// Example function call
+document.getElementById('toggleTheme').addEventListener('change', toggleTheme);
+
 
 let cart = [];
 let totalAmount = 0;
