@@ -16,22 +16,10 @@ header {
 }
 
 .logo {
-    display: flex;
-    align-items: center;
+    border-radius: 50%; /* Circular logo */
+    width: 50px; /* Adjust size */
+    height: 50px; /* Adjust size */
 }
-
-.logo-img {
-    width: 40px; /* Adjust the size as needed */
-    height: auto;
-    margin-right: 10px; /* Space between logo and text */
-}
-
-.logo span {
-    font-size: 28px;
-    font-weight: bold;
-    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
-}
-
 
 nav button {
     background: #FFF;
@@ -48,6 +36,11 @@ nav button {
 nav button:hover {
     background: #FF8D33;
     color: #FFF;
+}
+
+nav button:active {
+    background: #FF8D33; /* Active state */
+    transform: scale(0.98); /* Slightly scale down */
 }
 
 /* Theme Toggle Button */
@@ -91,7 +84,7 @@ nav button:hover {
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.3s;
     text-align: center;
-    width: 200px;
+    width: calc(20% - 40px); /* Width adjusted for better layout */
     margin: 10px;
 }
 
@@ -230,6 +223,10 @@ body.dark-theme .modal-content {
         flex-direction: column;
         gap: 15px;
     }
+    .restaurant-card {
+        width: calc(100% - 20px); /* Full width for mobile */
+        margin: 10px 0; /* Adjust margins */
+    }
     .modal-content {
         width: 90%;
         padding: 20px;
@@ -254,14 +251,14 @@ button {
     background: #FF5733;
     color: #FFF;
     border: none;
-    padding: 10px 20px;
-    margin: 10px 0;
-    border-radius: 5px;
+    border-radius: 4px;
+    padding: 10px 15px;
+    margin: 5px;
     cursor: pointer;
-    transition: background 0.3s ease, box-shadow 0.3s ease;
+    transition: background 0.3s ease, transform 0.1s;
 }
 
 button:hover {
     background: #FF8D33;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 0 8px rgba(255, 91, 60, 0.3);
 }
+
