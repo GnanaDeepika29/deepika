@@ -6,7 +6,13 @@
     <title>Food Delivery App</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="light-theme">
+
+<!-- Theme Toggle -->
+<div class="theme-toggle">
+    <input type="checkbox" id="toggleTheme" onchange="toggleTheme()">
+    <label for="toggleTheme">Dark Mode</label>
+</div>
 
 <!-- Header with Logo -->
 <header>
@@ -23,6 +29,7 @@
     <h2>Our Restaurants</h2>
     <p>“Good food, Good Mood!”</p>
     <div class="restaurant-list">
+        <!-- Updated each restaurant card with hover and transition effects -->
         <div class="restaurant-card" onclick="openRestaurant('restaurant1')">
             <img src="restaurant1.jpg" alt="The Burger House">
             <h3>The Burger House</h3>
@@ -50,6 +57,7 @@
         </div>
     </div>
 </section>
+
 
 <!-- Menu Section (Modal) -->
 <div id="menuModal" class="modal">
