@@ -1,4 +1,3 @@
-// Sample restaurant menus with more variety
 const restaurants = {
     restaurant1: {
         name: 'The Burger House',
@@ -65,13 +64,29 @@ function openRestaurant(restaurantId) {
 function addToCart(item, price) {
     cart.push({ item, price });
     totalAmount += price;
-    alert(`${item} added to cart!`);
+    updateCartDisplay();
+    showNotification(`${item} added to cart!`);
+}
+
+function removeFromCart(item) {
+    const index = cart.findIndex(cartItem => cartItem.item === item);
+    if (index > -1) {
+        totalAmount -= cart[index].price;
+        cart.splice(index, 1);
+        updateCartDisplay();
+        showNotification(`${item} removed from cart.`);
+    }
+}
+
+function updateCartDisplay() {
+    document.getElementById('cartItems').innerHTML = cart.map(
+        item => `<p>${item.item} - $${item.price} <button onclick="removeFromCart('${item.item}')">Remove</button></p>`
+    ).join('');
+    document.getElementById('totalAmount').innerText = `Total: $${totalAmount.toFixed(2)}`;
 }
 
 function showCart() {
-    document.getElementById('cartItems').innerHTML = cart.map(
-        item => `<p>${item.item} - $${item.price}</p>`
-    ).join('');
+    updateCartDisplay();
     document.getElementById('cartModal').style.display = 'flex';
 }
 
@@ -79,9 +94,9 @@ function applyCoupon() {
     const code = document.getElementById('couponCode').value;
     if (code === "FOODIE10") {
         discount = totalAmount * 0.10;
-        alert(`Coupon Applied! You saved $${discount.toFixed(2)}`);
+        showNotification(`Coupon Applied! You saved $${discount.toFixed(2)}`);
     } else {
-        alert("Invalid coupon code");
+        showNotification("Invalid coupon code");
     }
 }
 
@@ -100,12 +115,12 @@ function proceedToCheckout() {
 
 function confirmOrder() {
     orderPlaced = true;
-    alert('Order confirmed! Thank you for ordering.');
+    showNotification('Order confirmed! Thank you for ordering.');
     cart = [];
     discount = 0;
     totalAmount = 0;
     closeModal('checkoutModal');
-    showNotification("Your order has been placed!");
+    navigateToHome();
     document.getElementById('trackingStatus').innerText = 'Your order is being prepared...';
 }
 
@@ -123,7 +138,7 @@ function navigateToHome() {
 }
 
 function showCustomerService() {
-    alert('Contact us at: support@foodiesexpress.com');
+    showNotification('Contact us at: support@foodiesexpress.com');
 }
 
 function closeModal(modalId) {
