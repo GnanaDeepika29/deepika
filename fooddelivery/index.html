@@ -13,10 +13,12 @@
 
 <!-- Header with Logo -->
 <header>
-    <img src="logo.png" alt="Foodies Express Logo" class="logo"> <!-- Add your logo image source here -->
+    <img src="logo.png" alt="Deli Deep Logo" class="logo"> <!-- Adjusted logo class -->
     <nav>
         <button onclick="navigateToHome()">Home</button>
         <button onclick="showCart()">Cart</button>
+        <button onclick="showFavorites()">Favorites</button>
+        <button onclick="showOrderHistory()">Order History</button>
         <button onclick="showCustomerService()">Customer Service</button>
     </nav>
 </header>
@@ -69,6 +71,7 @@
         <span class="close" onclick="closeModal('cartModal')">&times;</span>
         <h3>Your Cart</h3>
         <div id="cartItems"></div>
+        <p id="cartTotalDisplay">Total: $0.00</p>
         <label>Coupon Code:</label>
         <input type="text" id="couponCode" placeholder="Enter coupon code">
         <button onclick="applyCoupon()">Apply</button>
@@ -94,6 +97,24 @@
         <h3>Track Your Order</h3>
         <p id="trackingStatus">Your order is being prepared...</p>
         <button onclick="cancelOrder()">Cancel Order</button>
+    </div>
+</div>
+
+<!-- Favorites Section -->
+<div id="favoritesModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('favoritesModal')">&times;</span>
+        <h3>Your Favorites</h3>
+        <div id="favoriteItems"></div>
+    </div>
+</div>
+
+<!-- Order History Section -->
+<div id="orderHistoryModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('orderHistoryModal')">&times;</span>
+        <h3>Your Order History</h3>
+        <div id="orderHistoryItems"></div>
     </div>
 </div>
 
@@ -151,6 +172,8 @@
     let totalAmount = 0;
     let discount = 0;
     let orderPlaced = false;
+    let favorites = [];
+    let orderHistory = [];
 
     // Open Restaurant Menu
     function openRestaurant(restaurantId) {
@@ -159,7 +182,8 @@
         document.getElementById('menuItems').innerHTML = restaurant.menu.map(
             item => `<div class="menu-item">
                         <img src="${item.img}" alt="${item.item}">
-                        <p>${item.item} - $${item.price} <button onclick="addToCart('${item.item}', ${item.price})">Add</button></p>
+                        <p>${item.item} - $${item.price} <button onclick="addToCart('${item.item}', ${item.price})">Add</button>
+                        <button onclick="addToFavorites('${item.item}')">Favorite</button></p>
                      </div>`
         ).join('');
         document.getElementById('menuModal').style.display = 'flex';
@@ -168,6 +192,7 @@
     function addToCart(item, price) {
         cart.push({ item, price });
         totalAmount += price;
+        document.getElementById('cartTotalDisplay').innerText = `Total: $${totalAmount.toFixed(2)}`;
         alert(`${item} added to cart!`);
     }
 
@@ -178,62 +203,69 @@
         document.getElementById('cartModal').style.display = 'flex';
     }
 
-    function applyCoupon() {
-        const code = document.getElementById('couponCode').value;
-        if (code === "FOODIE10") {
-            discount = totalAmount * 0.10;
-            alert(`Coupon Applied! You saved $${discount.toFixed(2)}`);
+    function showFavorites() {
+        document.getElementById('favoriteItems').innerHTML = favorites.length ? favorites.map(
+            item => `<p>${item}</p>`
+        ).join('') : '<p>No favorites yet!</p>';
+        document.getElementById('favoritesModal').style.display = 'flex';
+    }
+
+    function addToFavorites(item) {
+        if (!favorites.includes(item)) {
+            favorites.push(item);
+            alert(`${item} added to favorites!`);
         } else {
-            alert("Invalid coupon code");
+            alert(`${item} is already in favorites!`);
         }
     }
 
+    function showOrderHistory() {
+        document.getElementById('orderHistoryItems').innerHTML = orderHistory.length ? orderHistory.map(
+            order => `<p>${order}</p>`
+        ).join('') : '<p>No orders yet!</p>';
+        document.getElementById('orderHistoryModal').style.display = 'flex';
+    }
+
     function proceedToCheckout() {
-        const finalAmount = totalAmount - discount;
-        document.getElementById('checkoutDetails').innerHTML = `
-            <p>Total: $${totalAmount.toFixed(2)}</p>
-            <p>Discount: $${discount.toFixed(2)}</p>
-            <p>Final Amount: $${finalAmount.toFixed(2)}</p>
-            <label><input type="radio" name="payment" value="online"> Online Payment</label>
-            <label><input type="radio" name="payment" value="cod"> Cash on Delivery</label>
-        `;
+        if (cart.length === 0) {
+            alert("Your cart is empty!");
+        } else {
+            orderPlaced = true;
+            orderHistory.push(`Order placed: ${cart.map(item => item.item).join(', ')} - Total: $${totalAmount.toFixed(2)}`);
+            cart = [];
+            totalAmount = 0;
+            document.getElementById('cartTotalDisplay').innerText = `Total: $0.00`;
+            alert("Order placed successfully!");
+            document.getElementById('notification').style.display = 'block';
+            setTimeout(() => document.getElementById('notification').style.display = 'none', 4000);
+        }
         closeModal('cartModal');
-        document.getElementById('checkoutModal').style.display = 'flex';
     }
 
-    function confirmOrder() {
-        orderPlaced = true;
-        alert('Order confirmed! Thank you for ordering.');
-        cart = [];
-        totalAmount = 0;
-        closeModal('checkoutModal');
-    }
-
-    function closeModal(modalId) {
-        document.getElementById(modalId).style.display = 'none';
+    function applyCoupon() {
+        const coupon = document.getElementById('couponCode').value;
+        if (coupon === 'DISCOUNT10') {
+            discount = totalAmount * 0.10;
+            totalAmount -= discount;
+            document.getElementById('cartTotalDisplay').innerText = `Total: $${totalAmount.toFixed(2)}`;
+            alert("Coupon applied!");
+        } else {
+            alert("Invalid coupon code.");
+        }
     }
 
     function toggleTheme() {
         document.body.classList.toggle('dark-theme');
-        const themeButton = document.getElementById('themeToggle');
-        if (document.body.classList.contains('dark-theme')) {
-            themeButton.innerText = "Switch to Light Mode";
-        } else {
-            themeButton.innerText = "Switch to Dark Mode";
-        }
-    }
-
-    function navigateToHome() {
-        alert("Navigating to Home");
+        const themeToggleButton = document.getElementById('themeToggle');
+        themeToggleButton.innerText = document.body.classList.contains('dark-theme') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
     }
 
     function showCustomerService() {
-        alert("Showing Customer Service");
+        alert("For any inquiries, please contact our customer service at: support@delideep.com");
     }
 
-    function cancelOrder() {
-        alert('Your order has been canceled.');
-        closeModal('trackingModal');
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
     }
 </script>
 
