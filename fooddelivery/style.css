@@ -4,21 +4,34 @@ body {
     margin: 0;
     padding: 0;
     transition: background 0.3s, color 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+/* Header */
 header {
+    width: 100%;
     background: linear-gradient(90deg, #FF5733, #FF8D33);
-    padding: 15px 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .logo {
-    border-radius: 50%; /* Circular logo */
-    width: 50px; /* Adjust size */
-    height: 50px; /* Adjust size */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
 }
 
 nav button {
@@ -39,15 +52,14 @@ nav button:hover {
 }
 
 nav button:active {
-    background: #FF8D33; /* Active state */
-    transform: scale(0.98); /* Slightly scale down */
+    transform: scale(0.98);
 }
 
 /* Theme Toggle Button */
 #themeToggle {
     position: fixed;
-    top: 10px;
-    right: 10px;
+    top: 15px;
+    right: 20px;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
@@ -55,7 +67,7 @@ nav button:active {
     background-color: #FF5733;
     color: white;
     font-weight: bold;
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.1s;
 }
 
 #themeToggle:hover {
@@ -64,15 +76,23 @@ nav button:active {
 
 /* Restaurants Section */
 .restaurants {
-    padding: 20px;
+    max-width: 1200px;
+    width: 100%;
+    padding: 40px 20px;
     text-align: center;
+}
+
+.tagline {
+    font-style: italic;
+    color: #777;
+    margin-top: -10px;
 }
 
 .restaurant-list {
     display: flex;
     gap: 20px;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-around;
     padding: 20px;
 }
 
@@ -84,14 +104,17 @@ nav button:active {
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.3s;
     text-align: center;
-    width: calc(20% - 40px); /* Width adjusted for better layout */
-    margin: 10px;
+    width: 200px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .restaurant-card img {
     border-radius: 8px;
     width: 100%;
-    height: 120px;
+    height: 150px;
     object-fit: cover;
     margin-bottom: 10px;
 }
@@ -100,7 +123,6 @@ nav button:active {
     font-size: 18px;
     color: #333;
     margin: 10px 0 5px;
-    transition: color 0.3s;
 }
 
 .restaurant-card p {
@@ -114,10 +136,10 @@ nav button:active {
 }
 
 .restaurant-card:hover h3 {
-    color: #FF5733; /* Change text color on hover */
+    color: #FF5733;
 }
 
-/* Modal */
+/* Modals */
 .modal {
     display: none;
     position: fixed;
@@ -134,19 +156,16 @@ nav button:active {
 .modal-content {
     background: #FFF;
     padding: 25px;
-    width: 80%;
-    max-width: 600px;
+    width: 90%;
+    max-width: 500px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    position: relative;
     overflow-y: auto;
     max-height: 80vh;
-    scroll-behavior: smooth;
 }
 
 .close {
     font-size: 24px;
-    font-weight: bold;
     cursor: pointer;
     position: absolute;
     right: 15px;
@@ -175,14 +194,8 @@ nav button:active {
 }
 
 @keyframes slideIn {
-    from {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+    from { transform: translateY(100%); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 @keyframes fadeout {
@@ -190,7 +203,7 @@ nav button:active {
     100% { opacity: 0; }
 }
 
-/* Light/Dark Theme Styles */
+/* Dark Theme */
 body.dark-theme {
     background-color: #2C2C2C;
     color: #FFFFFF;
@@ -205,60 +218,30 @@ body.dark-theme .restaurant-card {
     color: #FFF;
 }
 
-body.dark-theme .restaurant-card h3 {
-    color: #FF8D33;
+body.dark-theme .modal-content {
+    background: #333;
 }
 
-body.dark-theme .modal-content {
-    background: #555;
+body.dark-theme .notification {
+    background: #333;
+    color: #FF8D33;
 }
 
 /* Media Query for Mobile */
 @media (max-width: 768px) {
-    header {
+    .header-content {
         flex-direction: column;
-        padding: 10px 15px;
+        text-align: center;
     }
+    
     .restaurant-list {
         flex-direction: column;
         gap: 15px;
     }
+
     .restaurant-card {
-        width: calc(100% - 20px); /* Full width for mobile */
-        margin: 10px 0; /* Adjust margins */
-    }
-    .modal-content {
-        width: 90%;
-        padding: 20px;
-    }
-    .close {
-        right: 10px;
-        top: 10px;
-    }
-    .restaurant-card h3 {
-        font-size: 16px;
-    }
-    .restaurant-card p {
-        font-size: 12px;
+        width: 100%;
+        height: auto;
+        margin: 10px 0;
     }
 }
-
-/* Button Styling */
-button {
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    font-weight: bold;
-    background: #FF5733;
-    color: #FFF;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 15px;
-    margin: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.1s;
-}
-
-button:hover {
-    background: #FF8D33;
-}
-
