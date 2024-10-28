@@ -36,6 +36,7 @@ nav button {
 nav button:hover {
     background: #FF8D33;
     color: #FFF;
+    transform: scale(1.05);
 }
 
 /* Theme Toggle Button */
