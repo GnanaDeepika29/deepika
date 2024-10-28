@@ -1,3 +1,34 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Montserrat:wght@500;700&display=swap');
+
+/* General Styles */
+body {
+    transition: background-color 0.5s ease, color 0.5s ease;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Light and Dark Themes */
+body.light-theme {
+    background-color: #FFFFFF;
+    color: #333333;
+}
+
+body.dark-theme {
+    background-color: #121212;
+    color: #DDDDDD;
+}
+
+/* Animated Background */
+@keyframes backgroundAnimation {
+    0% { background-color: #FF5733; }
+    50% { background-color: #FF8D33; }
+    100% { background-color: #FF5733; }
+}
+
+body {
+    animation: backgroundAnimation 10s infinite alternate;
+}
+
 /* Media Query for Mobile */
 @media (max-width: 768px) {
     header {
@@ -32,13 +63,15 @@ header {
 }
 
 .logo {
-    font-size: 28px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 32px;
     font-weight: bold;
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+    color: #FFF;
 }
 
 nav button {
-    background: #FFF;
+    background: #FFFFFF;
     color: #FF5733;
     border: none;
     padding: 10px 15px;
@@ -46,12 +79,13 @@ nav button {
     border-radius: 4px;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s ease;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
 nav button:hover {
     background: #FF8D33;
-    color: #FFF;
+    color: #FFFFFF;
+    transform: scale(1.05);
 }
 
 /* Restaurant Cards */
@@ -64,14 +98,14 @@ nav button:hover {
 }
 
 .restaurant-card {
-    background: #FFF;
+    background: #FFFFFF;
     border-radius: 12px;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     padding: 20px;
     cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.3s;
+    transition: transform 0.2s, box-shadow 0.3s, background-color 0.5s;
     text-align: center;
-    width: 200px;
+    width: 220px;
     margin: 10px;
 }
 
@@ -84,14 +118,15 @@ nav button:hover {
 }
 
 .restaurant-card h3 {
-    font-size: 18px;
-    color: #333;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    color: #333333;
     margin: 10px 0 5px;
     transition: color 0.3s;
 }
 
 .restaurant-card p {
-    color: #666;
+    color: #666666;
     font-size: 14px;
 }
 
@@ -103,6 +138,8 @@ nav button:hover {
 .restaurant-card:hover h3 {
     color: #FF5733; /* Change text color on hover */
 }
+
+/* Menu Item */
 .menu-item {
     display: flex;
     align-items: center;
@@ -125,14 +162,14 @@ nav button:hover {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.7);
     justify-content: center;
     align-items: center;
     padding: 20px;
 }
 
 .modal-content {
-    background: #FFF;
+    background: #FFFFFF;
     padding: 25px;
     width: 80%;
     max-width: 600px;
@@ -166,7 +203,7 @@ nav button:hover {
     bottom: 20px;
     right: 20px;
     background: #4CAF50;
-    color: #FFF;
+    color: #FFFFFF;
     padding: 12px 20px;
     border-radius: 6px;
     font-weight: bold;
@@ -174,32 +211,13 @@ nav button:hover {
     animation: slideIn 0.6s ease, fadeout 4s ease-in-out forwards;
 }
 
-
-
-
-@keyframes slideIn {
-    from {
-        transform: translateY(100%);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-}
-
-@keyframes fadeout {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
-}
-
 /* Button Styling */
 button {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     font-size: 14px;
     font-weight: bold;
     background: #FF5733;
-    color: #FFF;
+    color: #FFFFFF;
     border: none;
     padding: 10px 20px;
     margin: 10px 0;
@@ -211,21 +229,6 @@ button {
 button:hover {
     background: #FF8D33;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 0 8px rgba(255, 91, 60, 0.3);
-}
-/* General Styles */
-body {
-    transition: background-color 0.5s ease, color 0.5s ease;
-}
-
-/* Light and Dark Themes */
-body.light-theme {
-    background-color: #FFF;
-    color: #333;
-}
-
-body.dark-theme {
-    background-color: #121212;
-    color: #DDD;
 }
 
 /* Theme Toggle */
@@ -244,32 +247,14 @@ body.dark-theme {
     cursor: pointer;
 }
 
-/* Header Styling */
-header {
-    background: linear-gradient(90deg, #FF5733, #FF8D33);
-    padding: 15px 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.5s ease;
-}
-
+/* Header Hover Effect */
 header:hover {
     background: linear-gradient(90deg, #FF6B3D, #FFA447);
 }
 
-/* Restaurant Cards */
-.restaurant-card {
-    background: var(--card-bg);
-    border-radius: 12px;
-    padding: 20px;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s, background-color 0.5s;
-    text-align: center;
-}
-
+/* Restaurant Card Hover Effect */
 .restaurant-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-    background-color: var(--card-bg-hover);
+    background-color: rgba(255, 87, 51, 0.1);
 }
 
 /* Transitions for Cart & Modals */
