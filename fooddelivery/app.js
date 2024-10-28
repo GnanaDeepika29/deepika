@@ -1,47 +1,48 @@
+// Sample restaurant menus with images for each item
 const restaurants = {
     restaurant1: {
         name: 'The Burger House',
         menu: [
-            { item: 'Classic Burger', price: 10 },
-            { item: 'Cheese Burger', price: 12 },
-            { item: 'Veggie Burger', price: 8 },
-            { item: 'Double Patty Burger', price: 15 }
+            { item: 'Classic Burger', price: 10, img: 'classic_burger.jpg' },
+            { item: 'Cheese Burger', price: 12, img: 'cheese_burger.jpg' },
+            { item: 'Veggie Burger', price: 8, img: 'veggie_burger.jpg' },
+            { item: 'Double Patty Burger', price: 15, img: 'double_patty.jpg' }
         ]
     },
     restaurant2: {
         name: 'Pizza Palace',
         menu: [
-            { item: 'Margherita', price: 9 },
-            { item: 'Pepperoni', price: 11 },
-            { item: 'BBQ Chicken', price: 13 },
-            { item: 'Veggie Supreme', price: 10 }
+            { item: 'Margherita', price: 9, img: 'margherita.jpg' },
+            { item: 'Pepperoni', price: 11, img: 'pepperoni.jpg' },
+            { item: 'BBQ Chicken', price: 13, img: 'bbq_chicken.jpg' },
+            { item: 'Veggie Supreme', price: 10, img: 'veggie_supreme.jpg' }
         ]
     },
     restaurant3: {
         name: 'Sushi World',
         menu: [
-            { item: 'California Roll', price: 8 },
-            { item: 'Spicy Tuna Roll', price: 10 },
-            { item: 'Dragon Roll', price: 12 },
-            { item: 'Salmon Nigiri', price: 14 }
+            { item: 'California Roll', price: 8, img: 'california_roll.jpg' },
+            { item: 'Spicy Tuna Roll', price: 10, img: 'spicy_tuna.jpg' },
+            { item: 'Dragon Roll', price: 12, img: 'dragon_roll.jpg' },
+            { item: 'Salmon Nigiri', price: 14, img: 'salmon_nigiri.jpg' }
         ]
     },
     restaurant4: {
         name: 'Pasta Paradise',
         menu: [
-            { item: 'Spaghetti Bolognese', price: 11 },
-            { item: 'Fettuccine Alfredo', price: 12 },
-            { item: 'Penne Arrabbiata', price: 9 },
-            { item: 'Pesto Pasta', price: 10 }
+            { item: 'Spaghetti Bolognese', price: 11, img: 'spaghetti_bolognese.jpg' },
+            { item: 'Fettuccine Alfredo', price: 12, img: 'fettuccine_alfredo.jpg' },
+            { item: 'Penne Arrabbiata', price: 9, img: 'penne_arrabbiata.jpg' },
+            { item: 'Pesto Pasta', price: 10, img: 'pesto_pasta.jpg' }
         ]
     },
     restaurant5: {
         name: 'Indian Delight',
         menu: [
-            { item: 'Chicken Tikka Masala', price: 14 },
-            { item: 'Paneer Butter Masala', price: 12 },
-            { item: 'Lamb Vindaloo', price: 15 },
-            { item: 'Vegetable Korma', price: 10 }
+            { item: 'Chicken Tikka Masala', price: 14, img: 'chicken_tikka.jpg' },
+            { item: 'Paneer Butter Masala', price: 12, img: 'paneer_butter.jpg' },
+            { item: 'Lamb Vindaloo', price: 15, img: 'lamb_vindaloo.jpg' },
+            { item: 'Vegetable Korma', price: 10, img: 'vegetable_korma.jpg' }
         ]
     }
 };
@@ -56,7 +57,12 @@ function openRestaurant(restaurantId) {
     const restaurant = restaurants[restaurantId];
     document.getElementById('restaurantName').innerText = restaurant.name;
     document.getElementById('menuItems').innerHTML = restaurant.menu.map(
-        item => `<p>${item.item} - $${item.price} <button onclick="addToCart('${item.item}', ${item.price})">Add</button></p>`
+        item => `
+            <div class="menu-item">
+                <img src="${item.img}" alt="${item.item}" class="menu-item-img">
+                <p>${item.item} - $${item.price}</p>
+                <button onclick="addToCart('${item.item}', ${item.price})">Add</button>
+            </div>`
     ).join('');
     document.getElementById('menuModal').style.display = 'flex';
 }
@@ -64,10 +70,8 @@ function openRestaurant(restaurantId) {
 function addToCart(item, price) {
     cart.push({ item, price });
     totalAmount += price;
-    updateCartDisplay();
-    showNotification(`${item} added to cart!`);
+    alert(`${item} added to cart!`);
 }
-
 function removeFromCart(item) {
     const index = cart.findIndex(cartItem => cartItem.item === item);
     if (index > -1) {
