@@ -1,34 +1,18 @@
-/* Media Query for Mobile */
-@media (max-width: 768px) {
-    header {
-        flex-direction: column;
-        padding: 10px 15px;
-    }
-    .restaurant-list {
-        flex-direction: column;
-        gap: 15px;
-    }
-    .modal-content {
-        width: 90%;
-        padding: 20px;
-    }
-    .close {
-        right: 10px;
-        top: 10px;
-    }
-    .restaurant-card h3 {
-        font-size: 16px;
-    }
-    .restaurant-card p {
-        font-size: 12px;
-    }
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    transition: background 0.3s, color 0.3s;
 }
 
-/* Header Styling */
 header {
     background: linear-gradient(90deg, #FF5733, #FF8D33);
     padding: 15px 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .logo {
@@ -54,7 +38,31 @@ nav button:hover {
     color: #FFF;
 }
 
-/* Restaurant Cards */
+/* Theme Toggle Button */
+#themeToggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #FF5733;
+    color: white;
+    font-weight: bold;
+    transition: background 0.3s;
+}
+
+#themeToggle:hover {
+    background-color: #FF8D33;
+}
+
+/* Restaurants Section */
+.restaurants {
+    padding: 20px;
+    text-align: center;
+}
+
 .restaurant-list {
     display: flex;
     gap: 20px;
@@ -175,6 +183,55 @@ nav button:hover {
 @keyframes fadeout {
     0% { opacity: 1; }
     100% { opacity: 0; }
+}
+
+/* Light/Dark Theme Styles */
+body.dark-theme {
+    background-color: #2C2C2C;
+    color: #FFFFFF;
+}
+
+body.dark-theme header {
+    background: linear-gradient(90deg, #444444, #666666);
+}
+
+body.dark-theme .restaurant-card {
+    background: #444;
+    color: #FFF;
+}
+
+body.dark-theme .restaurant-card h3 {
+    color: #FF8D33;
+}
+
+body.dark-theme .modal-content {
+    background: #555;
+}
+
+/* Media Query for Mobile */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        padding: 10px 15px;
+    }
+    .restaurant-list {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .modal-content {
+        width: 90%;
+        padding: 20px;
+    }
+    .close {
+        right: 10px;
+        top: 10px;
+    }
+    .restaurant-card h3 {
+        font-size: 16px;
+    }
+    .restaurant-card p {
+        font-size: 12px;
+    }
 }
 
 /* Button Styling */
