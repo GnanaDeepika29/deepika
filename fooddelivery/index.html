@@ -15,6 +15,7 @@
         <button onclick="navigateToHome()">Home</button>
         <button onclick="showCart()">Cart</button>
         <button onclick="showCustomerService()">Customer Service</button>
+        <button id="themeToggle" onclick="toggleTheme()">🌙</button> <!-- Theme Toggle Button -->
     </nav>
 </header>
 
@@ -148,6 +149,7 @@
     let totalAmount = 0;
     let discount = 0;
     let orderPlaced = false;
+    let darkTheme = false;
 
     // Open Restaurant Menu
     function openRestaurant(restaurantId) {
@@ -229,13 +231,19 @@
 
     function cancelOrder() {
         if (orderPlaced) {
-            alert('Order cancelled. A refund will be issued shortly.');
+            alert('Your order has been cancelled.');
+            orderPlaced = false;
             closeModal('trackingModal');
         } else {
-            alert('No active order to cancel.');
+            alert('No order to cancel.');
         }
     }
-</script>
 
+    function toggleTheme() {
+        darkTheme = !darkTheme;
+        document.body.classList.toggle('dark', darkTheme);
+        document.getElementById('themeToggle').innerText = darkTheme ? '🌞' : '🌙';
+    }
+</script>
 </body>
 </html>
