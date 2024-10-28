@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deli Deep!</title>
+    <title>Food Delivery App</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -13,8 +13,7 @@
 
 <!-- Header with Logo -->
 <header>
-    <div class="logo">Foodies Express</div>
-    <img src="logo.jpg" alt="Logo">
+    <img src="logo.png" alt="Foodies Express Logo" class="logo"> <!-- Add your logo image source here -->
     <nav>
         <button onclick="navigateToHome()">Home</button>
         <button onclick="showCart()">Cart</button>
@@ -206,7 +205,6 @@
         orderPlaced = true;
         alert('Order confirmed! Thank you for ordering.');
         cart = [];
-        discount = 0;
         totalAmount = 0;
         closeModal('checkoutModal');
     }
