@@ -55,17 +55,14 @@ nav button:active {
     transform: scale(0.98);
 }
 
-/* Theme Toggle Button */
+/* Theme Toggle Button within Header */
 #themeToggle {
-    position: fixed;
-    top: 15px;
-    right: 20px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
     background-color: #FF5733;
     color: white;
+    padding: 8px 15px;
+    margin-left: 20px;
+    border-radius: 4px;
+    cursor: pointer;
     font-weight: bold;
     transition: background 0.3s, transform 0.1s;
 }
@@ -73,6 +70,7 @@ nav button:active {
 #themeToggle:hover {
     background-color: #FF8D33;
 }
+
 
 /* Restaurants Section */
 .restaurants {
