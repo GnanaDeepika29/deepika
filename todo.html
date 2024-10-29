@@ -4,16 +4,182 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List</title>
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Raleway:wght@600&display=swap" rel="stylesheet">
+    <style>
+        /* General reset for better cross-browser consistency */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f1ea; /* Light theme background */
+            color: #333; /* Light theme text color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transitions */
+        }
+
+        .todo-container {
+            background-color: #fff; /* Light theme container */
+            padding: 40px;
+            border-radius: 15px; /* Rounded corners */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Softer shadow */
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            position: relative; /* Positioning for theme toggle */
+        }
+
+        h2 {
+            font-size: 28px; /* Increased heading size */
+            color: #2980b9; /* A vibrant color */
+            margin-bottom: 20px;
+            font-family: 'Raleway', sans-serif; /* Change font style */
+        }
+
+        form {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #2980b9; /* Border color */
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease; /* Smooth border color change */
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #1a5276; /* Darker border color on focus */
+        }
+
+        button {
+            padding: 10px 15px;
+            margin-left: 10px;
+            background-color: #2980b9; /* Button background color */
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease; /* Smooth background color change */
+        }
+
+        button:hover {
+            background-color: #1a5276; /* Darker button color on hover */
+        }
+
+        .task-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .task-list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #ecf0f1; /* Light background for tasks */
+            border-radius: 5px; /* Rounded corners */
+            transition: background-color 0.3s ease; /* Smooth background color change */
+        }
+
+        .task-list li:hover {
+            background-color: #dcdde1; /* Darker background on hover */
+        }
+
+        .delete-btn {
+            background: transparent;
+            border: none;
+            color: #e74c3c; /* Delete button color */
+            cursor: pointer;
+            font-size: 18px; /* Increase font size */
+            transition: color 0.3s ease; /* Smooth color transition */
+        }
+
+        .delete-btn:hover {
+            color: #c0392b; /* Darker red on hover */
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        .theme-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px 15px;
+            background-color: #2980b9;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: #1a5276; /* Darker blue on hover */
+        }
+
+        /* Dark theme styles */
+        body.dark {
+            background-color: #2c3e50; /* Dark theme background */
+            color: #ecf0f1; /* Dark theme text color */
+        }
+
+        .todo-container.dark {
+            background-color: #34495e; /* Dark theme container */
+        }
+
+        .task-list li.dark {
+            background-color: #2c3e50; /* Dark theme task background */
+            color: #ecf0f1; /* Dark theme task text color */
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .todo-container {
+                padding: 30px;
+            }
+
+            h2 {
+                font-size: 24px; /* Decreased heading size */
+            }
+
+            input[type="text"],
+            button {
+                font-size: 14px; /* Decreased font size */
+            }
+        }
+    </style>
 </head>
 <body>
+
+    <button class="theme-toggle" id="themeToggle">Toggle Theme</button>
+    
     <div class="todo-container">
         <h2>To-Do List <span>📝</span></h2>
         <form id="task-form">
-            <input type="text" id="task-input" placeholder="Add your task">
+            <input type="text" id="task-input" placeholder="Add your task" required>
             <button type="submit">ADD</button>
         </form>
         <ul id="task-list" class="task-list"></ul>
+        <footer>
+            <p>&copy; 2024 To-Do List App | Created by Your Name</p>
+        </footer>
     </div>
 
     <script>
@@ -27,6 +193,7 @@
 
             tasks.forEach((task, index) => {
                 const li = document.createElement('li');
+                li.classList.add('task-item'); // Class for styling
 
                 const taskSpan = document.createElement('span');
                 taskSpan.textContent = task;
@@ -70,6 +237,17 @@
 
         // Initial rendering of tasks
         renderTasks();
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const todoContainer = document.querySelector('.todo-container');
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark');
+            todoContainer.classList.toggle('dark');
+            const taskItems = document.querySelectorAll('.task-list li');
+            taskItems.forEach(item => item.classList.toggle('dark'));
+        });
     </script>
 </body>
 </html>
