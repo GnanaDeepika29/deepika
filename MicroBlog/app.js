@@ -17,6 +17,12 @@ window.onload = function() {
             imagePreview.style.display = 'none'; // Hide the image preview if no file is selected
         }
     };
+
+    // Theme toggle functionality
+    document.getElementById('themeToggle').onclick = function() {
+        document.body.classList.toggle('dark-theme');
+        document.body.classList.toggle('light-theme');
+    };
 };
 
 function createPost() {
