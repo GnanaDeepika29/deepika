@@ -1,17 +1,23 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background: linear-gradient(135deg, #e0e0e0, #f0f0f0);
 }
 
+/* Header Styles */
 header {
-    background: #333;
+    background: rgba(51, 51, 51, 0.9);
     color: #fff;
     padding: 20px;
     text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
+/* Navigation Styles */
 nav ul {
     list-style: none;
     padding: 0;
@@ -27,15 +33,36 @@ nav ul li a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
+    position: relative;
 }
 
+nav ul li a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: width 0.3s;
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Hero Section */
 .hero {
     padding: 100px 0;
+    animation: fadeIn 1s ease-in; 
 }
 
 .hero h1 {
     font-size: 3em;
     margin-bottom: 20px;
+    animation: slideIn 1s ease-in-out; /* Slide-in animation */
 }
 
 .hero p {
@@ -43,6 +70,7 @@ nav ul li a {
     margin-bottom: 20px;
 }
 
+/* Button Styles */
 .btn {
     display: inline-block;
     padding: 10px 20px;
@@ -51,28 +79,43 @@ nav ul li a {
     text-decoration: none;
     border-radius: 5px;
     margin: 10px 0;
+    transition: background 0.3s, transform 0.2s;
 }
 
 .btn:hover {
     background: #0056b3;
+    transform: scale(1.05); 
 }
 
+/* Section Styles */
 section {
     padding: 50px 20px;
     text-align: center;
+    opacity: 0; /* Start hidden for animation */
+    transform: translateY(20px); /* Slide up effect */
+    animation: fadeInUp 0.5s forwards; /* Apply animation */
 }
 
+/* Project Styles */
 .project {
     margin: 20px 0;
+    transition: transform 0.3s, box-shadow 0.3s;
 }
 
+.project:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer Styles */
 footer {
-    background: #333;
+    background: rgba(51, 51, 51, 0.9);
     color: #fff;
     padding: 20px;
     text-align: center;
 }
 
+/* Social Media Styles */
 .social-media {
     list-style: none;
     padding: 0;
@@ -89,8 +132,14 @@ footer {
     color: #007BFF;
     text-decoration: none;
     font-weight: bold;
+    transition: color 0.3s;
 }
 
+.social-media li a:hover {
+    color: #0056b3; 
+}
+
+/* Back to Top Button Styles */
 .back-to-top {
     display: block;
     text-align: center;
@@ -102,8 +151,60 @@ footer {
     right: 20px;
     border-radius: 50%;
     text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
 }
 
 .back-to-top:hover {
     background: #0056b3;
+    transform: scale(1.1); 
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animation Trigger on Scroll */
+@media (prefers-reduced-motion: no-preference) {
+    section {
+        animation-delay: 0.3s;
+        opacity: 1; /* Fade in */
+    }
+    #about {
+        animation-delay: 0.4s;
+    }
+    #projects {
+        animation-delay: 0.5s;
+    }
+    #skills {
+        animation-delay: 0.6s;
+    }
+    #contact {
+        animation-delay: 0.7s;
+    }
 }
