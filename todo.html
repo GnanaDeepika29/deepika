@@ -97,6 +97,11 @@
             background-color: #dcdde1; /* Darker background on hover */
         }
 
+        .task-list li.completed span {
+            text-decoration: line-through; /* Strikethrough for completed tasks */
+            color: #7f8c8d; /* Color for completed tasks */
+        }
+
         .delete-btn {
             background: transparent;
             border: none;
@@ -168,7 +173,7 @@
 </head>
 <body>
 
-    <button class="theme-toggle" id="themeToggle">Change Theme</button>
+    <button class="theme-toggle" id="themeToggle">Toggle Theme</button>
     
     <div class="todo-container">
         <h2>To-Do List <span>📝</span></h2>
@@ -193,11 +198,22 @@
 
             tasks.forEach((task, index) => {
                 const li = document.createElement('li');
-                li.classList.add('task-item'); // Class for styling
+                li.classList.toggle('completed', task.completed); // Toggle completed class
 
                 const taskSpan = document.createElement('span');
-                taskSpan.textContent = task;
+                taskSpan.textContent = task.text;
+                taskSpan.addEventListener('click', () => {
+                    toggleTaskCompletion(index);
+                });
                 li.appendChild(taskSpan);
+
+                const editButton = document.createElement('button');
+                editButton.textContent = '✎'; // Edit button
+                editButton.className = 'edit-btn';
+                editButton.addEventListener('click', () => {
+                    editTask(index);
+                });
+                li.appendChild(editButton);
 
                 const deleteButton = document.createElement('button');
                 deleteButton.textContent = '×';
@@ -212,9 +228,26 @@
         }
 
         // Function to add a task
-        function addTask(task) {
-            if (task) {
-                tasks.push(task);
+        function addTask(taskText) {
+            if (taskText) {
+                tasks.push({ text: taskText, completed: false }); // Store task with completion state
+                localStorage.setItem('tasks', JSON.stringify(tasks));
+                renderTasks();
+            }
+        }
+
+        // Function to toggle task completion
+        function toggleTaskCompletion(index) {
+            tasks[index].completed = !tasks[index].completed; // Toggle completed state
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            renderTasks();
+        }
+
+        // Function to edit a task
+        function editTask(index) {
+            const newTaskText = prompt("Edit your task:", tasks[index].text);
+            if (newTaskText) {
+                tasks[index].text = newTaskText;
                 localStorage.setItem('tasks', JSON.stringify(tasks));
                 renderTasks();
             }
