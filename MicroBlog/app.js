@@ -4,12 +4,17 @@ let posts = [];
 window.onload = function() {
     document.getElementById('postImage').onchange = function () {
         const file = this.files[0];
+        const imagePreview = document.getElementById('imagePreview');
         if (file) {
             const reader = new FileReader();
             reader.onload = function (e) {
-                document.getElementById('imagePreview').src = e.target.result; // Make sure there's an <img id="imagePreview">
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block'; // Show the image preview
             };
             reader.readAsDataURL(file);
+        } else {
+            imagePreview.src = '';
+            imagePreview.style.display = 'none'; // Hide the image preview if no file is selected
         }
     };
 };
@@ -50,6 +55,7 @@ function createPost() {
     document.getElementById('postText').value = '';
     document.getElementById('postImage').value = '';
     document.getElementById('imagePreview').src = ''; // Reset the image preview
+    document.getElementById('imagePreview').style.display = 'none'; // Hide the preview
 }
 
 function renderPosts() {
