@@ -119,11 +119,7 @@
 </div>
 
 <script>
-    function toggleTheme() {
-    document.body.classList.toggle('dark-theme');
-    const themeToggleButton = document.getElementById('themeToggle');
-    themeToggleButton.innerText = document.body.classList.contains('dark-theme') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
-}
+
     // Sample restaurant menus with images
     const restaurants = {
         restaurant1: {
@@ -246,6 +242,7 @@
             setTimeout(() => document.getElementById('notification').style.display = 'none', 4000);
         }
         closeModal('cartModal');
+        document.getElementById('checkoutModal').style.display = 'flex';
     }
 
     function applyCoupon() {
@@ -259,6 +256,18 @@
             alert("Invalid coupon code.");
         }
     }
+     function confirmOrder() {
+        orderPlaced = true;
+        alert('Order confirmed! Thank you for ordering.');
+        cart = [];
+        totalAmount = 0;
+        closeModal('checkoutModal');
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
 
     function toggleTheme() {
         document.body.classList.toggle('dark-theme');
@@ -269,8 +278,17 @@
             themeButton.innerText = "Switch to Dark Mode";
         }
     }
+    
+    function navigateToHome() {
+        alert("Navigating to Home");
+    }
     function showCustomerService() {
         alert("For any inquiries, please contact our customer service at: support@delideep.com");
+        
+    }
+      function cancelOrder() {
+        alert('Your order has been canceled.');
+        closeModal('trackingModal');
     }
 
     function closeModal(modalId) {
