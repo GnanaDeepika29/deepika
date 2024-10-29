@@ -119,6 +119,11 @@
 </div>
 
 <script>
+    function toggleTheme() {
+    document.body.classList.toggle('dark-theme');
+    const themeToggleButton = document.getElementById('themeToggle');
+    themeToggleButton.innerText = document.body.classList.contains('dark-theme') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+}
     // Sample restaurant menus with images
     const restaurants = {
         restaurant1: {
@@ -176,6 +181,11 @@
     let orderHistory = [];
 
     // Open Restaurant Menu
+    function toggleTheme() {
+    document.body.classList.toggle('dark-theme');
+    const themeToggleButton = document.getElementById('themeToggle');
+    themeToggleButton.innerText = document.body.classList.contains('dark-theme') ? 'Switch to Light Mode' : 'Switch to Dark Mode';
+}
     function openRestaurant(restaurantId) {
         const restaurant = restaurants[restaurantId];
         document.getElementById('restaurantName').innerText = restaurant.name;
