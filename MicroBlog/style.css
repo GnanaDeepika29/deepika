@@ -11,12 +11,7 @@ body {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    animation: fadeIn 1s ease; /* Fade-in effect for the container */
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    animation: fadeIn 0.5s; /* Fade-in animation for the container */
 }
 
 h1 {
@@ -25,6 +20,22 @@ h1 {
     margin-bottom: 10px;
     color: #333;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Add shadow for depth */
+}
+
+/* Theme Toggle Button */
+button#themeToggle {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 5px; /* Rounded button */
+}
+
+button#themeToggle:hover {
+    background-color: #0056b3;
 }
 
 /* Post Form Styles */
@@ -62,13 +73,12 @@ button {
     color: white;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease; /* Add transform transition */
+    transition: background-color 0.3s ease;
     border-radius: 5px; /* Rounded button */
 }
 
 button:hover {
     background-color: #0056b3;
-    transform: scale(1.05); /* Slight zoom on hover */
 }
 
 button:focus {
@@ -93,12 +103,7 @@ button:active {
     margin-bottom: 20px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease, transform 0.2s ease; /* Add transform transition */
-    animation: slideIn 0.5s ease; /* Add slide-in animation */
-}
-
-@keyframes slideIn {
-    from { transform: translateY(20px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    animation: slideIn 0.5s ease; /* Slide-in animation for posts */
 }
 
 .post:hover {
@@ -128,15 +133,14 @@ button:active {
     color: #007bff;
     font-weight: bold;
     text-decoration: underline;
-    transition: color 0.3s ease, transform 0.2s ease; /* Add transition for hover */
+    transition: color 0.3s ease;
 }
 
 .likes:hover, .dislikes:hover, .comments:hover {
     color: #0056b3;
-    transform: scale(1.1); /* Slight zoom on hover */
 }
 
-/* Comment Box Styles */
+/* Comment Section Styles */
 .comment-box {
     display: flex;
     margin-top: 10px;
@@ -175,6 +179,54 @@ button:active {
 .comments-list {
     margin-top: 10px;
     padding-left: 10px;
+}
+
+/* Fade-in Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Slide-in Animation for Posts */
+@keyframes slideIn {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Theme Styles */
+.light-theme {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.dark-theme {
+    background-color: #333;
+    color: #f5f5f5;
+}
+
+/* Dark Theme Styles */
+.dark-theme h1,
+.dark-theme .post {
+    color: #f5f5f5; /* Light text color in dark theme */
+    background-color: #444; /* Dark background for posts */
+}
+
+.dark-theme button {
+    background-color: #555;
+}
+
+.dark-theme button:hover {
+    background-color: #777;
 }
 
 /* Responsive Styles */
