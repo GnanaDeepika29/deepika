@@ -197,7 +197,7 @@
         /* Mobile responsiveness */
         @media (max-width: 768px) {
             .todo-container {
-                padding: 30px;
+                padding: 20px;
             }
 
             h2 {
@@ -207,6 +207,19 @@
             input[type="text"],
             button {
                 font-size: 14px; /* Decreased font size */
+            }
+
+            footer {
+                font-size: 12px; /* Decreased footer font size */
+            }
+
+            .task-list li {
+                flex-direction: column; /* Stack elements for mobile */
+                align-items: flex-start; /* Align to start */
+            }
+
+            .task-list li .delete-btn {
+                align-self: flex-end; /* Align delete button to the right */
             }
         }
     </style>
@@ -237,18 +250,18 @@
     </div>
 
     <script>
-        // Array to hold tasks
+        // Initialize tasks array from local storage or create a new array
         let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
         // Function to render tasks
         function renderTasks() {
             const taskList = document.getElementById('task-list');
             taskList.innerHTML = ''; // Clear the list
-
+            
+            // Render each task
             tasks.forEach((task, index) => {
                 const li = document.createElement('li');
                 li.classList.toggle('completed', task.completed); // Toggle completed class
-
                 const span = document.createElement('span');
                 span.textContent = task.text;
                 li.appendChild(span);
@@ -292,16 +305,6 @@
         function deleteTask(index) {
             if (confirm("Are you sure you want to delete this task?")) {
                 tasks.splice(index, 1); // Remove task from array
-                localStorage.setItem('tasks', JSON.stringify(tasks));
-                renderTasks();
-            }
-        }
-
-        // Function to edit a task
-        function editTask(index) {
-            const newText = prompt("Edit your task:", tasks[index].text);
-            if (newText !== null) {
-                tasks[index].text = newText;
                 localStorage.setItem('tasks', JSON.stringify(tasks));
                 renderTasks();
             }
