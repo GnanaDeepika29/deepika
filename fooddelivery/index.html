@@ -59,7 +59,7 @@
 <!-- Menu Section (Modal) -->
 <div id="menuModal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal('menuModal')">&times;</span>
+        <span class="close" onclick="closeModal('menuModal')">❌</span> <!-- Added close icon -->
         <h3 id="restaurantName"></h3>
         <div id="menuItems"></div>
     </div>
@@ -68,7 +68,7 @@
 <!-- Cart Section -->
 <div id="cartModal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal('cartModal')">&times;</span>
+        <span class="close" onclick="closeModal('cartModal')">❌</span> <!-- Added close icon -->
         <h3>Your Cart</h3>
         <div id="cartItems"></div>
         <p id="cartTotalDisplay">Total: $0.00</p>
@@ -78,32 +78,29 @@
         <button onclick="proceedToCheckout()">Checkout</button>
     </div>
 </div>
-
 <!-- Checkout Section -->
 <div id="checkoutModal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal('checkoutModal')">&times;</span>
+        <span class="close" onclick="closeModal('checkoutModal')">❌</span> <!-- Added close icon -->
         <h3>Checkout</h3>
         <div id="checkoutDetails"></div>
         <button onclick="confirmOrder()">Confirm Order</button>
     </div>
 </div>
-
 <!-- Order Tracking and Notification -->
 <div id="notification" class="notification">Your order has been placed!</div>
 <div id="trackingModal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal('trackingModal')">&times;</span>
+        <span class="close" onclick="closeModal('trackingModal')">❌</span> <!-- Added close icon -->
         <h3>Track Your Order</h3>
         <p id="trackingStatus">Your order is being prepared...</p>
         <button onclick="cancelOrder()">Cancel Order</button>
     </div>
 </div>
 
-<!-- Favorites Section -->
 <div id="favoritesModal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal('favoritesModal')">&times;</span>
+        <span class="close" onclick="closeModal('favoritesModal')">❌</span> <!-- Added close icon -->
         <h3>Your Favorites</h3>
         <div id="favoriteItems"></div>
     </div>
@@ -112,7 +109,7 @@
 <!-- Order History Section -->
 <div id="orderHistoryModal" class="modal">
     <div class="modal-content">
-        <span class="close" onclick="closeModal('orderHistoryModal')">&times;</span>
+        <span class="close" onclick="closeModal('orderHistoryModal')">❌</span> <!-- Added close icon -->
         <h3>Your Order History</h3>
         <div id="orderHistoryItems"></div>
     </div>
