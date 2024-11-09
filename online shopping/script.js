@@ -1,5 +1,5 @@
-let listings = [];
-let cart = [];
+let listings = JSON.parse(localStorage.getItem('listings')) || [];
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
 // Event listener for login form
 document.getElementById('loginForm').addEventListener('submit', function(e) {
@@ -17,20 +17,33 @@ document.getElementById('listingForm').addEventListener('submit', function(e) {
     const productDescription = document.getElementById('productDescription').value;
     const productImage = document.getElementById('productImage').files[0];
 
+    if (!productImage) {
+        alert("Please upload an image.");
+        return;
+    }
+
     const reader = new FileReader();
     reader.onload = function(event) {
-        listings.push({
+        const newListing = {
             productName,
             productCategory,
             productPrice,
             productDescription,
             productImage: event.target.result,
-        });
+        };
+
+        listings.push(newListing);
+        localStorage.setItem('listings', JSON.stringify(listings));
 
         document.getElementById('listingForm').reset();
         displayListings();
     };
     reader.readAsDataURL(productImage);
+
+    // Image preview functionality
+    const imagePreview = document.getElementById('imagePreview');
+    imagePreview.src = URL.createObjectURL(productImage);
+    imagePreview.style.display = 'block';
 });
 
 // Function to display product listings
@@ -67,17 +80,23 @@ function addToCart(product) {
     } else {
         cart.push({ ...product, quantity: 1 });
     }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
     displayCart();
 }
 
-// Function to display cart items with increment and decrement functionality
+// Function to display cart items with total cart value and quantity update functionality
 function displayCart() {
     const cartList = document.getElementById('cartList');
     cartList.innerHTML = '';
+    let totalCartValue = 0;
 
     cart.forEach((item, index) => {
         const cartItem = document.createElement('div');
         cartItem.classList.add('cart-item');
+        const itemTotal = item.productPrice * item.quantity;
+        totalCartValue += itemTotal;
+
         cartItem.innerHTML = `
             <h3>${item.productName}</h3>
             <img src="${item.productImage}" alt="${item.productName}" width="100">
@@ -87,10 +106,23 @@ function displayCart() {
                 ${item.quantity}
                 <button class="quantity-btn" onclick="updateQuantity(${index}, 'increment')">+</button>
             </p>
-            <p><strong>Total:</strong> $${item.productPrice * item.quantity}</p>
+            <p><strong>Total:</strong> $${itemTotal}</p>
         `;
         cartList.appendChild(cartItem);
     });
+
+    // Display the total cart value
+    const totalDisplay = document.getElementById('totalCartValue');
+    totalDisplay.innerText = `Total Cart Value: $${totalCartValue}`;
+
+    // Enable/disable checkout button based on cart contents
+    const proceedToCheckoutButton = document.getElementById('proceedToCheckout');
+    if (cart.length === 0) {
+        proceedToCheckoutButton.disabled = true;
+        alert("Your cart is empty. Add items to proceed.");
+    } else {
+        proceedToCheckoutButton.disabled = false;
+    }
 }
 
 // Function to update the quantity of items in the cart
@@ -100,6 +132,7 @@ function updateQuantity(index, action) {
     } else if (action === 'decrement' && cart[index].quantity > 1) {
         cart[index].quantity -= 1;
     }
+    localStorage.setItem('cart', JSON.stringify(cart));
     displayCart();
 }
 
@@ -107,22 +140,26 @@ function updateQuantity(index, action) {
 document.getElementById('proceedToCheckout').addEventListener('click', function() {
     showSection('order');
 });
+
 document.getElementById('orderForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
     const orderName = document.getElementById('customerName').value;
     const orderAddress = document.getElementById('customerAddress').value;
     const orderPhone = document.getElementById('customerPhone').value;
-    const paymentMode = document.getElementById('paymentMode').value; // Capture selected payment mode
+    const paymentMode = document.getElementById('paymentMode').value;
 
     // Confirm order details with payment mode
     alert(`Order placed for ${orderName}\nAddress: ${orderAddress}\nPhone: ${orderPhone}\nPayment Mode: ${paymentMode}`);
 
-    // Reset the form after submission
-    document.getElementById('orderForm').reset();
+    // Clear cart after checkout
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
 
-    // Optionally, navigate to a different section or show a confirmation message on the page
+    // Reset the order form
+    document.getElementById('orderForm').reset();
     showSection('home');
+    displayCart();  // Ensure cart is cleared in UI
 });
 
 // Function to switch between sections
@@ -149,3 +186,9 @@ document.getElementById('homeBtn').addEventListener('click', () => showSection('
 document.getElementById('listingBtn').addEventListener('click', () => showSection('listing'));
 document.getElementById('cartBtn').addEventListener('click', () => showSection('cart'));
 document.getElementById('orderBtn').addEventListener('click', () => showSection('order'));
+
+// Display the listings and cart on page load
+window.addEventListener('load', () => {
+    displayListings();
+    displayCart();
+});
