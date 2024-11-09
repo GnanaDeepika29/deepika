@@ -36,6 +36,23 @@ nav a:hover {
     transform: scale(1.1);
 }
 
+nav button {
+    color: white;
+    margin: 0 15px;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+nav button:hover {
+    background-color: #555;
+    transform: scale(1.1);
+}
+
 /* Section Styles */
 .section {
     display: none;
